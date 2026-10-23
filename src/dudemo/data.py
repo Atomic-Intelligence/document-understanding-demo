@@ -26,7 +26,7 @@ CACHED_MODELS = ["paddleocr_vl", "qwen_base", "qwen_finetuned"]
 
 @dataclass
 class Block:
-    type: str                       # heading, text, table, key_value, list, figure
+    type: str                       # heading, text, table, key_value, list, figure, header_footer
     box: tuple | None               # (x0, y0, x1, y1) in page pixels, top-left origin
 
 
@@ -167,7 +167,8 @@ def table_box(page: str, label: str) -> tuple:
 # --------------------------------------------------------------------------- saved outputs
 
 PADDLE_TYPE = {"doc_title": "heading", "paragraph_title": "heading", "table": "table", "image": "figure",
-               "figure": "figure", "chart": "figure"}
+               "figure": "figure", "chart": "figure", "header": "header_footer", "footer": "header_footer",
+               "number": "header_footer"}
 
 
 def _paddle(page: str) -> Parsed:
@@ -264,7 +265,8 @@ def cached(page: str, model: str) -> Parsed:
 
 DOCLING_TYPE = {"title": "heading", "section_header": "heading", "table": "table", "document_index": "table",
                 "list_item": "list", "key_value_region": "key_value", "form": "key_value",
-                "picture": "figure", "chart": "figure"}
+                "picture": "figure", "chart": "figure", "page_header": "header_footer",
+                "page_footer": "header_footer"}
 
 
 def from_docling(doc) -> Parsed:

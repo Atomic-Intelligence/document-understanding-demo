@@ -15,9 +15,9 @@ from . import data
 from .data import Parsed
 
 COLORS = {"heading": "#E07B39", "text": "#7F95A6", "table": "#058ACC", "key_value": "#5E9E1F",
-          "list": "#8E6BBF", "figure": "#C2185B"}
+          "list": "#8E6BBF", "figure": "#C2185B", "header_footer": "#0F9D8F"}
 LABELS = {"heading": "heading", "text": "text", "table": "table", "key_value": "key-value", "list": "list",
-          "figure": "figure"}
+          "figure": "figure", "header_footer": "header / footer"}
 MISSED = "#FF3B30"
 LINE = 4
 PAGE_WIDTH = 440        # px on screen
