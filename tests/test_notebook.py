@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 NOTEBOOK = Path(__file__).resolve().parents[1] / "notebooks" / "demo.ipynb"
+WITH_OUTPUTS = NOTEBOOK.with_name("demo_with_outputs.ipynb")
 
 SECTIONS = [
     "## Setup",
@@ -40,6 +41,14 @@ def test_committed_without_outputs():
         if cell["cell_type"] == "code":
             assert cell["outputs"] == []
             assert cell["execution_count"] is None
+
+
+def test_copy_with_outputs_has_the_same_cells():
+    """demo_with_outputs.ipynb is demo.ipynb run once; regenerate it when demo.ipynb changes:
+    jupyter nbconvert --to notebook --execute notebooks/demo.ipynb --output demo_with_outputs.ipynb"""
+    saved = json.loads(WITH_OUTPUTS.read_text(encoding="utf-8"))["cells"]
+    assert [c["source"] for c in saved] == [c["source"] for c in cells()]
+    assert not [o for c in saved if c["cell_type"] == "code" for o in c["outputs"] if o["output_type"] == "error"]
 
 
 def test_runs_end_to_end():
