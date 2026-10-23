@@ -1,0 +1,32 @@
+[project]
+name = "dudemo"
+version = "0.1.0"
+description = "Notebook demo for the AI2Future workshop on document parsing: one page through Docling, PaddleOCR-VL and Qwen VL"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+# The parser stack is pinned: these versions decide what Docling writes.
+# torch, pillow and pandas are left to Docling's ranges so Colab keeps its preinstalled
+# builds; locally on Linux, install the CPU build of torch first (see README).
+dependencies = [
+    "docling==2.131.0",
+    "docling-core==2.99.0",
+    "docling-ibm-models==4.0.3",
+    "docling-parse==7.20.0",
+    "rapidocr==3.9.2",
+    "pillow>=11",
+    "pandas>=2.2",
+]
+
+[project.optional-dependencies]
+jupyter = ["jupyterlab==4.6.4"]
+dev = ["pytest==9.1.1"]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

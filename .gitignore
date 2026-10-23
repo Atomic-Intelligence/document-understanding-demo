@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Virtual environment; no trailing slash, so a symlinked .venv is ignored too
+.venv
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Tools
+.pytest_cache/
+
+# What the notebook writes when it runs
+outputs/
