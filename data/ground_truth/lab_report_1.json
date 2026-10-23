@@ -1,0 +1,1129 @@
+{
+ "width": 1280,
+ "height": 800,
+ "regions": [
+  {
+   "type": "heading",
+   "box": [
+    224.0,
+    59.0,
+    570.0,
+    75.0
+   ],
+   "text": "KLINIČKI BOLNIČKI CENTAR ZAGREB"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    69.0,
+    83.0,
+    511.0,
+    93.0
+   ],
+   "text": "ZAVOD ZA LABORATORIJSKU DIJAGNOSTIKU - KLINIČKA KEMIJA I HEMATOLOGIJA"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    69.0,
+    101.0,
+    632.0,
+    111.0
+   ],
+   "text": "Adresa: Kišpatićeva 12, 10000 Zagreb | Tel: (01) 2388 888 | Akreditacija: ISO 15189:2012"
+  },
+  {
+   "type": "heading",
+   "box": [
+    71.0,
+    147.0,
+    549.0,
+    164.0
+   ],
+   "text": "NALAZ LABORATORIJSKIH PRETRAGA"
+  },
+  {
+   "type": "key_value_section",
+   "box": [
+    69.0,
+    198.0,
+    724.0,
+    301.0
+   ],
+   "pairs": [
+    [
+     "Pacijent:",
+     "JURIĆ, MARIJA"
+    ],
+    [
+     "Datum rođenja:",
+     "14.05.1968."
+    ],
+    [
+     "Spol:",
+     "ŽENSKI"
+    ],
+    [
+     "Matični broj:",
+     "145098-68"
+    ],
+    [
+     "Liječnik:",
+     "Dr. PETROVIĆ N."
+    ],
+    [
+     "Odjel/Klinika:",
+     "INTERNA MEDICINA"
+    ],
+    [
+     "Uzorak primljen:",
+     "28.07.2024. 08:15"
+    ],
+    [
+     "Nalaz gotov:",
+     "28.07.2024. 13:30"
+    ],
+    [
+     "Vrsta uzorka:",
+     "VENSKA KRV (EDTA/SERUM)"
+    ],
+    [
+     "Broj uzorka:",
+     "24-10987"
+    ]
+   ]
+  },
+  {
+   "type": "heading",
+   "box": [
+    69.0,
+    327.0,
+    724.0,
+    350.0
+   ],
+   "text": "I. HEMATOLOŠKE PRETRAGE"
+  },
+  {
+   "type": "table",
+   "box": [
+    69.0,
+    358.0,
+    724.0,
+    600.0
+   ],
+   "html": "<thead> <tr> <th>Parametar</th> <th>Rezultat</th> <th>Jedinica</th> <th>Referentni interval</th> <th>Flag</th> </tr> </thead> <tbody> <tr> <td>Leukociti (WBC)</td> <td>5,8</td> <td>10⁹/L</td> <td>3,9 - 10,0</td> <td></td> </tr> <tr> <td>Eritrociti (RBC)</td> <td>4,52</td> <td>10¹²/L</td> <td>3,80 - 5,10</td> <td></td> </tr> <tr> <td>Hemoglobin (Hgb)</td> <td>145</td> <td>g/L</td> <td>117 - 157</td> <td></td> </tr> <tr> <td>Hematokrit (Hct)</td> <td>0,43</td> <td>L/L</td> <td>0,35 - 0,47</td> <td></td> </tr> <tr> <td>MCV</td> <td>95,1</td> <td>fL</td> <td>80,0 - 97,0</td> <td></td> </tr> <tr> <td>MCH</td> <td>32,0</td> <td>pg</td> <td>27,0 - 34,0</td> <td></td> </tr> <tr> <td>MCHC</td> <td>337</td> <td>g/L</td> <td>320 - 360</td> <td></td> </tr> <tr> <td>Trombociti (PLT)</td> <td>321</td> <td>10⁹/L</td> <td>158 - 424</td> <td></td> </tr> <tr> <td>Neutrofilni granulociti</td> <td>58,0</td> <td>%</td> <td>40,0 - 70,0</td> <td></td> </tr> <tr> <td>Limfociti</td> <td>35,0</td> <td>%</td> <td>20,0 - 45,0</td> <td></td> </tr> </tbody>"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    70.0,
+    624.0,
+    724.0,
+    647.0
+   ],
+   "text": "NAPOMENA: Referentni intervali određeni su za odrasle osobe (18-65 godina). Za pedijatrijske i gerijatrijske pacijente primjenjuju se posebne tablice."
+  },
+  {
+   "type": "heading",
+   "box": [
+    69.0,
+    665.0,
+    724.0,
+    688.0
+   ],
+   "text": "II. OPĆE BIOKEMIJSKE PRETRAGE"
+  },
+  {
+   "type": "table",
+   "box": [
+    69.0,
+    696.0,
+    724.0,
+    939.0
+   ],
+   "html": "<thead> <tr> <th>Parametar</th> <th>Rezultat</th> <th>Jedinica</th> <th>Referentni interval</th> <th>Flag</th> </tr> </thead> <tbody> <tr> <td>Glukoza (na tašte)</td> <td>6,9</td> <td>mmol/L</td> <td>4,4 - 6,1</td> <td class=\"flag-high\">H</td> </tr> <tr> <td>Urea</td> <td>5,3</td> <td>mmol/L</td> <td>2,8 - 8,3</td> <td></td> </tr> <tr> <td>Kreatinin</td> <td>78</td> <td>μmol/L</td> <td>49 - 90</td> <td></td> </tr> <tr> <td>Ukupni Bilirubin</td> <td>18,3</td> <td>μmol/L</td> <td>3,0 - 20,0</td> <td></td> </tr> <tr> <td>AST (ASAT)</td> <td>22</td> <td>U/L</td> <td>&lt; 35</td> <td></td> </tr> <tr> <td>ALT (ALAT)</td> <td>55</td> <td>U/L</td> <td>&lt; 45</td> <td class=\"flag-high\">H</td> </tr> <tr> <td>Gama GT</td> <td>48</td> <td>U/L</td> <td>&lt; 38</td> <td class=\"flag-high\">H</td> </tr> <tr> <td>Kolesterol Ukupni</td> <td>5,85</td> <td>mmol/L</td> <td>&lt; 5,0</td> <td class=\"flag-high\">H</td> </tr> <tr> <td>Trigliceridi</td> <td>1,12</td> <td>mmol/L</td> <td>&lt; 1,7</td> <td></td> </tr> <tr> <td>CRP (C-reaktivni protein)</td> <td>1,5</td> <td>mg/L</td> <td>&lt; 5,0</td> <td></td> </tr> </tbody>"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    70.0,
+    962.0,
+    724.0,
+    1014.0
+   ],
+   "text": "* Kriteriji za H (Visoko) i L (Nisko) odstupanje su postavljeni na +/- 10% od gornje/donje granice referentnog intervala, osim ako nije drugačije navedeno u metodologiji. ** Napomena za Glukozu: Povišena razina glukoze (6,9 mmol/L) zahtijeva kliničku korelaciju i moguće ponavljanje testa."
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    69.0,
+    1058.0,
+    724.0,
+    1082.0
+   ],
+   "text": "Ovaj nalaz je generiran automatski i validiran od strane odgovornog laboratorijskog osoblja. Rezultati se odnose isključivo na dostavljeni uzorak."
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    69.0,
+    1124.0,
+    227.0,
+    1137.0
+   ],
+   "text": "Digitalni potpis validiran"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    69.0,
+    1161.0,
+    364.0,
+    1185.0
+   ],
+   "text": "Odgovorni Inženjer Laboratorija (M. Sc. Ana Horvat)"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    430.0,
+    1124.0,
+    522.0,
+    1134.0
+   ],
+   "text": "Dr. Petrović N."
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    430.0,
+    1161.0,
+    652.0,
+    1171.0
+   ],
+   "text": "Ovlašteni Liječnik (Potpis i Pečat)"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    70.0,
+    1209.0,
+    472.0,
+    1219.0
+   ],
+   "text": "KBC ZAGREB | Dokument br. LAB-BIOC-2024-07-28 | Stranica 1 od 1"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    69.0,
+    1228.0,
+    357.0,
+    1238.0
+   ],
+   "text": "ZA INTERNU UPOTREBU | NE KOPIRATI BEZ DOZVOLE"
+  }
+ ],
+ "cells": [
+  {
+   "box": [
+    69.0,
+    381.0,
+    300.0,
+    398.0
+   ],
+   "text": "Leukociti (WBC)"
+  },
+  {
+   "box": [
+    300.0,
+    381.0,
+    390.0,
+    397.0
+   ],
+   "text": "5,8"
+  },
+  {
+   "box": [
+    390.0,
+    381.0,
+    479.0,
+    395.0
+   ],
+   "text": "10⁹/L"
+  },
+  {
+   "box": [
+    479.0,
+    381.0,
+    673.0,
+    397.0
+   ],
+   "text": "3,9 - 10,0"
+  },
+  {
+   "box": [
+    673.0,
+    381.0,
+    724.0,
+    382.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    403.0,
+    299.0,
+    420.0
+   ],
+   "text": "Eritrociti (RBC)"
+  },
+  {
+   "box": [
+    300.0,
+    403.0,
+    390.0,
+    419.0
+   ],
+   "text": "4,52"
+  },
+  {
+   "box": [
+    390.0,
+    403.0,
+    478.0,
+    417.0
+   ],
+   "text": "10¹²/L"
+  },
+  {
+   "box": [
+    479.0,
+    403.0,
+    672.0,
+    419.0
+   ],
+   "text": "3,80 - 5,10"
+  },
+  {
+   "box": [
+    673.0,
+    403.0,
+    723.0,
+    404.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    426.0,
+    299.0,
+    443.0
+   ],
+   "text": "Hemoglobin (Hgb)"
+  },
+  {
+   "box": [
+    300.0,
+    426.0,
+    390.0,
+    440.0
+   ],
+   "text": "145"
+  },
+  {
+   "box": [
+    390.0,
+    426.0,
+    478.0,
+    443.0
+   ],
+   "text": "g/L"
+  },
+  {
+   "box": [
+    479.0,
+    426.0,
+    672.0,
+    440.0
+   ],
+   "text": "117 - 157"
+  },
+  {
+   "box": [
+    673.0,
+    426.0,
+    723.0,
+    427.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    448.0,
+    299.0,
+    465.0
+   ],
+   "text": "Hematokrit (Hct)"
+  },
+  {
+   "box": [
+    300.0,
+    448.0,
+    390.0,
+    464.0
+   ],
+   "text": "0,43"
+  },
+  {
+   "box": [
+    390.0,
+    448.0,
+    478.0,
+    462.0
+   ],
+   "text": "L/L"
+  },
+  {
+   "box": [
+    479.0,
+    448.0,
+    672.0,
+    464.0
+   ],
+   "text": "0,35 - 0,47"
+  },
+  {
+   "box": [
+    673.0,
+    448.0,
+    723.0,
+    449.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    471.0,
+    299.0,
+    485.0
+   ],
+   "text": "MCV"
+  },
+  {
+   "box": [
+    300.0,
+    471.0,
+    390.0,
+    487.0
+   ],
+   "text": "95,1"
+  },
+  {
+   "box": [
+    390.0,
+    471.0,
+    478.0,
+    485.0
+   ],
+   "text": "fL"
+  },
+  {
+   "box": [
+    479.0,
+    471.0,
+    672.0,
+    487.0
+   ],
+   "text": "80,0 - 97,0"
+  },
+  {
+   "box": [
+    673.0,
+    471.0,
+    723.0,
+    472.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    494.0,
+    299.0,
+    508.0
+   ],
+   "text": "MCH"
+  },
+  {
+   "box": [
+    300.0,
+    494.0,
+    390.0,
+    510.0
+   ],
+   "text": "32,0"
+  },
+  {
+   "box": [
+    390.0,
+    494.0,
+    478.0,
+    511.0
+   ],
+   "text": "pg"
+  },
+  {
+   "box": [
+    479.0,
+    494.0,
+    672.0,
+    510.0
+   ],
+   "text": "27,0 - 34,0"
+  },
+  {
+   "box": [
+    673.0,
+    494.0,
+    723.0,
+    495.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    516.0,
+    299.0,
+    530.0
+   ],
+   "text": "MCHC"
+  },
+  {
+   "box": [
+    300.0,
+    516.0,
+    390.0,
+    530.0
+   ],
+   "text": "337"
+  },
+  {
+   "box": [
+    390.0,
+    516.0,
+    478.0,
+    533.0
+   ],
+   "text": "g/L"
+  },
+  {
+   "box": [
+    479.0,
+    516.0,
+    672.0,
+    530.0
+   ],
+   "text": "320 - 360"
+  },
+  {
+   "box": [
+    673.0,
+    516.0,
+    723.0,
+    517.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    539.0,
+    299.0,
+    556.0
+   ],
+   "text": "Trombociti (PLT)"
+  },
+  {
+   "box": [
+    300.0,
+    539.0,
+    390.0,
+    553.0
+   ],
+   "text": "321"
+  },
+  {
+   "box": [
+    390.0,
+    539.0,
+    478.0,
+    553.0
+   ],
+   "text": "10⁹/L"
+  },
+  {
+   "box": [
+    479.0,
+    539.0,
+    672.0,
+    553.0
+   ],
+   "text": "158 - 424"
+  },
+  {
+   "box": [
+    673.0,
+    539.0,
+    723.0,
+    540.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    561.0,
+    299.0,
+    578.0
+   ],
+   "text": "Neutrofilni granulociti"
+  },
+  {
+   "box": [
+    300.0,
+    561.0,
+    390.0,
+    577.0
+   ],
+   "text": "58,0"
+  },
+  {
+   "box": [
+    390.0,
+    561.0,
+    478.0,
+    575.0
+   ],
+   "text": "%"
+  },
+  {
+   "box": [
+    479.0,
+    561.0,
+    672.0,
+    577.0
+   ],
+   "text": "40,0 - 70,0"
+  },
+  {
+   "box": [
+    673.0,
+    561.0,
+    723.0,
+    562.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    584.0,
+    299.0,
+    598.0
+   ],
+   "text": "Limfociti"
+  },
+  {
+   "box": [
+    300.0,
+    584.0,
+    390.0,
+    600.0
+   ],
+   "text": "35,0"
+  },
+  {
+   "box": [
+    390.0,
+    584.0,
+    478.0,
+    598.0
+   ],
+   "text": "%"
+  },
+  {
+   "box": [
+    479.0,
+    584.0,
+    672.0,
+    600.0
+   ],
+   "text": "20,0 - 45,0"
+  },
+  {
+   "box": [
+    673.0,
+    584.0,
+    723.0,
+    585.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    719.0,
+    312.0,
+    736.0
+   ],
+   "text": "Glukoza (na tašte)"
+  },
+  {
+   "box": [
+    312.0,
+    719.0,
+    399.0,
+    735.0
+   ],
+   "text": "6,9"
+  },
+  {
+   "box": [
+    399.0,
+    719.0,
+    486.0,
+    733.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    486.0,
+    719.0,
+    674.0,
+    735.0
+   ],
+   "text": "4,4 - 6,1"
+  },
+  {
+   "box": [
+    674.0,
+    719.0,
+    724.0,
+    733.0
+   ],
+   "text": "H"
+  },
+  {
+   "box": [
+    69.0,
+    742.0,
+    311.0,
+    756.0
+   ],
+   "text": "Urea"
+  },
+  {
+   "box": [
+    312.0,
+    742.0,
+    398.0,
+    758.0
+   ],
+   "text": "5,3"
+  },
+  {
+   "box": [
+    399.0,
+    742.0,
+    485.0,
+    756.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    486.0,
+    742.0,
+    673.0,
+    758.0
+   ],
+   "text": "2,8 - 8,3"
+  },
+  {
+   "box": [
+    674.0,
+    742.0,
+    723.0,
+    743.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    764.0,
+    311.0,
+    778.0
+   ],
+   "text": "Kreatinin"
+  },
+  {
+   "box": [
+    312.0,
+    764.0,
+    398.0,
+    778.0
+   ],
+   "text": "78"
+  },
+  {
+   "box": [
+    399.0,
+    764.0,
+    485.0,
+    781.0
+   ],
+   "text": "μmol/L"
+  },
+  {
+   "box": [
+    486.0,
+    764.0,
+    673.0,
+    778.0
+   ],
+   "text": "49 - 90"
+  },
+  {
+   "box": [
+    674.0,
+    764.0,
+    723.0,
+    765.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    787.0,
+    311.0,
+    804.0
+   ],
+   "text": "Ukupni Bilirubin"
+  },
+  {
+   "box": [
+    312.0,
+    787.0,
+    398.0,
+    803.0
+   ],
+   "text": "18,3"
+  },
+  {
+   "box": [
+    399.0,
+    787.0,
+    485.0,
+    804.0
+   ],
+   "text": "μmol/L"
+  },
+  {
+   "box": [
+    486.0,
+    787.0,
+    673.0,
+    803.0
+   ],
+   "text": "3,0 - 20,0"
+  },
+  {
+   "box": [
+    674.0,
+    787.0,
+    723.0,
+    788.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    809.0,
+    311.0,
+    826.0
+   ],
+   "text": "AST (ASAT)"
+  },
+  {
+   "box": [
+    312.0,
+    809.0,
+    398.0,
+    823.0
+   ],
+   "text": "22"
+  },
+  {
+   "box": [
+    399.0,
+    809.0,
+    485.0,
+    823.0
+   ],
+   "text": "U/L"
+  },
+  {
+   "box": [
+    486.0,
+    809.0,
+    673.0,
+    823.0
+   ],
+   "text": "< 35"
+  },
+  {
+   "box": [
+    674.0,
+    809.0,
+    723.0,
+    810.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    832.0,
+    311.0,
+    849.0
+   ],
+   "text": "ALT (ALAT)"
+  },
+  {
+   "box": [
+    312.0,
+    832.0,
+    398.0,
+    846.0
+   ],
+   "text": "55"
+  },
+  {
+   "box": [
+    399.0,
+    832.0,
+    485.0,
+    846.0
+   ],
+   "text": "U/L"
+  },
+  {
+   "box": [
+    486.0,
+    832.0,
+    673.0,
+    846.0
+   ],
+   "text": "< 45"
+  },
+  {
+   "box": [
+    674.0,
+    832.0,
+    723.0,
+    846.0
+   ],
+   "text": "H"
+  },
+  {
+   "box": [
+    69.0,
+    855.0,
+    311.0,
+    869.0
+   ],
+   "text": "Gama GT"
+  },
+  {
+   "box": [
+    312.0,
+    855.0,
+    398.0,
+    869.0
+   ],
+   "text": "48"
+  },
+  {
+   "box": [
+    399.0,
+    855.0,
+    485.0,
+    869.0
+   ],
+   "text": "U/L"
+  },
+  {
+   "box": [
+    486.0,
+    855.0,
+    673.0,
+    869.0
+   ],
+   "text": "< 38"
+  },
+  {
+   "box": [
+    674.0,
+    855.0,
+    723.0,
+    869.0
+   ],
+   "text": "H"
+  },
+  {
+   "box": [
+    69.0,
+    877.0,
+    311.0,
+    894.0
+   ],
+   "text": "Kolesterol Ukupni"
+  },
+  {
+   "box": [
+    312.0,
+    877.0,
+    398.0,
+    893.0
+   ],
+   "text": "5,85"
+  },
+  {
+   "box": [
+    399.0,
+    877.0,
+    485.0,
+    891.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    486.0,
+    877.0,
+    673.0,
+    893.0
+   ],
+   "text": "< 5,0"
+  },
+  {
+   "box": [
+    674.0,
+    877.0,
+    723.0,
+    891.0
+   ],
+   "text": "H"
+  },
+  {
+   "box": [
+    69.0,
+    900.0,
+    311.0,
+    917.0
+   ],
+   "text": "Trigliceridi"
+  },
+  {
+   "box": [
+    312.0,
+    900.0,
+    398.0,
+    916.0
+   ],
+   "text": "1,12"
+  },
+  {
+   "box": [
+    399.0,
+    900.0,
+    485.0,
+    914.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    486.0,
+    900.0,
+    673.0,
+    916.0
+   ],
+   "text": "< 1,7"
+  },
+  {
+   "box": [
+    674.0,
+    900.0,
+    723.0,
+    901.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    69.0,
+    922.0,
+    311.0,
+    939.0
+   ],
+   "text": "CRP (C-reaktivni protein)"
+  },
+  {
+   "box": [
+    312.0,
+    922.0,
+    398.0,
+    938.0
+   ],
+   "text": "1,5"
+  },
+  {
+   "box": [
+    399.0,
+    922.0,
+    485.0,
+    939.0
+   ],
+   "text": "mg/L"
+  },
+  {
+   "box": [
+    486.0,
+    922.0,
+    673.0,
+    938.0
+   ],
+   "text": "< 5,0"
+  },
+  {
+   "box": [
+    674.0,
+    922.0,
+    723.0,
+    923.0
+   ],
+   "text": ""
+  }
+ ]
+}

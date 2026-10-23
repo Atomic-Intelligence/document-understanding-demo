@@ -1,0 +1,262 @@
+<heading>
+<location><x1>225.0</x1><y1>62.0</y1><x2>571.0</x2><y2>75.0</y2></location>
+<text>
+KLINIČKI BOLNIČKI CENTAR ZAGREB
+</text>
+</heading>
+
+<paragraph>
+<location><x1>69.0</x1><y1>86.0</y1><x2>512.0</x2><y2>94.0</y2></location>
+<text>
+ZAVOD ZA LABORATORIJSKU DIJAGNOSTIKU - KLINIČKA KEMIJA I HEMATOLOGIJA
+</text>
+</paragraph>
+
+<paragraph>
+<location><x1>69.0</x1><y1>103.0</y1><x2>633.0</x2><y2>111.0</y2></location>
+<text>
+Adresa: Kišpatićeva 12, 10000 Zagreb | Tel: (01) 2388 888 | Akreditacija: ISO 15189:2012
+</text>
+</paragraph>
+
+<heading>
+<location><x1>71.0</x1><y1>148.0</y1><x2>550.0</x2><y2>166.0</y2></location>
+<text>
+NALAZ LABORATORIJSKIH PRETRAGA
+</text>
+</heading>
+
+<key_value_section>
+<location><x1>69.0</x1><y1>199.0</y1><x2>725.0</x2><y2>304.0</y2></location>
+<text>
+{'key': 'Pacijent:', 'value': 'JURIĆ, MARIJA'}
+{'key': 'Datum rođenja:', 'value': '14.05.1968.'}
+{'key': 'Spol:', 'value': 'ŽENSKI'}
+{'key': 'Matični broj:', 'value': '145098-68'}
+{'key': 'Liječnik:', 'value': 'Dr. PETROVIĆ N.'}
+{'key': 'Odjel/Klinika:', 'value': 'INTERNA MEDICINA'}
+{'key': 'Uzorak primljen:', 'value': '28.07.2024. 08:15'}
+{'key': 'Nalaz gotov:', 'value': '28.07.2024. 13:30'}
+{'key': 'Vrsta uzorka:', 'value': 'VENSKA KRV (EDTA/SERUM)'}
+{'key': 'Broj uzorka:', 'value': '24-10987'}
+</text>
+</key_value_section>
+
+<heading>
+<location><x1>69.0</x1><y1>332.0</y1><x2>725.0</x2><y2>354.0</y2></location>
+<text>
+I. HEMATOLOŠKE PRETRAGE
+</text>
+</heading>
+
+<table>
+<location><x1>69.0</x1><y1>362.0</y1><x2>725.0</x2><y2>614.0</y2></location>
+<text>
+<thead>
+<tr>
+<th>Parametar</th>
+<th>Rezultat</th>
+<th>Jedinica</th>
+<th>Referentni interval</th>
+<th>Flag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Leukociti (WBC)</td>
+<td>5,8</td>
+<td>10⁹/L</td>
+<td>3,9 - 10,0</td>
+<td></td>
+</tr>
+<tr>
+<td>Eritrociti (RBC)</td>
+<td>4,52</td>
+<td>10¹²/L</td>
+<td>3,80 - 5,10</td>
+<td></td>
+</tr>
+<tr>
+<td>Hemoglobin (Hgb)</td>
+<td>145</td>
+<td>g/L</td>
+<td>117 - 157</td>
+<td></td>
+</tr>
+<tr>
+<td>Hematokrit (Hct)</td>
+<td>0,43</td>
+<td>L/L</td>
+<td>0,35 - 0,47</td>
+<td></td>
+</tr>
+<tr>
+<td>MCV</td>
+<td>95,1</td>
+<td>fL</td>
+<td>80,0 - 97,0</td>
+<td></td>
+</tr>
+<tr>
+<td>MCH</td>
+<td>32,0</td>
+<td>pg</td>
+<td>27,0 - 34,0</td>
+<td></td>
+</tr>
+<tr>
+<td>MCHC</td>
+<td>337</td>
+<td>g/L</td>
+<td>320 - 360</td>
+<td></td>
+</tr>
+<tr>
+<td>Trombociti (PLT)</td>
+<td>321</td>
+<td>10⁹/L</td>
+<td>158 - 424</td>
+<td></td>
+</tr>
+<tr>
+<td>Neutrofilni granulociti</td>
+<td>58,0</td>
+<td>%</td>
+<td>40,0 - 70,0</td>
+<td></td>
+</tr>
+<tr>
+<td>Limfociti</td>
+<td>35,0</td>
+<td>%</td>
+<td>20,0 - 45,0</td>
+<td></td>
+</tr>
+</tbody>
+</text>
+</table>
+
+<paragraph>
+<location><x1>70.0</x1><y1>631.0</y1><x2>725.0</x2><y2>655.0</y2></location>
+<text>
+NAPOMENA: Referentni intervali određeni su za odrasle osobe (18-65 godina). Za pedijatrijske i gerijatrijske pacijente primjenjuju se posebne tablice.
+</text>
+</paragraph>
+
+<heading>
+<location><x1>69.0</x1><y1>674.0</y1><x2>725.0</x2><y2>696.0</y2></location>
+<text>
+II. OPĆE BIOKEMIJSKE PRETRAGE
+</text>
+</heading>
+
+<table>
+<location><x1>69.0</x1><y1>704.0</y1><x2>725.0</x2><y2>956.0</y2></location>
+<text>
+<thead>
+<tr>
+<th>Parametar</th>
+<th>Rezultat</th>
+<th>Jedinica</th>
+<th>Referentni interval</th>
+<th>Flag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Glukoza (na tašte)</td>
+<td>6,9</td>
+<td>mmol/L</td>
+<td>4,4 - 6,1</td>
+<td class="flag-H">H</td>
+</tr>
+<tr>
+<td>Urea</td>
+<td>5,3</td>
+<td>mmol/L</td>
+<td>2,8 - 8,3</td>
+<td></td>
+</tr>
+<tr>
+<td>Kreatinin</td>
+<td>78</td>
+<td>μmol/L</td>
+<td>49 - 90</td>
+<td></td>
+</tr>
+<tr>
+<td>Ukupni Bilirubin</td>
+<td>18,3</td>
+<td>μmol/L</td>
+<td>3,0 - 20,0</td>
+<td></td>
+</tr>
+<tr>
+<td>AST (ASAT)</td>
+<td>22</td>
+<td>U/L</td>
+<td>&lt; 35</td>
+<td></td>
+</tr>
+<tr>
+<td>ALT (ALAT)</td>
+<td>55</td>
+<td>U/L</td>
+<td>&lt; 45</td>
+<td class="flag-H">H</td>
+</tr>
+<tr>
+<td>Gama GT</td>
+<td>48</td>
+<td>U/L</td>
+<td>&lt; 38</td>
+<td class="flag-H">H</td>
+</tr>
+<tr>
+<td>Kolesterol Ukupni</td>
+<td>5,85</td>
+<td>mmol/L</td>
+<td>&lt; 5,0</td>
+<td class="flag-H">H</td>
+</tr>
+<tr>
+<td>Trigliceridi</td>
+<td>1,12</td>
+<td>mmol/L</td>
+<td>&lt; 1,7</td>
+<td></td>
+</tr>
+<tr>
+<td>CRP (C-reaktivni protein)</td>
+<td>1,5</td>
+<td>mg/L</td>
+<td>&lt; 5,0</td>
+<td></td>
+</tr>
+</tbody>
+</text>
+</table>
+
+<paragraph>
+<location><x1>70.0</x1><y1>973.0</y1><x2>725.0</x2><y2>1025.0</y2></location>
+<text>
+* Kriteriji za H (Visoko) i L (Nisko) odstupanje su postavljeni na +/- 10% od gornje/donje granice referentnog intervala, osim ako nije drugačije navedeno u metodologiji.
+                **
+                Napomena za Glukozu: Povišena razina glukoze (6,9 mmol/L) zahtijeva kliničku korelaciju i može ponašljavanje testa.
+</text>
+</paragraph>
+
+<paragraph>
+<location><x1>69.0</x1><y1>1071.0</y1><x2>725.0</x2><y2>1095.0</y2></location>
+<text>
+Ovaj nalaz je generiran automatski i validiran od strane odgovornog laboratorijskog osoblja. Rezultati se odnose isključivo na dostavljeni uzorak.
+</text>
+</paragraph>
+
+<paragraph>
+<location><x1>69.0</x1><y1>1222.0</y1><x2>472.0</x2><y2>1252.0</y2></location>
+<text>
+KBC ZAGREB | Dokument br. LAB-BIOC-2024-07-28 | Stranica 1 od 1
+                ZA INTERNU UPO TREBU | NE KOPIRATI BEZ DOZVOLE
+</text>
+</paragraph>

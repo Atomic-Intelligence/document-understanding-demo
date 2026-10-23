@@ -1,0 +1,23 @@
+[
+ {
+  "kind": "Visibly broken",
+  "page": "lab_report_1",
+  "model": "paddleocr_vl",
+  "row": "Leukociti (WBC)",
+  "note": "The unit comes back as LaTeX. Anyone reading the output sees that something is wrong."
+ },
+ {
+  "kind": "Structure wrong",
+  "page": "lab_report_1",
+  "model": "docling",
+  "row": "Glukoza (na tašte)",
+  "note": "The reference range is split over two columns, so the table has a column the page does not have."
+ },
+ {
+  "kind": "Passes as correct",
+  "page": "lab_report_1",
+  "model": "docling",
+  "row": "ALT (ALAT)",
+  "note": "The limit's sign is reversed: below the limit becomes above it. The row is well-formed and looks right."
+ }
+]

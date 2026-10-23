@@ -1,0 +1,1295 @@
+{
+ "width": 1280,
+ "height": 800,
+ "regions": [
+  {
+   "type": "paragraph",
+   "box": [
+    195.0,
+    57.0,
+    598.0,
+    70.0
+   ],
+   "text": "KLINIČKI BOLNIČKI CENTAR \"DR. FRAN MIHALJEVIĆ\""
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    68.0,
+    79.0,
+    725.0,
+    99.0
+   ],
+   "text": "Odjel za Kliničku Biokemiju i Hematologiju, Zagreb, Mirogojska cesta 8"
+  },
+  {
+   "type": "heading",
+   "box": [
+    229.0,
+    119.0,
+    565.0,
+    133.0
+   ],
+   "text": "NALAZ LABORATORIJSKIH PRETRAGA"
+  },
+  {
+   "type": "key_value_section",
+   "box": [
+    79.0,
+    169.0,
+    714.0,
+    358.0
+   ],
+   "pairs": [
+    [
+     "PACIJENT:",
+     "MARIJA HORVAT"
+    ],
+    [
+     "DATUM ROĐENJA:",
+     "15.03.1978"
+    ],
+    [
+     "SPOL:",
+     "Ž"
+    ],
+    [
+     "JMBG/OIB:",
+     "12345678901"
+    ],
+    [
+     "ODJEL/KLINIKA:",
+     "Interna medicina"
+    ],
+    [
+     "LIJEČNIK:",
+     "Dr. Ivić"
+    ],
+    [
+     "SPECIMEN ID:",
+     "2409-A765"
+    ],
+    [
+     "UZORKOVANJE:",
+     "29.07.2024 07:30"
+    ],
+    [
+     "VERIFIKACIJA:",
+     "29.07.2024 11:45"
+    ]
+   ]
+  },
+  {
+   "type": "heading",
+   "box": [
+    68.0,
+    400.0,
+    385.0,
+    423.0
+   ],
+   "text": "HEMATOLOŠKE PRETRAGE (KKS)"
+  },
+  {
+   "type": "table",
+   "box": [
+    68.0,
+    428.0,
+    385.0,
+    844.0
+   ],
+   "html": "<thead> <tr> <th class=\"col-test\">Parametar</th> <th class=\"col-result\">Rezultat</th> <th class=\"col-flag\">Flag</th> <th class=\"col-unit\">Jedinica</th> <th class=\"col-range\">Referentni interval</th> </tr> </thead> <tbody> <tr> <td class=\"col-test\">LEUKOCITI (WBC)</td> <td class=\"col-result\">5,8</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">10⁹/L</td> <td class=\"col-range\">3,4 - 9,7</td> </tr> <tr> <td class=\"col-test\">ERITROCITI (RBC)</td> <td class=\"col-result\">4,55</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">10¹²/L</td> <td class=\"col-range\">3,80 - 5,80</td> </tr> <tr> <td class=\"col-test\">HEMOGLOBIN (Hb)</td> <td class=\"col-result\">125</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">g/L</td> <td class=\"col-range\">117 - 157</td> </tr> <tr> <td class=\"col-test\">HEMATOKRIT (Hct)</td> <td class=\"col-result\">0,387</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">L/L</td> <td class=\"col-range\">0,356 - 0,470</td> </tr> <tr> <td class=\"col-test\">TROMBOCITI (Plt)</td> <td class=\"col-result\">288</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">10⁹/L</td> <td class=\"col-range\">158 - 424</td> </tr> <tr> <td class=\"col-test\">MCV</td> <td class=\"col-result\">85,1</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">fL</td> <td class=\"col-range\">81,0 - 99,0</td> </tr> <tr> <td class=\"col-test\">MCH</td> <td class=\"col-result\">27,5</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">pg</td> <td class=\"col-range\">25,6 - 32,2</td> </tr> <tr> <td class=\"col-test\">MCHC</td> <td class=\"col-result\">323</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">g/L</td> <td class=\"col-range\">318 - 358</td> </tr> <tr> <td class=\"col-test\">NEUTROFILI</td> <td class=\"col-result\">68,4</td> <td class=\"col-flag\">H</td> <td class=\"col-unit\">%</td> <td class=\"col-range\">44,0 - 66,0</td> </tr> <tr> <td class=\"col-test\">LIMFOCITI</td> <td class=\"col-result\">25,1</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">%</td> <td class=\"col-range\">20,0 - 45,0</td> </tr> <tr> <td class=\"col-test\">MONOCITI</td> <td class=\"col-result\">5,3</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">%</td> <td class=\"col-range\">2,0 - 10,0</td> </tr> <tr> <td class=\"col-test\">RDW-SD</td> <td class=\"col-result\">39,8</td> <td class=\"col-flag\">L</td> <td class=\"col-unit\">fL</td> <td class=\"col-range\">41,0 - 56,0</td> </tr> </tbody>"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    69.0,
+    863.0,
+    380.0,
+    909.0
+   ],
+   "text": "NAPOMENA: * Zastupljenost neutrofila je blago povišena, što može biti posljedica akutnog stresnog stanja."
+  },
+  {
+   "type": "heading",
+   "box": [
+    408.0,
+    403.0,
+    725.0,
+    423.0
+   ],
+   "text": "BIOKEMIJSKE PRETRAGE"
+  },
+  {
+   "type": "table",
+   "box": [
+    408.0,
+    428.0,
+    725.0,
+    796.0
+   ],
+   "html": "<thead> <tr> <th class=\"col-test\">Parametar</th> <th class=\"col-result\">Rezultat</th> <th class=\"col-flag\">Flag</th> <th class=\"col-unit\">Jedinica</th> <th class=\"col-range\">Referentni interval</th> </tr> </thead> <tbody> <tr> <td class=\"col-test\">GLUKOZA (natašte)</td> <td class=\"col-result\">5,25</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">mmol/L</td> <td class=\"col-range\">4,1 - 6,0</td> </tr> <tr> <td class=\"col-test\">UREA</td> <td class=\"col-result\">6,8</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">mmol/L</td> <td class=\"col-range\">2,8 - 8,3</td> </tr> <tr> <td class=\"col-test\">KREATININ</td> <td class=\"col-result\">78</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">μmol/L</td> <td class=\"col-range\">49 - 90</td> </tr> <tr> <td class=\"col-test\">KOLESTEROL (Ukupni)</td> <td class=\"col-result\">6,12</td> <td class=\"col-flag\">H</td> <td class=\"col-unit\">mmol/L</td> <td class=\"col-range\">&lt; 5,0</td> </tr> <tr> <td class=\"col-test\">HDL KOLESTEROL</td> <td class=\"col-result\">1,35</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">mmol/L</td> <td class=\"col-range\">&gt; 1,2</td> </tr> <tr> <td class=\"col-test\">LDL KOLESTEROL</td> <td class=\"col-result\">4,15</td> <td class=\"col-flag\">H</td> <td class=\"col-unit\">mmol/L</td> <td class=\"col-range\">&lt; 3,0</td> </tr> <tr> <td class=\"col-test\">TRIGLICERIDI</td> <td class=\"col-result\">1,50</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">mmol/L</td> <td class=\"col-range\">0,60 - 1,70</td> </tr> <tr> <td class=\"col-test\">AST (GOT)</td> <td class=\"col-result\">22</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">U/L</td> <td class=\"col-range\">8 - 30</td> </tr> <tr> <td class=\"col-test\">ALT (GPT)</td> <td class=\"col-result\">18</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">U/L</td> <td class=\"col-range\">10 - 40</td> </tr> <tr> <td class=\"col-test\">GGT</td> <td class=\"col-result\">45</td> <td class=\"col-flag\">H</td> <td class=\"col-unit\">U/L</td> <td class=\"col-range\">9 - 35</td> </tr> <tr> <td class=\"col-test\">BILIRUBIN (Ukupni)</td> <td class=\"col-result\">15,4</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">μmol/L</td> <td class=\"col-range\">3,0 - 20,0</td> </tr> <tr> <td class=\"col-test\">NATRIJ (Na)</td> <td class=\"col-result\">140</td> <td class=\"col-flag\"></td> <td class=\"col-unit\">mmol/L</td> <td class=\"col-range\">137 - 147</td> </tr> </tbody>"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    409.0,
+    814.0,
+    720.0,
+    861.0
+   ],
+   "text": "NAPOMENA: * Povišene vrijednosti lipida zahtijevaju kliničku korelaciju i dijetalnu prilagodbu."
+  },
+  {
+   "type": "heading",
+   "box": [
+    69.0,
+    938.0,
+    200.0,
+    948.0
+   ],
+   "text": "KOMENTAR NALAZA"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    69.0,
+    974.0,
+    700.0,
+    1038.0
+   ],
+   "text": "Pronađene su povišene koncentracije ukupnog i LDL kolesterola, te GGT enzima. Hematološki parametri su uglavnom u granicama normale, uz blago povišenje neutrofila i sniženi RDW-SD. Preporučuje se konzultacija s nadležnim liječnikom radi daljnjeg liječenja i praćenja lipidnog statusa."
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    84.0,
+    1123.0,
+    347.0,
+    1135.0
+   ],
+   "text": "IZRADIO/LA (Laboratorijski tehničar):"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    175.0,
+    1212.0,
+    258.0,
+    1224.0
+   ],
+   "text": "(Ivan Perić)"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    463.0,
+    1123.0,
+    691.0,
+    1135.0
+   ],
+   "text": "ODOBRIO (Voditelj laboratorija):"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    432.0,
+    1212.0,
+    724.0,
+    1224.0
+   ],
+   "text": "(Dr. sc. Ana Kovač, spec. med. biokemije)"
+  },
+  {
+   "type": "paragraph",
+   "box": [
+    68.0,
+    1255.0,
+    725.0,
+    1310.0
+   ],
+   "text": "Ovaj nalaz je izrađen sukladno standardima ISO 15189. Laboratorij je akreditiran za navedene pretrage. Rezultati se odnose isključivo na analizirani uzorak. Reprodukcija nalaza bez potpisa ovlaštene osobe nije dopuštena. Referentni intervali su usklađeni s preporukama Hrvatskog društva za medicinsku biokemiju i laboratorijsku medicinu."
+  }
+ ],
+ "cells": [
+  {
+   "box": [
+    68.0,
+    461.0,
+    153.0,
+    493.0
+   ],
+   "text": "LEUKOCITI (WBC)"
+  },
+  {
+   "box": [
+    153.0,
+    461.0,
+    214.0,
+    493.0
+   ],
+   "text": "5,8"
+  },
+  {
+   "box": [
+    214.0,
+    461.0,
+    252.0,
+    493.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    252.0,
+    461.0,
+    313.0,
+    493.0
+   ],
+   "text": "10⁹/L"
+  },
+  {
+   "box": [
+    313.0,
+    461.0,
+    385.0,
+    493.0
+   ],
+   "text": "3,4 - 9,7"
+  },
+  {
+   "box": [
+    68.0,
+    493.0,
+    153.0,
+    526.0
+   ],
+   "text": "ERITROCITI (RBC)"
+  },
+  {
+   "box": [
+    153.0,
+    493.0,
+    214.0,
+    526.0
+   ],
+   "text": "4,55"
+  },
+  {
+   "box": [
+    214.0,
+    493.0,
+    252.0,
+    526.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    252.0,
+    493.0,
+    313.0,
+    526.0
+   ],
+   "text": "10¹²/L"
+  },
+  {
+   "box": [
+    313.0,
+    493.0,
+    385.0,
+    526.0
+   ],
+   "text": "3,80 - 5,80"
+  },
+  {
+   "box": [
+    68.0,
+    526.0,
+    153.0,
+    559.0
+   ],
+   "text": "HEMOGLOBIN (Hb)"
+  },
+  {
+   "box": [
+    153.0,
+    526.0,
+    214.0,
+    559.0
+   ],
+   "text": "125"
+  },
+  {
+   "box": [
+    214.0,
+    526.0,
+    252.0,
+    559.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    252.0,
+    526.0,
+    313.0,
+    559.0
+   ],
+   "text": "g/L"
+  },
+  {
+   "box": [
+    313.0,
+    526.0,
+    385.0,
+    559.0
+   ],
+   "text": "117 - 157"
+  },
+  {
+   "box": [
+    68.0,
+    559.0,
+    153.0,
+    592.0
+   ],
+   "text": "HEMATOKRIT (Hct)"
+  },
+  {
+   "box": [
+    153.0,
+    559.0,
+    214.0,
+    592.0
+   ],
+   "text": "0,387"
+  },
+  {
+   "box": [
+    214.0,
+    559.0,
+    252.0,
+    592.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    252.0,
+    559.0,
+    313.0,
+    592.0
+   ],
+   "text": "L/L"
+  },
+  {
+   "box": [
+    313.0,
+    559.0,
+    385.0,
+    592.0
+   ],
+   "text": "0,356 - 0,470"
+  },
+  {
+   "box": [
+    68.0,
+    592.0,
+    153.0,
+    624.0
+   ],
+   "text": "TROMBOCITI (Plt)"
+  },
+  {
+   "box": [
+    153.0,
+    592.0,
+    214.0,
+    624.0
+   ],
+   "text": "288"
+  },
+  {
+   "box": [
+    214.0,
+    592.0,
+    252.0,
+    624.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    252.0,
+    592.0,
+    313.0,
+    624.0
+   ],
+   "text": "10⁹/L"
+  },
+  {
+   "box": [
+    313.0,
+    592.0,
+    385.0,
+    624.0
+   ],
+   "text": "158 - 424"
+  },
+  {
+   "box": [
+    68.0,
+    624.0,
+    153.0,
+    657.0
+   ],
+   "text": "MCV"
+  },
+  {
+   "box": [
+    153.0,
+    624.0,
+    214.0,
+    657.0
+   ],
+   "text": "85,1"
+  },
+  {
+   "box": [
+    214.0,
+    624.0,
+    252.0,
+    657.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    252.0,
+    624.0,
+    313.0,
+    657.0
+   ],
+   "text": "fL"
+  },
+  {
+   "box": [
+    313.0,
+    624.0,
+    385.0,
+    657.0
+   ],
+   "text": "81,0 - 99,0"
+  },
+  {
+   "box": [
+    68.0,
+    657.0,
+    153.0,
+    690.0
+   ],
+   "text": "MCH"
+  },
+  {
+   "box": [
+    153.0,
+    657.0,
+    214.0,
+    690.0
+   ],
+   "text": "27,5"
+  },
+  {
+   "box": [
+    214.0,
+    657.0,
+    252.0,
+    690.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    252.0,
+    657.0,
+    313.0,
+    690.0
+   ],
+   "text": "pg"
+  },
+  {
+   "box": [
+    313.0,
+    657.0,
+    385.0,
+    690.0
+   ],
+   "text": "25,6 - 32,2"
+  },
+  {
+   "box": [
+    68.0,
+    690.0,
+    153.0,
+    713.0
+   ],
+   "text": "MCHC"
+  },
+  {
+   "box": [
+    153.0,
+    690.0,
+    214.0,
+    713.0
+   ],
+   "text": "323"
+  },
+  {
+   "box": [
+    214.0,
+    690.0,
+    252.0,
+    713.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    252.0,
+    690.0,
+    313.0,
+    713.0
+   ],
+   "text": "g/L"
+  },
+  {
+   "box": [
+    313.0,
+    690.0,
+    385.0,
+    713.0
+   ],
+   "text": "318 - 358"
+  },
+  {
+   "box": [
+    68.0,
+    713.0,
+    153.0,
+    745.0
+   ],
+   "text": "NEUTROFILI"
+  },
+  {
+   "box": [
+    153.0,
+    713.0,
+    214.0,
+    745.0
+   ],
+   "text": "68,4"
+  },
+  {
+   "box": [
+    214.0,
+    713.0,
+    252.0,
+    745.0
+   ],
+   "text": "H"
+  },
+  {
+   "box": [
+    252.0,
+    713.0,
+    313.0,
+    745.0
+   ],
+   "text": "%"
+  },
+  {
+   "box": [
+    313.0,
+    713.0,
+    385.0,
+    745.0
+   ],
+   "text": "44,0 - 66,0"
+  },
+  {
+   "box": [
+    68.0,
+    745.0,
+    153.0,
+    778.0
+   ],
+   "text": "LIMFOCITI"
+  },
+  {
+   "box": [
+    153.0,
+    745.0,
+    214.0,
+    778.0
+   ],
+   "text": "25,1"
+  },
+  {
+   "box": [
+    214.0,
+    745.0,
+    252.0,
+    778.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    252.0,
+    745.0,
+    313.0,
+    778.0
+   ],
+   "text": "%"
+  },
+  {
+   "box": [
+    313.0,
+    745.0,
+    385.0,
+    778.0
+   ],
+   "text": "20,0 - 45,0"
+  },
+  {
+   "box": [
+    68.0,
+    778.0,
+    153.0,
+    811.0
+   ],
+   "text": "MONOCITI"
+  },
+  {
+   "box": [
+    153.0,
+    778.0,
+    214.0,
+    811.0
+   ],
+   "text": "5,3"
+  },
+  {
+   "box": [
+    214.0,
+    778.0,
+    252.0,
+    811.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    252.0,
+    778.0,
+    313.0,
+    811.0
+   ],
+   "text": "%"
+  },
+  {
+   "box": [
+    313.0,
+    778.0,
+    385.0,
+    811.0
+   ],
+   "text": "2,0 - 10,0"
+  },
+  {
+   "box": [
+    68.0,
+    811.0,
+    153.0,
+    844.0
+   ],
+   "text": "RDW-SD"
+  },
+  {
+   "box": [
+    153.0,
+    811.0,
+    214.0,
+    844.0
+   ],
+   "text": "39,8"
+  },
+  {
+   "box": [
+    214.0,
+    811.0,
+    252.0,
+    844.0
+   ],
+   "text": "L"
+  },
+  {
+   "box": [
+    252.0,
+    811.0,
+    313.0,
+    844.0
+   ],
+   "text": "fL"
+  },
+  {
+   "box": [
+    313.0,
+    811.0,
+    385.0,
+    844.0
+   ],
+   "text": "41,0 - 56,0"
+  },
+  {
+   "box": [
+    408.0,
+    461.0,
+    494.0,
+    493.0
+   ],
+   "text": "GLUKOZA (natašte)"
+  },
+  {
+   "box": [
+    494.0,
+    461.0,
+    554.0,
+    493.0
+   ],
+   "text": "5,25"
+  },
+  {
+   "box": [
+    554.0,
+    461.0,
+    592.0,
+    493.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    592.0,
+    461.0,
+    653.0,
+    493.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    653.0,
+    461.0,
+    725.0,
+    493.0
+   ],
+   "text": "4,1 - 6,0"
+  },
+  {
+   "box": [
+    408.0,
+    493.0,
+    494.0,
+    516.0
+   ],
+   "text": "UREA"
+  },
+  {
+   "box": [
+    494.0,
+    493.0,
+    554.0,
+    516.0
+   ],
+   "text": "6,8"
+  },
+  {
+   "box": [
+    554.0,
+    493.0,
+    592.0,
+    516.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    592.0,
+    493.0,
+    653.0,
+    516.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    653.0,
+    493.0,
+    725.0,
+    516.0
+   ],
+   "text": "2,8 - 8,3"
+  },
+  {
+   "box": [
+    408.0,
+    516.0,
+    494.0,
+    539.0
+   ],
+   "text": "KREATININ"
+  },
+  {
+   "box": [
+    494.0,
+    516.0,
+    554.0,
+    539.0
+   ],
+   "text": "78"
+  },
+  {
+   "box": [
+    554.0,
+    516.0,
+    592.0,
+    539.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    592.0,
+    516.0,
+    653.0,
+    539.0
+   ],
+   "text": "μmol/L"
+  },
+  {
+   "box": [
+    653.0,
+    516.0,
+    725.0,
+    539.0
+   ],
+   "text": "49 - 90"
+  },
+  {
+   "box": [
+    408.0,
+    539.0,
+    494.0,
+    572.0
+   ],
+   "text": "KOLESTEROL (Ukupni)"
+  },
+  {
+   "box": [
+    494.0,
+    539.0,
+    554.0,
+    572.0
+   ],
+   "text": "6,12"
+  },
+  {
+   "box": [
+    554.0,
+    539.0,
+    592.0,
+    572.0
+   ],
+   "text": "H"
+  },
+  {
+   "box": [
+    592.0,
+    539.0,
+    653.0,
+    572.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    653.0,
+    539.0,
+    725.0,
+    572.0
+   ],
+   "text": "< 5,0"
+  },
+  {
+   "box": [
+    408.0,
+    572.0,
+    494.0,
+    605.0
+   ],
+   "text": "HDL KOLESTEROL"
+  },
+  {
+   "box": [
+    494.0,
+    572.0,
+    554.0,
+    605.0
+   ],
+   "text": "1,35"
+  },
+  {
+   "box": [
+    554.0,
+    572.0,
+    592.0,
+    605.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    592.0,
+    572.0,
+    653.0,
+    605.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    653.0,
+    572.0,
+    725.0,
+    605.0
+   ],
+   "text": "> 1,2"
+  },
+  {
+   "box": [
+    408.0,
+    605.0,
+    494.0,
+    638.0
+   ],
+   "text": "LDL KOLESTEROL"
+  },
+  {
+   "box": [
+    494.0,
+    605.0,
+    554.0,
+    638.0
+   ],
+   "text": "4,15"
+  },
+  {
+   "box": [
+    554.0,
+    605.0,
+    592.0,
+    638.0
+   ],
+   "text": "H"
+  },
+  {
+   "box": [
+    592.0,
+    605.0,
+    653.0,
+    638.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    653.0,
+    605.0,
+    725.0,
+    638.0
+   ],
+   "text": "< 3,0"
+  },
+  {
+   "box": [
+    408.0,
+    638.0,
+    494.0,
+    670.0
+   ],
+   "text": "TRIGLICERIDI"
+  },
+  {
+   "box": [
+    494.0,
+    638.0,
+    554.0,
+    670.0
+   ],
+   "text": "1,50"
+  },
+  {
+   "box": [
+    554.0,
+    638.0,
+    592.0,
+    670.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    592.0,
+    638.0,
+    653.0,
+    670.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    653.0,
+    638.0,
+    725.0,
+    670.0
+   ],
+   "text": "0,60 - 1,70"
+  },
+  {
+   "box": [
+    408.0,
+    670.0,
+    494.0,
+    693.0
+   ],
+   "text": "AST (GOT)"
+  },
+  {
+   "box": [
+    494.0,
+    670.0,
+    554.0,
+    693.0
+   ],
+   "text": "22"
+  },
+  {
+   "box": [
+    554.0,
+    670.0,
+    592.0,
+    693.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    592.0,
+    670.0,
+    653.0,
+    693.0
+   ],
+   "text": "U/L"
+  },
+  {
+   "box": [
+    653.0,
+    670.0,
+    725.0,
+    693.0
+   ],
+   "text": "8 - 30"
+  },
+  {
+   "box": [
+    408.0,
+    693.0,
+    494.0,
+    716.0
+   ],
+   "text": "ALT (GPT)"
+  },
+  {
+   "box": [
+    494.0,
+    693.0,
+    554.0,
+    716.0
+   ],
+   "text": "18"
+  },
+  {
+   "box": [
+    554.0,
+    693.0,
+    592.0,
+    716.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    592.0,
+    693.0,
+    653.0,
+    716.0
+   ],
+   "text": "U/L"
+  },
+  {
+   "box": [
+    653.0,
+    693.0,
+    725.0,
+    716.0
+   ],
+   "text": "10 - 40"
+  },
+  {
+   "box": [
+    408.0,
+    716.0,
+    494.0,
+    739.0
+   ],
+   "text": "GGT"
+  },
+  {
+   "box": [
+    494.0,
+    716.0,
+    554.0,
+    739.0
+   ],
+   "text": "45"
+  },
+  {
+   "box": [
+    554.0,
+    716.0,
+    592.0,
+    739.0
+   ],
+   "text": "H"
+  },
+  {
+   "box": [
+    592.0,
+    716.0,
+    653.0,
+    739.0
+   ],
+   "text": "U/L"
+  },
+  {
+   "box": [
+    653.0,
+    716.0,
+    725.0,
+    739.0
+   ],
+   "text": "9 - 35"
+  },
+  {
+   "box": [
+    408.0,
+    739.0,
+    494.0,
+    772.0
+   ],
+   "text": "BILIRUBIN (Ukupni)"
+  },
+  {
+   "box": [
+    494.0,
+    739.0,
+    554.0,
+    772.0
+   ],
+   "text": "15,4"
+  },
+  {
+   "box": [
+    554.0,
+    739.0,
+    592.0,
+    772.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    592.0,
+    739.0,
+    653.0,
+    772.0
+   ],
+   "text": "μmol/L"
+  },
+  {
+   "box": [
+    653.0,
+    739.0,
+    725.0,
+    772.0
+   ],
+   "text": "3,0 - 20,0"
+  },
+  {
+   "box": [
+    408.0,
+    772.0,
+    494.0,
+    795.0
+   ],
+   "text": "NATRIJ (Na)"
+  },
+  {
+   "box": [
+    494.0,
+    772.0,
+    554.0,
+    795.0
+   ],
+   "text": "140"
+  },
+  {
+   "box": [
+    554.0,
+    772.0,
+    592.0,
+    795.0
+   ],
+   "text": ""
+  },
+  {
+   "box": [
+    592.0,
+    772.0,
+    653.0,
+    795.0
+   ],
+   "text": "mmol/L"
+  },
+  {
+   "box": [
+    653.0,
+    772.0,
+    725.0,
+    795.0
+   ],
+   "text": "137 - 147"
+  }
+ ]
+}

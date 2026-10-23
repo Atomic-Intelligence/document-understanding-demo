@@ -1,0 +1,166 @@
+{
+ "width": 794,
+ "height": 1380,
+ "blocks": [
+  {
+   "label": "header",
+   "box": [
+    143,
+    56,
+    651,
+    94
+   ],
+   "content": "KLINIČKI BOLNIČKI CENTAR \"DR. FRAN MIHALJEVIĆ\"\nOdjel za Kliničku Biokemiju i Hematologiju, Zagreb, Mirogojska cesta 8"
+  },
+  {
+   "label": "paragraph_title",
+   "box": [
+    225,
+    115,
+    568,
+    135
+   ],
+   "content": "NALAZ LABORATORIJSKIH PRETRAGA"
+  },
+  {
+   "label": "table",
+   "box": [
+    67,
+    163,
+    724,
+    364
+   ],
+   "content": "<table><tr><td>PACIJENT:</td><td>MARIJA HORVAT</td></tr><tr><td>DATUM RODENJA:</td><td>15.03.1978</td></tr><tr><td>SPOL:</td><td>2</td></tr><tr><td>JMBG/OIB:</td><td>12345678901</td></tr><tr><td>ODJEL/KLINIKA:</td><td>Interna medicina</td></tr><tr><td>LIJEĆNIK:</td><td>Dr. Ivić</td></tr><tr><td>SPECIMEN ID:</td><td>2409-A765</td></tr><tr><td>UZORKOVANJE:</td><td>29.07.2024 07:30</td></tr><tr><td>VERIFIKACIJA:</td><td>29.07.2024 11:45</td></tr></table>"
+  },
+  {
+   "label": "figure_title",
+   "box": [
+    65,
+    398,
+    297,
+    418
+   ],
+   "content": "HEMATOLOŠKE PRETRAGE (KKS)"
+  },
+  {
+   "label": "table",
+   "box": [
+    68,
+    423,
+    387,
+    846
+   ],
+   "content": "<table><tr><td>Parameter</td><td>Rezultat</td><td>Flag</td><td>Jedinica</td><td>Referentini interval</td></tr><tr><td>LEUKOCITI (WBC)</td><td>5,8</td><td></td><td>$ 10^{{3}}/L $</td><td>3,4 - 9,7</td></tr><tr><td>ERITROCITI (RBC)</td><td>4,55</td><td></td><td>$ 10^{{12}}/L $</td><td>3,80 - 5,80</td></tr><tr><td>HEMOGLOBIN (Hb)</td><td>125</td><td></td><td>g/L</td><td>117 - 157</td></tr><tr><td>HEMATOKRIT (Hct)</td><td>0,387</td><td></td><td>L/L</td><td>0,356 - 0,470</td></tr><tr><td>TROMBOCITI (Plt)</td><td>288</td><td></td><td>$ 10^{{3}}/L $</td><td>158 - 424</td></tr><tr><td>MCV</td><td>85,1</td><td></td><td>fL</td><td>81,0 - 99,0</td></tr><tr><td>MCH</td><td>27,5</td><td></td><td>pg</td><td>25,6 - 32,2</td></tr><tr><td>MCHC</td><td>323</td><td></td><td>g/L</td><td>318 - 358</td></tr><tr><td>NEUTROFILI</td><td>68,4</td><td>H</td><td>%</td><td>44,0 - 66,0</td></tr><tr><td>LIMFOCITI</td><td>25,1</td><td></td><td>%</td><td>20,0 - 45,0</td></tr><tr><td>MONOCITI</td><td>5,3</td><td></td><td>%</td><td>2,0 - 10,0</td></tr><tr><td>RDW-SD</td><td>39,8</td><td>L</td><td>fL</td><td>41,0 - 56,0</td></tr></table>"
+  },
+  {
+   "label": "vision_footnote",
+   "box": [
+    64,
+    858,
+    384,
+    910
+   ],
+   "content": "NAPOMENA: * Zastupljenost neutrofila je blago povišena, što može biti posljedica akutnog stresnog stanja."
+  },
+  {
+   "label": "table",
+   "box": [
+    407,
+    424,
+    726,
+    794
+   ],
+   "content": "<table><tr><td>Parameter</td><td>Rezultat</td><td>Flag</td><td>Jedinica</td><td>Referentni interval</td></tr><tr><td>GLUKOZA (nataste)</td><td>5,25</td><td></td><td>mmol/L</td><td>4,1 - 6,0</td></tr><tr><td>UREA</td><td>6,8</td><td></td><td>mmol/L</td><td>2,8 - 8,3</td></tr><tr><td>KREATININ</td><td>78</td><td></td><td>$ \\mu mol/L $</td><td>49 - 90</td></tr><tr><td>KOLESTEROL (Ukupni)</td><td>6,12</td><td>H</td><td>mmol/L</td><td>&lt; 5,0</td></tr><tr><td>HDL KOLESTEROL</td><td>1,35</td><td></td><td>mmol/L</td><td>&gt; 1,2</td></tr><tr><td>LDL KOLESTEROL</td><td>4,15</td><td>H</td><td>mmol/L</td><td>&lt; 3,0</td></tr><tr><td>TRIGLICERIDI</td><td>1,50</td><td></td><td>mmol/L</td><td>0,60 - 1,70</td></tr><tr><td>AST (GOT)</td><td>22</td><td></td><td>U/L</td><td>8 - 30</td></tr><tr><td>ALT (GPT)</td><td>18</td><td></td><td>U/L</td><td>10 - 40</td></tr><tr><td>GGT</td><td>45</td><td>H</td><td>U/L</td><td>9 - 35</td></tr><tr><td>BILIRUBIN (Ukupni)</td><td>15,4</td><td></td><td>$ \\mu mol/L $</td><td>3,0 - 20,0</td></tr><tr><td>NATRIJ (Na)</td><td>140</td><td></td><td>mmol/L</td><td>137 - 147</td></tr></table>"
+  },
+  {
+   "label": "figure_title",
+   "box": [
+    405,
+    399,
+    587,
+    417
+   ],
+   "content": "BIOKEMIJSKE PRETRAGE"
+  },
+  {
+   "label": "vision_footnote",
+   "box": [
+    405,
+    810,
+    723,
+    863
+   ],
+   "content": "NAPOMENA: * Povišene vrijednosti lipida zahtijevaju kliničku korelaciju i dijetalnu prilagodbu."
+  },
+  {
+   "label": "paragraph_title",
+   "box": [
+    65,
+    934,
+    203,
+    952
+   ],
+   "content": "KOMENTAR NALAZA"
+  },
+  {
+   "label": "text",
+   "box": [
+    64,
+    970,
+    703,
+    1042
+   ],
+   "content": "Pronadene su povišene koncentracije ukupnog i LDL kolesterola, te GGT enzima. Hematološki parametri su uglavnom u granicama normale, uz blago povišenje neutrofila i sniženi RDW-SD. Preporučuje se konzultacija s nadležnim liječnikom radi daljnjeg liječenja i pračenja lipidnog statusa."
+  },
+  {
+   "label": "text",
+   "box": [
+    79,
+    1119,
+    350,
+    1137
+   ],
+   "content": "IZRADIO/LA (Laboratorijski tehničar):"
+  },
+  {
+   "label": "text",
+   "box": [
+    460,
+    1119,
+    693,
+    1137
+   ],
+   "content": "ODOBRIO (Voditelj laboratorija):"
+  },
+  {
+   "label": "text",
+   "box": [
+    171,
+    1208,
+    261,
+    1227
+   ],
+   "content": "(Ivan Peric)"
+  },
+  {
+   "label": "text",
+   "box": [
+    429,
+    1209,
+    726,
+    1226
+   ],
+   "content": "(Dr. sc. Ana Kovač, spec. med. biokemije)"
+  },
+  {
+   "label": "footnote",
+   "box": [
+    64,
+    1251,
+    729,
+    1312
+   ],
+   "content": "Ovaj nalaz je izrađen sukladno standardima ISO 15189. Laboratorij je akreditiran za navedene pretrage. Rezultati se odnose isključivo na analizirani uzorak. Reprodukcija nalazi bez potpisa ovlaštene osobe nije dopuštena. Referentni intervalu su usklađeni s preporukama Hrvatskog društva za medicinsku biokemiju i laboratorijsku medicinu."
+  }
+ ]
+}

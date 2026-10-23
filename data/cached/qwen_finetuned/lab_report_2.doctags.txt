@@ -1,0 +1,314 @@
+<heading>
+<location><x1>195.0</x1><y1>57.0</y1><x2>598.0</x2><y2>70.0</y2></location>
+<text>
+KLINIČKI BOLNIČKI CENTAR "DR. FRAN MIHALJEVIĆ"
+</text>
+</heading>
+
+<paragraph>
+<location><x1>145.0</x1><y1>78.0</y1><x2>649.0</x2><y2>90.0</y2></location>
+<text>
+Odjel za Kliničku Biokemiju i Hematologiju, Zagreb, Mirogojska cesta 8
+</text>
+</paragraph>
+
+<heading>
+<location><x1>229.0</x1><y1>118.0</y1><x2>565.0</x2><y2>132.0</y2></location>
+<text>
+NALAZ LABORATORIJSKIH PRETRAGA
+</text>
+</heading>
+
+<key_value_section>
+<location><x1>174.0</x1><y1>169.0</y1><x2>714.0</x2><y2>357.0</y2></location>
+<text>
+{'key': 'PACIJENT:', 'value': 'MARIJA HORVAT'}
+{'key': 'DATUM ROĐENJA:', 'value': '15.03.1978'}
+{'key': 'SPOL:', 'value': 'Ž'}
+{'key': 'JMBG/OIB:', 'value': '12345678901'}
+{'key': 'ODJEL/KLINIKA:', 'value': 'Interna medicina'}
+{'key': 'LIJEČNIK:', 'value': 'Dr. Tić'}
+{'key': 'SPECIMEN ID:', 'value': '2409-A765'}
+{'key': 'UZORKOVANJE:', 'value': '29.07.2024 07:30'}
+{'key': 'VERIFIKACIJA:', 'value': '29.07.2024 11:45'}
+</text>
+</key_value_section>
+
+<heading>
+<location><x1>69.0</x1><y1>400.0</y1><x2>295.0</x2><y2>414.0</y2></location>
+<text>
+HEMATOLOŠKE PRETRAGE (KKS)
+</text>
+</heading>
+
+<heading>
+<location><x1>408.0</x1><y1>400.0</y1><x2>584.0</x2><y2>414.0</y2></location>
+<text>
+BIOKEMIJSKE PRETRAGE
+</text>
+</heading>
+
+<table>
+<location><x1>68.0</x1><y1>425.0</y1><x2>384.0</x2><y2>842.0</y2></location>
+<text>
+<thead>
+<tr>
+<th>Parametar</th>
+<th>Rezultat</th>
+<th>Flag</th>
+<th>Jedinica</th>
+<th>Referentni Interval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LEUKOCITI (WBC)</td>
+<td>5,8</td>
+<td class="flag-normal"></td>
+<td>10⁹/L</td>
+<td>3,4 - 9,7</td>
+</tr>
+<tr>
+<td>ERITROCITI (RBC)</td>
+<td>4,55</td>
+<td class="flag-normal"></td>
+<td>10¹²/L</td>
+<td>3,80 - 5,80</td>
+</tr>
+<tr>
+<td>HEMOGLOBIN (Hb)</td>
+<td>125</td>
+<td class="flag-normal"></td>
+<td>g/L</td>
+<td>117 - 157</td>
+</tr>
+<tr>
+<td>HEMATOKRIT (Hct)</td>
+<td>0,387</td>
+<td class="flag-normal"></td>
+<td>L/L</td>
+<td>0,356 - 0,470</td>
+</tr>
+<tr>
+<td>TROMBOCITI (Plt)</td>
+<td>288</td>
+<td class="flag-normal"></td>
+<td>10⁹/L</td>
+<td>158 - 424</td>
+</tr>
+<tr>
+<td>MCV</td>
+<td>85,1</td>
+<td class="flag-normal"></td>
+<td>fL</td>
+<td>81,0 - 99,0</td>
+</tr>
+<tr>
+<td>MCH</td>
+<td>27,5</td>
+<td class="flag-normal"></td>
+<td>pg</td>
+<td>25,6 - 32,2</td>
+</tr>
+<tr>
+<td>MCHC</td>
+<td>323</td>
+<td class="flag-normal"></td>
+<td>g/L</td>
+<td>318 - 358</td>
+</tr>
+<tr>
+<td>NEUTROFILI</td>
+<td>68,4</td>
+<td class="flag-high">H</td>
+<td>%</td>
+<td>44,0 - 66,0</td>
+</tr>
+<tr>
+<td>LIMFOCITI</td>
+<td>25,1</td>
+<td class="flag-normal"></td>
+<td>%</td>
+<td>20,0 - 45,0</td>
+</tr>
+<tr>
+<td>MONOCITI</td>
+<td>5,3</td>
+<td class="flag-normal"></td>
+<td>%</td>
+<td>2,0 - 10,0</td>
+</tr>
+<tr>
+<td>RDW-SD</td>
+<td>39,8</td>
+<td class="flag-low">L</td>
+<td>fL</td>
+<td>41,0 - 56,0</td>
+</tr>
+</tbody>
+</text>
+</table>
+
+<table>
+<location><x1>408.0</x1><y1>425.0</y1><x2>725.0</x2><y2>793.0</y2></location>
+<text>
+<thead>
+<tr>
+<th>Parametar</th>
+<th>Rezultat</th>
+<th>Flag</th>
+<th>Jedinica</th>
+<th>Referentni Interval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GLUKOZA (natašte)</td>
+<td>5,25</td>
+<td class="flag-normal"></td>
+<td>mmol/L</td>
+<td>4,1 - 6,0</td>
+</tr>
+<tr>
+<td>UREA</td>
+<td>6,8</td>
+<td class="flag-normal"></td>
+<td>mmol/L</td>
+<td>2,8 - 8,3</td>
+</tr>
+<tr>
+<td>KREATININ</td>
+<td>78</td>
+<td class="flag-normal"></td>
+<td>μmol/L</td>
+<td>49 - 90</td>
+</tr>
+<tr>
+<td>KOLESTEROL (ukupni)</td>
+<td>6,12</td>
+<td class="flag-high">H</td>
+<td>mmol/L</td>
+<td>&lt; 5,0</td>
+</tr>
+<tr>
+<td>HDL KOLESTEROL</td>
+<td>1,35</td>
+<td class="flag-normal"></td>
+<td>mmol/L</td>
+<td>&gt; 1,2</td>
+</tr>
+<tr>
+<td>LDL KOLESTEROL</td>
+<td>4,15</td>
+<td class="flag-high">H</td>
+<td>mmol/L</td>
+<td>&lt; 3,0</td>
+</tr>
+<tr>
+<td>TRIGLICERIDI</td>
+<td>1,50</td>
+<td class="flag-normal"></td>
+<td>mmol/L</td>
+<td>0,60 - 1,70</td>
+</tr>
+<tr>
+<td>AST (GOT)</td>
+<td>22</td>
+<td class="flag-normal"></td>
+<td>U/L</td>
+<td>8 - 30</td>
+</tr>
+<tr>
+<td>ALT (GPT)</td>
+<td>18</td>
+<td class="flag-normal"></td>
+<td>U/L</td>
+<td>10 - 40</td>
+</tr>
+<tr>
+<td>GGT</td>
+<td>45</td>
+<td class="flag-high">H</td>
+<td>U/L</td>
+<td>9 - 35</td>
+</tr>
+<tr>
+<td>BILIRUBIN (Ukupni)</td>
+<td>15,4</td>
+<td class="flag-normal"></td>
+<td>μmol/L</td>
+<td>3,0 - 20,0</td>
+</tr>
+<tr>
+<td>NATRIJ (Na)</td>
+<td>140</td>
+<td class="flag-normal"></td>
+<td>mmol/L</td>
+<td>137 - 147</td>
+</tr>
+</tbody>
+</text>
+</table>
+
+<paragraph>
+<location><x1>409.0</x1><y1>811.0</y1><x2>720.0</x2><y2>857.0</y2></location>
+<text>
+NAPOMENA: * Povišene vrijednosti lipida zahtijevaju kliničku korelaciju i dijetalnu prilagodu.
+</text>
+</paragraph>
+
+<paragraph>
+<location><x1>69.0</x1><y1>860.0</y1><x2>379.0</x2><y2>906.0</y2></location>
+<text>
+NAPOMENA: * Zastupljenost neutrofila je blago povišena, što može biti posljedica akutnog stresnog stanja.
+</text>
+</paragraph>
+
+<heading>
+<location><x1>69.0</x1><y1>935.0</y1><x2>201.0</x2><y2>947.0</y2></location>
+<text>
+KOMENTAR NALAZA
+</text>
+</heading>
+
+<paragraph>
+<location><x1>68.0</x1><y1>972.0</y1><x2>700.0</x2><y2>1036.0</y2></location>
+<text>
+Pronađene su povišene koncentracije ukupnog i LDL kolesterola, te GGT enzima. Hematološki parametri su uglavnom u granicama normale, uz blago povišenje neutrofila i sniženi RDW-SD. Preporučuje se konzultacija s nadležnim liječnikom radi daljnjej liječenja i praćenja lipidnog statusa.
+</text>
+</paragraph>
+
+<paragraph>
+<location><x1>83.0</x1><y1>1120.0</y1><x2>347.0</x2><y2>1132.0</y2></location>
+<text>
+IZRADIO/LA (Laboratorijski tehničar):
+</text>
+</paragraph>
+
+<paragraph>
+<location><x1>463.0</x1><y1>1120.0</y1><x2>691.0</x2><y2>1132.0</y2></location>
+<text>
+ODOBRIO (Voditelj laboratorija):
+</text>
+</paragraph>
+
+<paragraph>
+<location><x1>175.0</x1><y1>1210.0</y1><x2>258.0</x2><y2>1222.0</y2></location>
+<text>
+(Ivan Perić)
+</text>
+</paragraph>
+
+<paragraph>
+<location><x1>432.0</x1><y1>1210.0</y1><x2>724.0</x2><y2>1222.0</y2></location>
+<text>
+(Dr. sc. Ana Kovač, spec. med. biokemije)
+</text>
+</paragraph>
+
+<paragraph>
+<location><x1>68.0</x1><y1>1254.0</y1><x2>725.0</x2><y2>1308.0</y2></location>
+<text>
+Ovaj nalaz je izrađen sukladno standardima ISO 15189. Laboratorij je akreditiran za navedene pretrage. Rezultati se odnose isključivo na analizirani uzorak. Reprodukcija nalaza bez potpisa ovlazne osobe nije dopuštena. Referentni intervali su usklađeni s preporukama Hrvatskog društva za medicinsku biokemiju i laboratorijsku medicinu.
+</text>
+</paragraph>

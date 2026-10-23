@@ -1,0 +1,183 @@
+```html
+<heading>
+<location><x1>10.0</x1><y1>10.0</y1><x2>700.0</y2>700.0</y2></location>
+<text>KLINIČKI BOLNIČKI CENTAR "DR. FRAN MIHALJEVIĆ"</text>
+</heading>
+
+<paragraph>
+<location><x1>15.0</x1><y1>15.0</y1><x2>500.0</y2>500.0</y2></location>
+<text>Odjel za Kliničku Biokemiju i Hematologiju, Zagreb, Mirogojska cesta 8</text>
+</paragraph>
+
+<key_value_section>
+<location><x1>10.0</x1><y1>20.0</y1><x2>700.0</y2>700.0</y2></location>
+<text>NALAZ LABORATORIJSKIH PRETRAGA</text>
+</key_value_section>
+
+<table>
+<location><x1>10.0</x1><y1>25.0</y1><x2>700.0</y2>700.0</y2></location>
+<text>
+<table>
+<tr>
+<th>PACIJENT:</th>
+<th>MARIJA HORVAT</th>
+</tr>
+<tr>
+<th>DATUM ROĐENJA:</th>
+<th>15.03.1978</th>
+</tr>
+<tr>
+<th>SPOL:</th>
+<th>Ž</th>
+</tr>
+<tr>
+<th>JMBG/OIB:</th>
+<th>12345678901</th>
+</tr>
+<tr>
+<th>ODJEL/KLINIKA:</th>
+<th>Interna medicina</th>
+</tr>
+<tr>
+<th>LJEČNIČK:</th>
+<th>Dr. Tvić</th>
+</tr>
+<tr>
+<th>SPECIMEN ID:</th>
+<th>2409-A765</th>
+</tr>
+<tr>
+<th>UZORKOVANJE:</th>
+<th>29.07.2024 07:30</th>
+</tr>
+<tr>
+<th>VERIFIKACIJA:</th>
+<th>29.07.2024 11:45</th>
+</tr>
+</table>
+</text>
+</table>
+
+<table>
+<location><x1>10.0</x1><y1>30.0</y1><x2>700.0</y2>700.0</y2></location>
+<text>
+<table>
+<tr>
+<th>HEMATOLOŠKE PRETRAGE (KK)</th>
+<th>BIOKEMIJSKE PRETRAGE</th>
+</tr>
+<tr>
+<th>Parametar</th>
+<th>Rezultat</th>
+<th>Flag</th>
+<th>Jedinica</th>
+<th>Referentni interval</th>
+</tr>
+<tr>
+<th>LEUKOCITI (WBC)</th>
+<th>5,8</th>
+<th>10^9/L</th>
+<th>3,4 - 9,7</th>
+</tr>
+<tr>
+<th>ERITROCITI (RBC)</th>
+<th>4,55</th>
+<th>10^12/L</th>
+<th>3,80 - 5,80</th>
+</tr>
+<tr>
+<th>HEMOGLIBIN (Hb)</th>
+<th>125</th>
+<th>g/L</th>
+<th>117 - 157</th>
+</tr>
+<tr>
+<th>HEMATOKRIT (Hct)</th>
+<th>0,387</th>
+<th>L/L</th>
+<th>0,356 - 0,470</th>
+</tr>
+<tr>
+<th>TROMBOKITI (Plt)</th>
+<th>288</th>
+<th>10^9/L</th>
+<th>158 - 424</th>
+</tr>
+<tr>
+<th>MCV</th>
+<th>85,1</th>
+<th>fL</th>
+<th>81,0 - 99,0</th>
+</tr>
+<tr>
+<th>MCH</th>
+<th>27,5</th>
+<th>pg</th>
+<th>25,0 - 32,0</th>
+</tr>
+<tr>
+<th>MCHC</th>
+<th>323</th>
+<th>g/L</th>
+<th>318 - 358</th>
+</tr>
+<tr>
+<th>NEUTROFILI</th>
+<th>68,4</th>
+<th>H</th>
+<th>%</th>
+<th>44,0 - 66,0</th>
+</tr>
+<tr>
+<th>LIMFOCITI</th>
+<th>25,1</th>
+<th>%</th>
+<th>20,0 - 45,0</th>
+</tr>
+<tr>
+<th>MONOCITI</th>
+<th>5,3</th>
+<th>%</th>
+<th>2,0 - 10,0</th>
+</tr>
+<tr>
+<th>RDW-SD</th>
+<th>39,8</th>
+<th>L</th>
+<th>fL</th>
+<th>41,0 - 56,0</th>
+</tr>
+</table>
+</text>
+</table>
+
+<key_value_section>
+<location><x1>10.0</x1><y1>45.0</y1><x2>700.0</y2>700.0</y2></location>
+<text>NAPOMENA: * Povišene vrijednosti lipida zahtijevaju kliničku korelaciju i dijetalnu prilagodbu.</text>
+</key_value_section>
+
+<paragraph>
+<location><x1>10.0</x1><y1>50.0</y1><x2>700.0</y2>700.0</y2></location>
+<text>KOMENTAR NALAZA</text>
+</paragraph>
+
+<paragraph>
+<location><x1>10.0</x1><y1>55.0</y1><x2>700.0</y2>700.0</y2></location>
+<text>Pronađene su povišene koncentracije ukupnog i LDL kolesterola, te GGT enzima. Hematološki parametri su uglavnom u granicama normalne, uz blago povišenje neutrofila i sniženi RDW-SD. Preporučuje se konzultacija s nadležnim liječnikom radi daljnje liječenja i praćenja lipidnog statusa.</text>
+</paragraph>
+
+<paragraph>
+<location><x1>10.0</x1><y1>60.0</y1><x2>700.0</y2>700.0</y2></location>
+<text>IZRADIO/LA (Laboratorijski tehničar): ODOBRIO (Voditelj laboratorija):</text>
+</paragraph>
+
+<paragraph>
+<location><x1>10.0</x1><y1>65.0</y1><x2>700.0</y2>700.0</y2></location>
+<text>(Ivan Perić) (Dr. sc. Ana Kovac, spec. med. biokemije)</text>
+</paragraph>
+
+<paragraph>
+<location><x1>10.0</x1><y1>70.0</y1><x2>700.0</y2>700.0</y2></location>
+<text>Ovaj nalaz je izrađen sukladno standardima ISO 15189. Laboratorij je akreditiran za navedene pretrage. Rezultati se odnose isključivo na analizirani uzorak. Reprodukcija nalaza bez potpisa ovljene osobe nije dopuštena. Referentni intervali su usklađeni s preporukama Hrvatskog društva za medicinsku biokemiju i laboratorijsku medicinu.</text>
+</paragraph>
+```
