@@ -1,7 +1,9 @@
-"""The demo notebook keeps its sections in deck order and is committed without outputs."""
+"""The demo notebook keeps its sections in deck order, is committed without outputs, and runs end to end."""
 
 import json
 from pathlib import Path
+
+import pytest
 
 NOTEBOOK = Path(__file__).resolve().parents[1] / "notebooks" / "demo.ipynb"
 
@@ -38,3 +40,14 @@ def test_committed_without_outputs():
         if cell["cell_type"] == "code":
             assert cell["outputs"] == []
             assert cell["execution_count"] is None
+
+
+def test_runs_end_to_end():
+    """Runs every cell on the CPU, Docling included; about a minute once Docling's models are downloaded."""
+    pytest.importorskip("docling")
+    nbformat = pytest.importorskip("nbformat")
+    nbclient = pytest.importorskip("nbclient")
+    nb = nbformat.read(NOTEBOOK, as_version=4)
+    nbclient.NotebookClient(nb, timeout=900, resources={"metadata": {"path": str(NOTEBOOK.parent)}}).execute()
+    errors = [o for c in nb.cells if c.cell_type == "code" for o in c.outputs if o.output_type == "error"]
+    assert not errors
