@@ -39,7 +39,6 @@ class Parsed:
     markdown: str = ""
     tables: list[list[list[str]]] = field(default_factory=list)   # table -> row -> cell text
     pairs: list[tuple[str, str]] = field(default_factory=list)    # key-value fields
-    seconds: float | None = None
 
     @property
     def name(self) -> str:
@@ -152,6 +151,19 @@ def table_regions(page: str) -> list[tuple]:
     return [tuple(r["box"]) for r in gt["regions"] if r["type"] == "table"]
 
 
+def row_box(page: str, label: str) -> tuple:
+    """The box (x0, y0, x1, y1) of the table row whose first cell is `label`, as wide as its table."""
+    cell = next(c for c in table_cells(page) if key(c["text"]) == key(label))
+    table = table_box(page, label)
+    return (table[0], cell["box"][1], table[2], cell["box"][3])
+
+
+def table_box(page: str, label: str) -> tuple:
+    """The box of the table that holds the row whose first cell is `label`."""
+    cell = next(c for c in table_cells(page) if key(c["text"]) == key(label))
+    return next(t for t in table_regions(page) if t[1] <= cell["box"][1] <= t[3])
+
+
 # --------------------------------------------------------------------------- saved outputs
 
 PADDLE_TYPE = {"doc_title": "heading", "paragraph_title": "heading", "table": "table", "image": "figure",
@@ -220,6 +232,25 @@ def _qwen(page: str, model: str) -> Parsed:
     return out
 
 
+def raw_text(page: str, model: str) -> str:
+    """A saved output exactly as the model wrote it: Markdown for PaddleOCR-VL, DocTags for Qwen VL."""
+    if model == "paddleocr_vl":
+        return (DATA / "cached" / model / f"{page}.md").read_text(encoding="utf-8")
+    return (DATA / "cached" / model / f"{page}.doctags.txt").read_text(encoding="utf-8")
+
+
+def first_blocks(doctags: str, n: int) -> str:
+    """The start of a DocTags answer, up to the end of its n-th block."""
+    ends = [m.end() for m in re.finditer(r"</(heading|paragraph|list|table|key_value_section|omr_question)>\s*\n",
+                                         doctags)]
+    return doctags[:ends[n - 1]] if len(ends) >= n else doctags
+
+
+def paddle_blocks(page: str) -> list[dict]:
+    """PaddleOCR-VL's blocks in reading order: the detector's label and box, and what the VLM read."""
+    return json.loads((DATA / "cached" / "paddleocr_vl" / f"{page}.json").read_text(encoding="utf-8"))["blocks"]
+
+
 def cached(page: str, model: str) -> Parsed:
     """A saved output of a model that needs a GPU."""
     if model == "paddleocr_vl":
@@ -227,3 +258,27 @@ def cached(page: str, model: str) -> Parsed:
     if model in ("qwen_base", "qwen_finetuned"):
         return _qwen(page, model)
     raise ValueError(f"no saved outputs for {model!r}; saved: {', '.join(CACHED_MODELS)}")
+
+
+# --------------------------------------------------------------------------- Docling, run in the notebook
+
+DOCLING_TYPE = {"title": "heading", "section_header": "heading", "table": "table", "document_index": "table",
+                "list_item": "list", "key_value_region": "key_value", "form": "key_value",
+                "picture": "figure", "chart": "figure"}
+
+
+def from_docling(doc) -> Parsed:
+    """A DoclingDocument's first page in the notebook's shape: regions with boxes in the page image's
+    pixels, top-left origin; the tables' cells; and the Markdown."""
+    page = doc.pages[min(doc.pages)]
+    image = page.image.pil_image.convert("RGB")
+    scale = image.width / page.size.width
+    out = Parsed("docling", image, markdown=doc.export_to_markdown())
+    for item, _level in doc.iterate_items():
+        prov = [p for p in getattr(item, "prov", []) if p.page_no == page.page_no]
+        if prov:
+            b = prov[0].bbox.to_top_left_origin(page.size.height)
+            out.blocks.append(Block(DOCLING_TYPE.get(str(item.label.value), "text"),
+                                    (b.l * scale, b.t * scale, b.r * scale, b.b * scale)))
+    out.tables = [[[cell.text for cell in row] for row in table.data.grid] for table in doc.tables]
+    return out

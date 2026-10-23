@@ -167,10 +167,8 @@ def _row_table(header, row, against=None) -> str:
 
 def row_crop(page: str, label: str, pad: int = 8) -> Image.Image:
     """The band of the page that holds the table row whose first cell is `label`, enlarged."""
-    cell = next(c for c in data.table_cells(page) if data.key(c["text"]) == data.key(label))
-    x0, y0, x1, y1 = cell["box"]
-    table = next(t for t in data.table_regions(page) if t[1] <= y0 <= t[3])
-    crop = data.page_image(page).crop((table[0] - pad, y0 - 2, table[2] + pad, y1 + 3))
+    x0, y0, x1, y1 = data.row_box(page, label)
+    crop = data.page_image(page).crop((x0 - pad, y0 - 2, x1 + pad, y1 + 3))
     return crop.resize((crop.width * 2, crop.height * 2), Image.LANCZOS)
 
 

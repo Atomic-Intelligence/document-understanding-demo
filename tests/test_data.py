@@ -31,6 +31,19 @@ def test_saved_outputs_have_tables_and_fields():
         assert parsed.markdown
 
 
+def test_row_lies_inside_its_table():
+    table = data.table_box("lab_report_1", "Hematokrit (Hct)")
+    row = data.row_box("lab_report_1", "Hematokrit (Hct)")
+    assert table[0] == row[0] and table[2] == row[2]
+    assert table[1] < row[1] < row[3] < table[3]
+
+
+def test_first_blocks_ends_at_a_block():
+    text = data.first_blocks(data.raw_text("lab_report_1", "qwen_finetuned"), 5)
+    assert text.rstrip().endswith("</key_value_section>")
+    assert text.count("<location>") == 5
+
+
 def test_html_rows():
     rows = data.html_rows("<table><tr><th>a</th><th>b</th></tr><tr><td>1<br>2</td><td> x </td></tr></table>")
     assert rows == [["a", "b"], ["1 2", "x"]]

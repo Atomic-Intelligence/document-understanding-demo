@@ -53,7 +53,7 @@ this, so later cells run without waiting for downloads.
 |---|---|
 | `notebooks/demo.ipynb` | The demo notebook |
 | `notebooks/demo_with_outputs.ipynb` | The same notebook run once, with every output saved, to look through without running it ([open in Colab](https://colab.research.google.com/github/Atomic-Intelligence/document-understanding-demo/blob/main/notebooks/demo_with_outputs.ipynb)) |
-| `src/dudemo/` | Helpers the notebook imports: loading pages and outputs, drawing regions, checks |
+| `src/dudemo/` | Helpers the notebook imports: loading pages and saved outputs, drawing regions, rendering Markdown |
 | `data/` | The pages, their ground truth and the saved outputs of the GPU models (see `data/README.md`) |
 | `tests/` | Tests for the helpers and the notebook |
 
