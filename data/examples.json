@@ -14,7 +14,7 @@
   "note": "The reference range is split over two columns, so the table has a column the page does not have."
  },
  {
-  "kind": "Passes as correct",
+  "kind": "Silent error",
   "page": "lab_report_1",
   "model": "docling",
   "row": "ALT (ALAT)",
