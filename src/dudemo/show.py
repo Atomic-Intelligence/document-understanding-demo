@@ -135,10 +135,17 @@ def page_break(end_of_page: Image.Image, top_of_next: Image.Image):
 <div class="dd-title">Top of page 2</div><img src="{_png(top_of_next)}" style="border:1px solid #d0d4d8">"""))
 
 
-def markdown(parsed: Parsed, title: str | None = None):
-    """Only the rendered Markdown."""
-    display(HTML(f'{STYLE}<div class="dd-title">{title or parsed.name}</div>'
-                 f'<div class="dd-md" style="height:auto">{_rendered(parsed.markdown)}</div>'))
+def markdown(parsed: Parsed | str, title: str | None = None, closed: bool = False):
+    """Rendered Markdown, of a parser's output or of a Markdown string; with `closed`, folded under its
+    title until clicked."""
+    text = parsed if isinstance(parsed, str) else parsed.markdown
+    title = title or (parsed.name if isinstance(parsed, Parsed) else "Markdown")
+    body = f'<div class="dd-md" style="height:auto">{_rendered(text)}</div>'
+    if closed:
+        display(HTML(f'{STYLE}<details><summary class="dd-title" style="cursor:pointer">{title}'
+                     f'</summary>{body}</details>'))
+    else:
+        display(HTML(f'{STYLE}<div class="dd-title">{title}</div>{body}'))
 
 
 # --------------------------------------------------------------------------- one table row
