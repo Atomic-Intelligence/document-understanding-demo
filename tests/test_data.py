@@ -78,6 +78,12 @@ def test_read_text_cuts_a_block_to_the_part_that_lines_up():
     assert data.read_text(paddle, "(Ivan Perić)") == "(Ivan Peric)"
 
 
+def test_read_text_finds_nothing_for_a_line_the_parser_left_out():
+    qwen = data.cached("lab_report_1", "qwen_finetuned")         # leaves out the signature block
+    assert data.read_text(qwen, "Dr. Petrović N.") is None
+    assert data.read_text(qwen, "Digitalni potpis validiran") is None
+
+
 def test_two_parsers_never_agree_on_a_wrong_value_on_the_second_report():
     """Step 6.4 keeps every value, title and paragraph the two parsers agree on."""
     truth = data.page_values("lab_report_2", text=True)

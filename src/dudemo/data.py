@@ -163,9 +163,11 @@ def _caret(text: str) -> str:
     return " ".join(_SUPERSCRIPT.sub(lambda m: "^" + m.group().translate(_DIGITS), text).split())
 
 
-def same(a: str, b: str) -> bool:
+def same(a: str | None, b: str | None) -> bool:
     """Two values read the same: equal apart from spacing, with 10⁹ and 10^9 taken as one notation. A lost
-    superscript is a difference: 109 is not 10⁹."""
+    superscript is a difference: 109 is not 10⁹. Nothing is the same only as nothing."""
+    if a is None or b is None:
+        return a is b
     return _caret(a) == _caret(b)
 
 
@@ -232,8 +234,8 @@ def page_values(page: str, text: bool = False) -> dict[str, str]:
 
 def read_text(parsed: Parsed, text: str) -> str | None:
     """What a parser wrote for a title or paragraph of the page: the part of its text that lines up with
-    it. A parser can put two lines of the page in one block, so the block is cut to the part that
-    matches; what it wrote differently inside that part stays."""
+    it, or None if it left it out. A parser can put two lines of the page in one block, so the block is
+    cut to the part that matches; what it wrote differently inside that part stays."""
     import difflib
     chunks = [" ".join(c.lstrip("# ").split()) for c in parsed.markdown.split("\n\n")]
     chunks = [c for c in chunks if c and not c.startswith(("<table", "**", "|"))]
@@ -248,7 +250,10 @@ def read_text(parsed: Parsed, text: str) -> str | None:
         return None
     blocks = lined_up(best)[1]
     start, end = blocks[0].a - blocks[0].b, blocks[-1].a + blocks[-1].size + (len(text) - blocks[-1].b - blocks[-1].size)
-    return best[max(start, 0):end].strip()
+    found = best[max(start, 0):end].strip()
+    # Letters of a short line match here and there in any long text: what lines up must read like the
+    # line, or the parser left it out.
+    return found if difflib.SequenceMatcher(None, found, text).ratio() >= 0.8 else None
 
 
 def readings(page: str, *parsed: Parsed, text: bool = False) -> list[tuple[str, list[str | None]]]:
