@@ -113,3 +113,23 @@ def test_same_takes_superscripts_as_carets():
 def test_html_rows():
     rows = data.html_rows("<table><tr><th>a</th><th>b</th></tr><tr><td>1<br>2</td><td> x </td></tr></table>")
     assert rows == [["a", "b"], ["1 2", "x"]]
+
+
+def test_a_live_model_runs_once_per_page_and_is_read_like_its_saved_copy(tmp_path, monkeypatch):
+    from dudemo import live
+    calls = []
+
+    def run(model, page, folder):         # stands in for the model: writes its saved answer
+        calls.append((model, page))
+        folder.mkdir(parents=True, exist_ok=True)
+        saved = data.DATA / "cached" / model / f"{page}.doctags.txt"
+        (folder / saved.name).write_text(saved.read_text(encoding="utf-8"), encoding="utf-8")
+
+    monkeypatch.setattr(live, "run", run)
+    monkeypatch.setattr(data, "LIVE", {"qwen_finetuned"})
+    monkeypatch.setattr(data, "LIVE_DIR", tmp_path)
+    first = data.cached("lab_report_1", "qwen_finetuned")
+    data.cached("lab_report_1", "qwen_finetuned")
+    assert calls == [("qwen_finetuned", "lab_report_1")]
+    monkeypatch.setattr(data, "LIVE", set())
+    assert first.markdown == data.cached("lab_report_1", "qwen_finetuned").markdown

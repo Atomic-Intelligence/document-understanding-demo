@@ -7,6 +7,7 @@ import dataclasses
 import html
 import json
 import re
+import time
 from dataclasses import dataclass
 from html.parser import HTMLParser
 from pathlib import Path
@@ -23,6 +24,12 @@ NAMES = {
     "qwen_finetuned": "Qwen VL, fine-tuned",
 }
 CACHED_MODELS = ["paddleocr_vl", "qwen_base", "qwen_finetuned"]
+
+# The models to run in the notebook instead of loading their saved outputs (see live.py). Each one reads a
+# page the first time the notebook needs it, into a folder of its own for this session, so a new session
+# runs them again.
+LIVE: set[str] = set()
+LIVE_DIR = DATA.parent / "outputs" / "live" / time.strftime("%Y%m%d-%H%M%S")
 
 
 @dataclass
@@ -320,10 +327,23 @@ PADDLE_TYPE = {"doc_title": "heading", "paragraph_title": "heading", "table": "t
                "number": "header_footer"}
 
 
+def output(model: str, page: str) -> Path:
+    """The file with a model's output on a page: its saved copy in data/cached/, or, for a model in LIVE,
+    the one it writes when it reads the page here, the first time it is asked for."""
+    name = f"{page}.json" if model == "paddleocr_vl" else f"{page}.doctags.txt"
+    if model not in LIVE:
+        return DATA / "cached" / model / name
+    path = LIVE_DIR / model / name
+    if not path.exists():
+        from . import live
+        live.run(model, page, path.parent)
+    return path
+
+
 def _paddle(page: str) -> Parsed:
     """PaddleOCR-VL's blocks, with the Markdown written from all of them in reading order. Its own Markdown
     export (the .md file) leaves out the blocks it labels as header and footer."""
-    res = json.loads((DATA / "cached" / "paddleocr_vl" / f"{page}.json").read_text(encoding="utf-8"))
+    res = json.loads(output("paddleocr_vl", page).read_text(encoding="utf-8"))
     out = Parsed("paddleocr_vl", page_image(page))
     md = []
     for b in res["blocks"]:
@@ -365,7 +385,7 @@ def _kv_lines(body: str) -> list[tuple[str, str]]:
 
 
 def _qwen(page: str, model: str) -> Parsed:
-    raw = (DATA / "cached" / model / f"{page}.doctags.txt").read_text(encoding="utf-8")
+    raw = output(model, page).read_text(encoding="utf-8")
     out = Parsed(model, page_image(page))
     md = []
     for m in _DOCTAGS.finditer(raw):
@@ -391,20 +411,15 @@ def _qwen(page: str, model: str) -> Parsed:
 def first_tag(page: str, model: str) -> tuple[str, str, str]:
     """The first block of a Qwen VL answer as the model wrote it: its tag, what is inside its <location>,
     and its text."""
-    raw = (DATA / "cached" / model / f"{page}.doctags.txt").read_text(encoding="utf-8")
+    raw = output(model, page).read_text(encoding="utf-8")
     m = _DOCTAGS.search(raw)
     if m is None:
-        raise ValueError(f"no DocTags block in the saved output of {model} for {page}")
+        raise ValueError(f"no DocTags block in the output of {model} for {page}")
     return m.group(1), m.group(2), m.group(3).strip()
 
 
-def paddle_blocks(page: str) -> list[dict]:
-    """PaddleOCR-VL's blocks in reading order: the detector's label and box, and what the VLM read."""
-    return json.loads((DATA / "cached" / "paddleocr_vl" / f"{page}.json").read_text(encoding="utf-8"))["blocks"]
-
-
 def cached(page: str, model: str) -> Parsed:
-    """A saved output of a model that needs a GPU."""
+    """The output of a model that needs a GPU: its saved copy, or, for a model in LIVE, what it reads now."""
     if model == "paddleocr_vl":
         return _paddle(page)
     if model in ("qwen_base", "qwen_finetuned"):

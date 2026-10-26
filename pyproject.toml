@@ -21,6 +21,8 @@ dependencies = [
 
 [project.optional-dependencies]
 jupyter = ["jupyterlab==4.6.4"]
+# Every model live (notebooks/demo_live.ipynb), on a GPU; paddlepaddle-gpu comes from Paddle's own index
+live = ["paddleocr[doc-parser]==3.7.0"]
 dev = ["pytest==9.1.1"]
 
 [build-system]

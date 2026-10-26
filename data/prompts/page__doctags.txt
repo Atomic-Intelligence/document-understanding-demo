@@ -1,0 +1,91 @@
+### Doctags Format Specification 
+
+* Supported block types:
+
+  1. `<heading>...</heading>`
+  2. `<paragraph>...</paragraph>`
+  3. `<table>...</table>`
+  4. `<key_value_section>...</key_value_section>`
+  5. `<list>...</list>`
+  6. `<omr_question>...</omr_question>`
+
+* For every block:
+
+  * Always include a `<location>` tag immediately after the opening tag with attributes:
+
+    * `<x1>, <y1>, <x2>, <y2>` → bounding box coordinates of the block (top-left and bottom-right corners).
+  * Preserve reading order: top-to-bottom, left-to-right.
+  * Do not merge unrelated blocks. Each logical region should be a separate doctag.
+
+* Content rules:
+
+  * Text must match the document exactly (numbers, symbols, punctuation, capitalization).
+  * Do not summarize, paraphrase, or translate. Keep the original text.
+  * Retain line breaks inside a block only if they are semantically relevant (e.g., table rows, list items).
+
+* Block-specific rules:
+
+  * `<heading>`: Section titles, headers, or document titles.
+  * `<paragraph>`: Continuous prose text.
+  * `<table>`: Transcribe tables using html.
+  * `<key_value_section>`: For fields with labels and values. Format each as `Key: Value`, one per line.
+  * `<list>`: For bullet or numbered lists. Prefix each item with `-` or the number.
+  * `<omr_question>`: Return the question, answer options if there are any, and the selected answer.
+
+* Output Restrictions (Important):
+
+  * Do NOT output Markdown formatting, code blocks, XML headers, comments, or explanations.
+  * Do NOT add metadata or instructions outside the doctags.
+  * The output must only be the doctags representation.
+
+
+### Example 
+
+<heading>  
+<location><x1>60.0</x1><y1>80.0</y1><x2>560.0</x2><y2>120.0</y2></location>  
+<text>
+Annual Business Report 2023
+</text>
+</heading>  
+
+<paragraph>  
+<location><x1>65.0</x1><y1>140.0</y1><x2>545.0</x2><y2>240.0</y2></location>  
+<text>
+The fiscal year 2023 was marked by strong growth and improved profitability. Revenue increased by 8.5% to $15,250,000, driven by successful product launches and expansion into new markets.
+</text>
+</paragraph>  
+
+<list>  
+<location><x1>70.0</x1><y1>270.0</y1><x2>470.0</x2><y2>360.0</y2></location>  
+<text>
+- Revenue growth of 8.5%
+- Gross margin improved to 45.2%  
+- Operating income up by 12%
+</text>
+</list>  
+
+<table>  
+<location><x1>75.0</x1><y1>400.0</y1><x2>575.0</x2><y2>520.0</y2></location>  
+<text>
+<table><tr><th>Year</th><th>Revenue</th><th>Operating Income</th></tr><tr><td>2022</td><td>$14,050,000</td><td>$1,875,000</td></tr><tr><td>2023</td><td>$15,250,000</td><td>$2,100,000</td></tr></table>
+</text>
+</table>  
+
+<key_value_section>
+<location><x1>80.0</x1><y1>550.0</y1><x2>430.0</x2><y2>650.0</y2></location>
+<text>
+Client: ACME Corporation
+Invoice Number: 2024-05-01
+Due Date: 07/30/2024
+</text>
+</key_value_section>
+
+<omr_question>
+<location><x>62.0</x><y>595.0</y><w>547.0</w><h>81.0</h></location>
+<text>
+Question: Koliko ste zadovoljni kvalitetom naše usluge?
+Selected answer: Zadovoljan
+Answer options: 
+<option>Vrlo nezadovoljan</option><option>Nezadovoljan</option><option>Neutralan</option><option>Zadovoljan</option><option>Vrlo zadovoljan</option>
+</text>
+</omr_question>

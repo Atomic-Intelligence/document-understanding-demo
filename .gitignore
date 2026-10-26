@@ -14,6 +14,9 @@ dist/
 # Tools
 .pytest_cache/
 
+# What the models write when they run live (src/dudemo/live.py)
+outputs/
+
 # Speaker notes: local only, not published
 notebooks/speaker_notes.md
 
