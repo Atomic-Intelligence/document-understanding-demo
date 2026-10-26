@@ -154,20 +154,6 @@ def field(page: str, label: str) -> dict:
     return next(f for f in fields if key(f["key"]) == key(label))
 
 
-def pair_of(parsed: Parsed, label: str) -> tuple[str, str] | None:
-    """The field (key, value) a parser wrote whose key is closest to `label`, or None."""
-    import difflib
-    pairs = {key(k): (k, v) for k, v in parsed.pairs}
-    match = difflib.get_close_matches(key(label), list(pairs), n=1, cutoff=0.75)
-    return pairs[match[0]] if match else None
-
-
-def value_of(parsed: Parsed, label: str) -> str | None:
-    """The value a parser wrote for the field whose key is closest to `label`, or None."""
-    pair = pair_of(parsed, label)
-    return pair[1] if pair else None
-
-
 _SUPERSCRIPT = re.compile("[⁰¹²³⁴⁵⁶⁷⁸⁹]+")
 _DIGITS = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹", "0123456789")
 
@@ -194,16 +180,43 @@ def values(parsed: Parsed) -> dict[str, str]:
     return out
 
 
+def _closest(name: str, names) -> str | None:
+    """The name in `names` that folds to the same key as `name`, or else the closest one, if close enough.
+    An exact match comes first: HDL and LDL KOLESTEROL differ by one letter."""
+    import difflib
+    folded = {key(n): n for n in names}
+    if key(name) in folded:
+        return folded[key(name)]
+    match = difflib.get_close_matches(key(name), list(folded), n=1, cutoff=0.8)
+    return folded[match[0]] if match else None
+
+
+def read(parsed: Parsed, where: str) -> str | None:
+    """What a parser wrote at a place of the page: a field by its key, or a table value as 'row · column'.
+    Labels, row names and headers are found by the closest name, since parsers misspell them too."""
+    if " · " not in where:
+        fields = dict(parsed.pairs)
+        found = _closest(where, fields)
+        return fields[found] if found else None
+    rows = {row[0]: dict(zip(table[0][1:], row[1:])) for table in parsed.tables for row in table[1:] if row}
+    name, column = where.split(" · ")
+    row = _closest(name, rows)
+    found = _closest(column, rows[row]) if row else None
+    return rows[row][found] if found else None
+
+
+def readings(page: str, *parsed: Parsed) -> list[tuple[str, list[str | None]]]:
+    """Every value of the page, by its place, with what each parser wrote there (None for nothing). The
+    places come from the page's record, so a value that no parser wrote is counted too."""
+    return [(where, [read(p, where) for p in parsed]) for where in values(ground_truth(page))]
+
+
 def wrong_values(page: str, *parsed: Parsed) -> list[tuple[str, str, list[str | None]]]:
     """The values of the page that at least one parser wrote differently or left out: where the value is,
     the value on the page, and what each parser wrote there (None when it has nothing there)."""
-    written = [{key(where): value for where, value in values(p).items()} for p in parsed]
-    wrong = []
-    for where, value in values(ground_truth(page)).items():
-        got = [w.get(key(where)) for w in written]
-        if not all(g is not None and same(g, value) for g in got):
-            wrong.append((where, value, got))
-    return wrong
+    truth = values(ground_truth(page))
+    return [(where, truth[where], got) for where, got in readings(page, *parsed)
+            if not all(g is not None and same(g, truth[where]) for g in got)]
 
 
 def row_box(page: str, label: str) -> tuple:

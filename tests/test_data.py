@@ -62,6 +62,24 @@ def test_fine_tuned_writes_every_wrong_value_right():
         assert written is not None and data.same(written, value)
 
 
+def test_read_finds_misspelled_labels_and_headers():
+    paddle = data.cached("lab_report_2", "paddleocr_vl")       # writes LIJEĆNIK, Referentini, nataste
+    assert data.read(paddle, "LIJEČNIK:") == "Dr. Ivić"
+    assert data.read(paddle, "LEUKOCITI (WBC) · Referentni interval") == "3,4 - 9,7"
+    assert data.read(paddle, "GLUKOZA (natašte) · Rezultat") == "5,25"
+    qwen = data.cached("lab_report_2", "qwen_finetuned")
+    assert data.read(qwen, "HDL KOLESTEROL · Rezultat") == "1,35"      # not LDL's, one letter away
+
+
+def test_two_parsers_never_agree_on_a_wrong_value_on_the_second_report():
+    """Step 6.4 keeps every value the two parsers agree on."""
+    truth = data.values(data.ground_truth("lab_report_2"))
+    parsers = [data.cached("lab_report_2", m) for m in ("qwen_finetuned", "paddleocr_vl")]
+    for where, (qwen, paddle) in data.readings("lab_report_2", *parsers):
+        if qwen is not None and data.same(qwen, paddle):
+            assert data.same(qwen, truth[where]), where
+
+
 def test_same_takes_superscripts_as_carets():
     assert data.same("10⁹/L", "10^9/L") and data.same("10¹²/L", " 10^12/L")
     assert not data.same("< 35", "> 35")

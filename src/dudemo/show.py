@@ -189,7 +189,7 @@ def field_error(page: str, label: str, *parsed: Parsed):
     crop = data.page_image(page).crop((x0 - 8, y0 - 3, x1 + 8, y1 + 3))
     rows = []
     for p in parsed:
-        written = data.value_of(p, label)
+        written = data.read(p, label)
         differs = written is None or data.key(written) != data.key(f["value"])
         shown = "(the field is missing)" if written is None else written
         rows.append(f'<tr><td>{p.name} wrote</td>'
@@ -222,93 +222,72 @@ def image(picture: Image.Image, title: str):
                  f'<img src="{_png(picture)}" style="border:1px solid #d0d4d8">'))
 
 
-STATUS = {"passed": ("#2E9E5B", "passed the checks"), "fixed": ("#1A73E8", "fixed by a rule"),
+STATUS = {"same": ("#2E9E5B", "same in both"), "rule": ("#1A73E8", "decided by a rule"),
           "person": ("#E89B00", "left for a person"), "right": ("#2E9E5B", "right"), "wrong": ("#D93025", "wrong")}
+WORST = ["same", "rule", "person", "right", "wrong"]      # a table row takes the last of its values' statuses
 
 
-def _box(page_1: str, page_2: str, item: dict) -> tuple[int, tuple]:
-    """Which page a checked row or field is on, and its box there: a row of the first report's tables, or a
-    field of the second report, found by the closest label."""
-    if "Parameter" in item:
-        return 0, data.row_box(page_1, item["Parameter"])
-    label, _ = data.pair_of(data.ground_truth(page_2), item["Field"])
-    return 1, tuple(data.field(page_2, label)["box"])
+def _place_box(page: str, where: str) -> tuple:
+    """The box of a place on the page: a field's key and value, or the whole row of a table value."""
+    if " · " in where:
+        return data.row_box(page, where.split(" · ")[0])
+    return tuple(data.field(page, where)["box"])
 
 
-def _two_pages(page_1: str, page_2: str, boxes: list[tuple[int, tuple, str]], titles: list[str], legend: list[str]):
-    """Both reports in one picture, each box filled lightly in its status's colour, scaled to the output."""
-    pages = [data.page_image(page_1).convert("RGBA"), data.page_image(page_2).convert("RGBA")]
-    for n, box, status in boxes:
-        color = STATUS[status][0]
-        layer = Image.new("RGBA", pages[n].size, (0, 0, 0, 0))
-        pen = ImageDraw.Draw(layer)
-        x0, y0, x1, y1 = box
+def _on_the_page(page: str, marks: list[tuple[str, str]], legend: list[str]):
+    """The page with one box per field and per table row, filled lightly in the colour of its status."""
+    status = {}
+    for where, mark in marks:
+        box = _place_box(page, where)
+        if box not in status or WORST.index(mark) > WORST.index(status[box]):
+            status[box] = mark
+    image = data.page_image(page).convert("RGBA")
+    layer = Image.new("RGBA", image.size, (0, 0, 0, 0))
+    pen = ImageDraw.Draw(layer)
+    for (x0, y0, x1, y1), mark in status.items():
+        color = STATUS[mark][0]
         pen.rectangle((x0 - LINE, y0 - LINE, x1 + LINE, y1 + LINE), fill=color + "40", outline=color, width=LINE)
-        pages[n] = Image.alpha_composite(pages[n], layer)
-    gap, band = 40, 70
-    font = ImageFont.load_default(size=36)
-    picture = Image.new("RGB", (sum(p.width for p in pages) + gap, band + max(p.height for p in pages)), "white")
-    pen = ImageDraw.Draw(picture)
-    x = 0
-    for page, title in zip(pages, titles):
-        pen.text((x, 14), title, fill="#111111", font=font)
-        picture.paste(page.convert("RGB"), (x, band))
-        pen.rectangle((x, band, x + page.width - 1, band + page.height - 1), outline="#d0d4d8", width=2)
-        x += page.width + gap
-    keys = "".join(f'<span style="display:inline-block;width:12px;height:12px;border:3px solid {STATUS[s][0]};'
-                   f'background:{STATUS[s][0]}40;margin:0 4px 0 12px;vertical-align:middle"></span>{STATUS[s][1]}'
-                   for s in legend)
-    display(HTML(f'{STYLE}<img src="{_png(picture)}" style="width:100%;max-width:{picture.width // 2}px">'
-                 f'<div style="font-size:13px;margin-top:6px">{keys}</div>'))
+    image = Image.alpha_composite(image, layer).convert("RGB")
+    keys = "".join(f'<span style="display:inline-block;width:12px;height:12px;border:3px solid {STATUS[m][0]};'
+                   f'background:{STATUS[m][0]}40;margin:0 4px 0 12px;vertical-align:middle"></span>{STATUS[m][1]}'
+                   for m in legend)
+    display(HTML(f'{STYLE}<img src="{_png(image)}" style="width:100%;max-width:{image.width}px;'
+                 f'border:1px solid #d0d4d8"><div style="font-size:13px;margin-top:6px">{keys}</div>'))
 
 
-TITLES = ["Report 1: Docling's tables", "Report 2: patient fields"]
+def decisions(page: str, decided: list[tuple[str, str | None, str]]):
+    """Every value of the page as decided: the same in both parsers, decided by a rule, or left for a
+    person. A table row shows the furthest of its values."""
+    _on_the_page(page, [(where, status) for where, _, status in decided], ["same", "rule", "person"])
 
 
-def statuses(page_1: str, rows: list[dict], page_2: str, fields: list[dict]):
-    """Every checked row and field as a box on its report, in the colour of its status: passed the checks,
-    fixed by a rule, or left for a person."""
-    boxes = [(*_box(page_1, page_2, item), item["status"]) for item in rows + fields]
-    _two_pages(page_1, page_2, boxes, TITLES, ["passed", "fixed", "person"])
-
-
-def for_a_person(page_1: str, rows: list[dict], page_2: str, fields: list[dict]):
-    """What is left for a person: that part of the page, enlarged, and what was written for it. The page is
-    the only answer shown; the person reads it."""
-    for item in [i for i in rows + fields if i["status"] == "person"]:
-        n, (x0, y0, x1, y1) = _box(page_1, page_2, item)
-        crop = data.page_image([page_1, page_2][n]).crop((x0 - 8, y0 - 3, x1 + 8, y1 + 3))
+def for_a_person(page: str, decided: list[tuple], readings: list[tuple], names: list[str]):
+    """Each place left for a person: that part of the page, enlarged, and what each parser wrote there. The
+    page is the only answer shown; the person reads it."""
+    written = dict(readings)
+    for where, _, status in decided:
+        if status != "person":
+            continue
+        x0, y0, x1, y1 = _place_box(page, where)
+        crop = data.page_image(page).crop((x0 - 8, y0 - 3, x1 + 8, y1 + 3))
         crop = crop.resize((crop.width * 2, crop.height * 2), Image.LANCZOS)
-        if n == 0:
-            written = _row_table(["Parametar", "Rezultat", "Jedinica", "Referentni interval", "Flag"],
-                                 [item[c] for c in ("Parameter", "Result", "Unit", "Range", "Flag")])
-        else:
-            written = '<table class="dd-row">' + "".join(
-                f'<tr><td>{name} wrote</td><td><code>{html.escape(item[name])}</code></td></tr>'
-                for name in ("Qwen VL, fine-tuned", "PaddleOCR-VL")) + "</table>"
-        display(HTML(f'{STYLE}<div class="dd-title">{html.escape(item.get("Parameter") or item["Field"])}</div>'
-                     f'<img src="{_png(crop)}" style="max-width:100%;border:1px solid #d0d4d8">{written}'))
+        rows = "".join(f'<tr><td>{name} wrote</td><td><code>{html.escape(value or "(nothing)")}</code></td></tr>'
+                       for name, value in zip(names, written[where]))
+        display(HTML(f'{STYLE}<div class="dd-title">{html.escape(where)}</div>'
+                     f'<img src="{_png(crop)}" style="max-width:100%;border:1px solid #d0d4d8">'
+                     f'<table class="dd-row" style="margin-top:8px">{rows}</table>'))
 
 
-def score(page_1: str, rows: list[dict], page_2: str, fields: list[dict]):
-    """Every row and field, as it ends, held against the ground truth: right or wrong on its report, and how
-    many are right in the end."""
-    truth_1, truth_2 = data.ground_truth(page_1), data.ground_truth(page_2)
-    boxes, right = [], 0
-    for item in rows + fields:
-        if "Parameter" in item:
-            _, on_page = find_row(truth_1.tables, item["Parameter"])
-            written = [item[c] for c in ("Parameter", "Result", "Unit", "Range", "Flag")]
-            ok = all(data.same(w, p) for w, p in zip(written, on_page))
-        else:
-            _, on_page = data.pair_of(truth_2, item["Field"])
-            ok = item["Value"] is not None and data.same(item["Value"], on_page)
-        right += ok
-        boxes.append((*_box(page_1, page_2, item), "right" if ok else "wrong"))
-    _two_pages(page_1, page_2, boxes, TITLES, ["right", "wrong"])
-    total = len(rows) + len(fields)
-    display(HTML(f'<div style="font-size:20px;font-weight:700;margin:10px 0">Right in the end: {right} of {total} '
-                 f'({100 * right / total:.0f} %)</div>'))
+def score(page: str, final: list[tuple[str, str | None]]):
+    """Every value of the page, as it ends, held against the ground truth: right or wrong on the page (a
+    table row is wrong if any of its values is), and how many values are right in the end."""
+    truth = data.values(data.ground_truth(page))
+    marks = [(where, "right" if value is not None and data.same(value, truth[where]) else "wrong")
+             for where, value in final]
+    _on_the_page(page, marks, ["right", "wrong"])
+    right = sum(mark == "right" for _, mark in marks)
+    display(HTML(f'<div style="font-size:20px;font-weight:700;margin:10px 0">Right in the end: {right} of '
+                 f'{len(marks)} values ({100 * right / len(marks):.0f} %)</div>'))
 
 
 def markdown(parsed: Parsed | str, title: str | None = None, closed: bool = False):
@@ -367,10 +346,11 @@ def row_error(page: str, label: str, parsed: Parsed):
 
 
 def table(frame):
-    """A table without its index column, with every failed check (a cell starting with ✗) marked red. A
-    parser's table can have two columns of the same name; it is shown as it is, without the marking pandas
-    cannot do there."""
-    styled = frame.style.hide(axis="index").set_table_styles(
+    """A table without its index column, with every failed check (a cell starting with ✗) marked red. Cells
+    show what was written: a parser's LaTeX stays LaTeX instead of being typeset. A parser's table can have
+    two columns of the same name; it is shown as it is, without the marking pandas cannot do there."""
+    styled = frame.style.hide(axis="index").set_table_attributes('class="tex2jax_ignore mathjax_ignore"')
+    styled = styled.set_table_styles(
         [{"selector": "td, th", "props": "font-size:14px;padding:3px 10px;text-align:left"}])
     if frame.columns.is_unique:
         styled = styled.map(lambda v: "background:#fde2e1;color:#b00020;font-weight:600" if str(v).startswith("✗") else "")
