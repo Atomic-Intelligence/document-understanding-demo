@@ -38,6 +38,11 @@ def test_row_lies_inside_its_table():
     assert table[1] < row[1] < row[3] < table[3]
 
 
+def test_a_row_is_in_its_own_table_when_two_stand_side_by_side():
+    left, right = data.table_box("lab_report_2", "LEUKOCITI (WBC)"), data.table_box("lab_report_2", "GLUKOZA (natašte)")
+    assert left[2] < right[0]
+
+
 def test_first_tag_is_the_first_block():
     for model in ("qwen_base", "qwen_finetuned"):
         tag, location, text = data.first_tag("lab_report_1", model)

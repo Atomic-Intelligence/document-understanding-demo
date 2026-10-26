@@ -214,9 +214,11 @@ def row_box(page: str, label: str) -> tuple:
 
 
 def table_box(page: str, label: str, pad: float = 0) -> tuple:
-    """The box of the table that holds the row whose first cell is `label`, widened by `pad` pixels."""
+    """The box of the table that holds the row whose first cell is `label`, widened by `pad` pixels. Two
+    tables can stand side by side, so the cell must be inside the table both ways."""
     cell = next(c for c in table_cells(page) if key(c["text"]) == key(label))
-    x0, y0, x1, y1 = next(t for t in table_regions(page) if t[1] <= cell["box"][1] <= t[3])
+    x0, y0, x1, y1 = next(t for t in table_regions(page)
+                          if t[0] <= cell["box"][0] <= t[2] and t[1] <= cell["box"][1] <= t[3])
     return (x0 - pad, y0 - pad, x1 + pad, y1 + pad)
 
 
