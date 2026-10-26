@@ -58,23 +58,30 @@ last time is loaded from `data/cached/`:
 ```python
 LIVE = {
     "docling": False,
-    "paddleocr_vl": False,      # needs a GPU
-    "qwen_base": False,         # needs a GPU
-    "qwen_finetuned": False,    # needs a GPU, and its weights in DUDEMO_FINETUNED
+    "paddleocr_vl": False,      # True starts a vLLM server: a GPU with 10 GB free
+    "qwen_base": False,         # True starts a vLLM server: a GPU with 13 GB free
+    "qwen_finetuned": False,    # the same, and its weights in DUDEMO_FINETUNED
 }
 ```
 
 All are cached by default, so the notebook runs anywhere in seconds. A cached engine prints when its
 output was written and how long it took (`data/cached/runs.json`); a live one prints how long it takes
-here. On a CPU, one page of PaddleOCR-VL or Qwen VL takes many minutes, so those need a GPU with 16 GB.
+here.
 
-- **Colab:** choose a GPU runtime (Runtime → Change runtime type) before setting a GPU engine live. With
-  PaddleOCR-VL live, the setup cell installs it too.
+Docling runs live in the notebook, on a CPU or a GPU. PaddleOCR-VL and Qwen VL each start a vLLM server on
+the GPU when the notebook first needs them, one at a time: the server reads both reports and stops again.
+On an A40, a server takes 1 to 1.5 minutes to start; then PaddleOCR-VL reads a page in about 2 s and Qwen
+VL in 30 to 45 s.
+
+- **Colab:** choose a GPU runtime (Runtime → Change runtime type) before setting a GPU engine live. The
+  setup cell then also installs vLLM, which replaces Colab's torch with 2.8, and PaddleOCR-VL if it is
+  live; that takes a few minutes. This is not tested on Colab yet.
 - **Locally, on a GPU machine:**
 
   ```bash
-  pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128   # a CUDA 12 build
-  pip install -e ".[jupyter,live]"
+  pip install -e ".[jupyter,live]"          # vLLM 0.10.2 for the servers, with torch 2.8 for CUDA 12
+  # PaddleOCR-VL's server needs flash-attn; its wheels are on GitHub (this one: Python 3.12)
+  pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp312-cp312-linux_x86_64.whl
   # paddlepaddle-gpu pins exact CUDA 12.6 libraries; it runs on torch's newer ones, so it goes in
   # without its dependencies, and its few others after it
   pip install paddlepaddle-gpu==3.2.0 --no-deps -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
@@ -82,8 +89,8 @@ here. On a CPU, one page of PaddleOCR-VL or Qwen VL takes many minutes, so those
   ```
 
 The fine-tuned model's weights are not published: set `DUDEMO_FINETUNED` to their folder or Hugging Face
-repo id to run it. Qwen VL runs with transformers here, and its saved outputs came from vLLM, so a live
-answer can differ from the saved one in places.
+repo id to run it. With the saved outputs' settings, Qwen VL's live answers are the same as the saved
+ones; PaddleOCR-VL's saved outputs came from its native engine, so with the server a few words can differ.
 
 ## Repository layout
 

@@ -21,8 +21,10 @@ dependencies = [
 
 [project.optional-dependencies]
 jupyter = ["jupyterlab==4.6.4"]
-# PaddleOCR-VL live (LIVE in the notebook's setup), on a GPU; paddlepaddle-gpu comes from Paddle's own index
-live = ["paddleocr[doc-parser]==3.7.0"]
+# The GPU engines live (LIVE in the notebook's setup): their vLLM servers and PaddleOCR-VL's pipeline.
+# vLLM 0.10.2 brings torch 2.8; flash-attn and paddlepaddle-gpu are installed apart (see README).
+live = ["paddleocr[doc-parser]==3.7.0", "paddlex[genai-vllm-server]==3.7.2", "vllm==0.10.2",
+        "transformers==4.57.6"]
 dev = ["pytest==9.1.1"]
 
 [build-system]

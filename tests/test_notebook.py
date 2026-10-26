@@ -52,6 +52,14 @@ def test_every_engine_is_cached_by_default():
     assert not any(namespace["LIVE"].values())
 
 
+def test_the_choice_says_how_much_gpu_memory_each_server_needs():
+    from dudemo import live
+    first = "".join(next(c for c in cells() if c["cell_type"] == "code")["source"])
+    for engine in ("paddleocr_vl", "qwen_base"):
+        line = next(line for line in first.splitlines() if f'"{engine}"' in line)
+        assert f"{live.GPU_GB[engine]} GB free" in line
+
+
 def test_copy_with_outputs_has_the_same_cells():
     """demo_with_outputs.ipynb is demo.ipynb run once; regenerate it when demo.ipynb changes:
     jupyter nbconvert --to notebook --execute notebooks/demo.ipynb --output demo_with_outputs.ipynb"""
