@@ -13,14 +13,15 @@ so their outputs on the same page are included in the repository.
 ## What the notebook shows
 
 1. **The page**: a synthetic Croatian lab report with tables, key-value fields and units.
-2. **Docling on the page**: the regions it finds, coloured by type, next to the Markdown it writes.
-3. **The same page, three other parsers**: PaddleOCR-VL, general Qwen VL and fine-tuned Qwen VL.
-4. **Three kinds of error**: visibly broken, structure wrong, and silent errors (a wrong value that is well-formed and looks right).
-5. **General and fine-tuned Qwen VL**: the regions each one finds and the ones it misses.
-6. **Checks after extraction**: simple rules on Docling's table, and what a second parser adds.
-7. **A table across pages**: the header is lost after a page break, and comes back when both parts are
-   read together.
-8. **Your own document**: Docling on a file of your choice.
+2. **Docling on the page**: the regions it finds, the tables it reads and the Markdown it writes.
+3. **The same page, two other parsers**: PaddleOCR-VL and general Qwen VL, next to Docling.
+4. **Fine-tuning Qwen VL**: the general and the fine-tuned model side by side, what fine-tuning fixed and
+   what it did not.
+5. **Three kinds of error**: visibly broken, structure wrong, and silent (a wrong value that is
+   well-formed and looks right).
+6. **Checks after extraction**: simple rules on Docling's tables, and a second parser on the patient
+   fields.
+7. **Your own document**: Docling on a file of your choice.
 
 ## Run on Colab
 

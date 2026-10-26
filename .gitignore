@@ -14,9 +14,6 @@ dist/
 # Tools
 .pytest_cache/
 
-# What the notebook writes when it runs
-outputs/
-
 # Speaker notes: local only, not published
 notebooks/speaker_notes.md
 

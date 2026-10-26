@@ -222,15 +222,6 @@ def image(picture: Image.Image, title: str):
                  f'<img src="{_png(picture)}" style="border:1px solid #d0d4d8">'))
 
 
-def page_break(end_of_page: Image.Image, top_of_next: Image.Image):
-    """Two parts of a table, one above the other, with the page break between them."""
-    display(HTML(f"""{STYLE}
-<div class="dd-title">End of page 1</div><img src="{_png(end_of_page)}" style="border:1px solid #d0d4d8">
-<div style="border-top:3px dashed #8a9199;margin:14px 0 4px;width:{end_of_page.width}px"></div>
-<div style="font-size:13px;color:#555">page break</div>
-<div class="dd-title">Top of page 2</div><img src="{_png(top_of_next)}" style="border:1px solid #d0d4d8">"""))
-
-
 def markdown(parsed: Parsed | str, title: str | None = None, closed: bool = False):
     """Rendered Markdown, of a parser's output or of a Markdown string; with `closed`, folded under its
     title until clicked."""
