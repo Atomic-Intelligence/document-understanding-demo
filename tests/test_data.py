@@ -47,6 +47,21 @@ def test_first_tag_is_the_first_block():
         assert text == "KLINIČKI BOLNIČKI CENTAR ZAGREB"
 
 
+def test_fine_tuned_writes_every_wrong_value_right():
+    """Step 4.3 says so: on the first page, each value one of the Qwen models gets wrong, the fine-tuned one
+    has right."""
+    general, fine_tuned = (data.cached("lab_report_1", m) for m in ("qwen_base", "qwen_finetuned"))
+    wrong = data.wrong_values("lab_report_1", general, fine_tuned)
+    assert wrong
+    for _, value, (_, written) in wrong:
+        assert written is not None and data.same(written, value)
+
+
+def test_same_takes_superscripts_as_carets():
+    assert data.same("10⁹/L", "10^9/L") and data.same("10¹²/L", " 10^12/L")
+    assert not data.same("< 35", "> 35")
+
+
 def test_html_rows():
     rows = data.html_rows("<table><tr><th>a</th><th>b</th></tr><tr><td>1<br>2</td><td> x </td></tr></table>")
     assert rows == [["a", "b"], ["1 2", "x"]]

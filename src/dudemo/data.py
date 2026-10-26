@@ -166,6 +166,37 @@ def value_of(parsed: Parsed, label: str) -> str | None:
     return keys[match[0]] if match else None
 
 
+_SUPERSCRIPTS = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹", "0123456789", "^")
+
+
+def same(a: str, b: str) -> bool:
+    """Two values read the same: equal apart from spacing, with 10⁹ and 10^9 taken as one notation."""
+    return " ".join(a.translate(_SUPERSCRIPTS).split()) == " ".join(b.translate(_SUPERSCRIPTS).split())
+
+
+def values(parsed: Parsed) -> dict[str, str]:
+    """Every value a parser wrote, by where it is: a key-value field by its key, a table cell as
+    'row · column', with the row named by its first cell and the column by the table's first row."""
+    out = dict(parsed.pairs)
+    for table in parsed.tables:
+        for row in table[1:]:
+            for column, cell in zip(table[0][1:], row[1:]):
+                out[f"{row[0]} · {column}"] = cell
+    return out
+
+
+def wrong_values(page: str, *parsed: Parsed) -> list[tuple[str, str, list[str | None]]]:
+    """The values of the page that at least one parser wrote differently or left out: where the value is,
+    the value on the page, and what each parser wrote there (None when it has nothing there)."""
+    written = [{key(where): value for where, value in values(p).items()} for p in parsed]
+    wrong = []
+    for where, value in values(ground_truth(page)).items():
+        got = [w.get(key(where)) for w in written]
+        if not all(g is not None and same(g, value) for g in got):
+            wrong.append((where, value, got))
+    return wrong
+
+
 def row_box(page: str, label: str) -> tuple:
     """The box (x0, y0, x1, y1) of the table row whose first cell is `label`, as wide as its table."""
     cell = next(c for c in table_cells(page) if key(c["text"]) == key(label))

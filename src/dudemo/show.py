@@ -214,6 +214,20 @@ def field_error(page: str, label: str, *parsed: Parsed):
 {"".join(rows)}</table>"""))
 
 
+def wrong_values(page: str, *parsed: Parsed):
+    """A table of the values on the page that at least one parser wrote differently or left out: the value
+    on the page, and what each parser wrote, red where it differs from the page."""
+    def cell(value, differs=False):
+        shown = "(missing)" if value is None else value or "(empty)"
+        return f'<td class="{"diff" if differs else ""}"><code>{html.escape(shown)}</code></td>'
+    rows = "".join(
+        f'<tr><td>{html.escape(where)}</td>{cell(value)}'
+        + "".join(cell(g, g is None or not data.same(g, value)) for g in got) + "</tr>"
+        for where, value, got in data.wrong_values(page, *parsed))
+    header = "".join(f"<th>{p.name}</th>" for p in parsed)
+    display(HTML(f'{STYLE}<table class="dd-row"><tr><th></th><th>On the page</th>{header}</tr>{rows}</table>'))
+
+
 def image(picture: Image.Image, title: str):
     """One image at its own size."""
     display(HTML(f'{STYLE}<div class="dd-title">{title}</div>'
