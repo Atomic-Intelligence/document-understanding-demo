@@ -9,7 +9,7 @@ import io
 
 import marko
 from IPython.display import HTML, display
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 from . import data
 from .data import Parsed
@@ -110,13 +110,23 @@ def parse(parsed: Parsed, missed_from: Parsed | None = None):
 
 
 def side_by_side(*parsed: Parsed, missed_from: Parsed | None = None):
-    """Two or more parsers' regions on the same page, next to each other."""
-    panels = "".join(
-        f'<div><div class="dd-title">{p.name}</div>'
-        f'<img src="{_png(regions_image(p, missed_from))}" width="{PAGE_WIDTH}" style="border:1px solid #d0d4d8">'
-        f'</div>' for p in parsed)
+    """Two or more parsers' regions on the same page, drawn into one picture with each parser's name
+    above its page, scaled to the width of the output so the pages stay in one row on any screen."""
+    pages = [regions_image(p, missed_from) for p in parsed]
+    gap, band = 40, 70
+    font = ImageFont.load_default(size=40)
+    width = sum(page.width for page in pages) + gap * (len(pages) - 1)
+    height = band + max(page.height for page in pages)
+    picture = Image.new("RGB", (width, height), "white")
+    pen = ImageDraw.Draw(picture)
+    x = 0
+    for page, p in zip(pages, parsed):
+        pen.text((x, 12), p.name, fill="#111111", font=font)
+        picture.paste(page, (x, band))
+        pen.rectangle((x, band, x + page.width - 1, band + page.height - 1), outline="#d0d4d8", width=2)
+        x += page.width + gap
     types = {b.type for p in parsed for b in p.blocks}
-    display(HTML(f'{STYLE}<div style="display:flex;gap:24px;flex-wrap:wrap">{panels}</div>'
+    display(HTML(f'{STYLE}<img src="{_png(picture)}" style="width:100%;max-width:{width // 2}px">'
                  f'{_legend(types, missed_from is not None)}'))
 
 
