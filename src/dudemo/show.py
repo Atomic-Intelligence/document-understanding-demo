@@ -127,6 +127,45 @@ def regions(parsed: Parsed, title: str | None = None):
                  f'{_legend({b.type for b in parsed.blocks})}'))
 
 
+def compare(*parsed: Parsed, missed_from: Parsed | None = None):
+    """Two or more parsers next to each other: each one's regions, and its rendered Markdown below."""
+    columns = "".join(
+        f'<div style="width:{PAGE_WIDTH}px"><div class="dd-title">{p.name}</div>'
+        f'<img src="{_png(regions_image(p, missed_from))}" width="{PAGE_WIDTH}" style="border:1px solid #d0d4d8">'
+        f'<div class="dd-md" style="height:420px;margin-top:10px">{_rendered(p.markdown)}</div></div>'
+        for p in parsed)
+    types = {b.type for p in parsed for b in p.blocks}
+    display(HTML(f'{STYLE}<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">{columns}</div>'
+                 f'{_legend(types, missed_from is not None)}'))
+
+
+def texts(outputs: list[str], titles: list[str]):
+    """Raw outputs next to each other, as written."""
+    columns = "".join(
+        f'<div style="flex:1;min-width:360px"><div class="dd-title">{t}</div>'
+        f'<pre style="white-space:pre-wrap;font-size:12px;background:#f6f8fa;color:#111;padding:8px 10px;'
+        f'border:1px solid #d0d4d8">{html.escape(o)}</pre></div>' for o, t in zip(outputs, titles))
+    display(HTML(f'{STYLE}<div style="display:flex;gap:16px;flex-wrap:wrap">{columns}</div>'))
+
+
+def field_error(page: str, label: str, parsed: Parsed):
+    """One key-value field: the field on the page, enlarged, what the ground truth holds for it, and what
+    the parser wrote. A value that differs from the page is marked red."""
+    f = data.field(page, label)
+    x0, y0, x1, y1 = f["box"]
+    crop = data.page_image(page).crop((x0 - 8, y0 - 3, x1 + 8, y1 + 3))
+    written = data.value_of(parsed, label)
+    differs = written is None or data.key(written) != data.key(f["value"])
+    shown = "(the field is missing)" if written is None else written
+    cell = (f'<td class="{"diff" if differs else ""}"><code>{html.escape(shown)}</code></td>')
+    display(HTML(f"""{STYLE}
+<img src="{_png(crop.resize((crop.width * 2, crop.height * 2), Image.LANCZOS))}" style="max-width:100%;border:1px solid #d0d4d8">
+<table class="dd-row" style="margin-top:10px">
+<tr><th></th><th><code>{html.escape(f["key"])}</code></th></tr>
+<tr><td>On the page</td><td><code>{html.escape(f["value"])}</code></td></tr>
+<tr><td>{parsed.name} wrote</td>{cell}</tr></table>"""))
+
+
 def image(picture: Image.Image, title: str):
     """One image at its own size."""
     display(HTML(f'{STYLE}<div class="dd-title">{title}</div>'

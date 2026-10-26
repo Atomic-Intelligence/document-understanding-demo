@@ -151,6 +151,20 @@ def table_regions(page: str) -> list[tuple]:
     return [tuple(r["box"]) for r in gt["regions"] if r["type"] == "table"]
 
 
+def field(page: str, label: str) -> dict:
+    """A key-value field of the ground truth: its key, its value, and one box around both."""
+    fields = json.loads((DATA / "ground_truth" / f"{page}.json").read_text(encoding="utf-8"))["fields"]
+    return next(f for f in fields if key(f["key"]) == key(label))
+
+
+def value_of(parsed: Parsed, label: str) -> str | None:
+    """The value a parser wrote for the field whose key is closest to `label`, or None."""
+    import difflib
+    keys = {key(k): v for k, v in parsed.pairs}
+    match = difflib.get_close_matches(key(label), list(keys), n=1, cutoff=0.75)
+    return keys[match[0]] if match else None
+
+
 def row_box(page: str, label: str) -> tuple:
     """The box (x0, y0, x1, y1) of the table row whose first cell is `label`, as wide as its table."""
     cell = next(c for c in table_cells(page) if key(c["text"]) == key(label))
