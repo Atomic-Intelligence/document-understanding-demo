@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import ast
+import dataclasses
 import html
 import json
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -35,10 +36,10 @@ class Parsed:
     """What one parser returned for one page."""
     model: str
     page: Image.Image
-    blocks: list[Block] = field(default_factory=list)
+    blocks: list[Block] = dataclasses.field(default_factory=list)
     markdown: str = ""
-    tables: list[list[list[str]]] = field(default_factory=list)   # table -> row -> cell text
-    pairs: list[tuple[str, str]] = field(default_factory=list)    # key-value fields
+    tables: list[list[list[str]]] = dataclasses.field(default_factory=list)   # table -> row -> cell text
+    pairs: list[tuple[str, str]] = dataclasses.field(default_factory=list)    # key-value fields
 
     @property
     def name(self) -> str:
