@@ -294,6 +294,8 @@ def first_tag(page: str, model: str) -> tuple[str, str, str]:
     and its text."""
     raw = (DATA / "cached" / model / f"{page}.doctags.txt").read_text(encoding="utf-8")
     m = _DOCTAGS.search(raw)
+    if m is None:
+        raise ValueError(f"no DocTags block in the saved output of {model} for {page}")
     return m.group(1), m.group(2), m.group(3).strip()
 
 
