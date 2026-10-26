@@ -120,6 +120,13 @@ def side_by_side(*parsed: Parsed, missed_from: Parsed | None = None):
                  f'{_legend(types, missed_from is not None)}'))
 
 
+def regions(parsed: Parsed, title: str | None = None):
+    """One parser's regions on the page, at the page's own size, with the legend."""
+    display(HTML(f'{STYLE}<div class="dd-title">{title or parsed.name}</div>'
+                 f'<img src="{_png(regions_image(parsed))}" style="border:1px solid #d0d4d8">'
+                 f'{_legend({b.type for b in parsed.blocks})}'))
+
+
 def image(picture: Image.Image, title: str):
     """One image at its own size."""
     display(HTML(f'{STYLE}<div class="dd-title">{title}</div>'
@@ -194,8 +201,10 @@ def error(example: dict, parsed: Parsed, truth: Parsed):
 
 
 def table(frame):
-    """A results table from the checks, with every failed check marked red."""
-    styled = (frame.style.hide(axis="index")
-              .map(lambda v: "background:#fde2e1;color:#b00020;font-weight:600" if v == "✗" else "")
-              .set_table_styles([{"selector": "td, th", "props": "font-size:14px;padding:3px 10px;text-align:left"}]))
+    """A table without its index column, with every failed check (✗) marked red. A parser's table can
+    have two columns of the same name; it is shown as it is, without the marking pandas cannot do there."""
+    styled = frame.style.hide(axis="index").set_table_styles(
+        [{"selector": "td, th", "props": "font-size:14px;padding:3px 10px;text-align:left"}])
+    if frame.columns.is_unique:
+        styled = styled.map(lambda v: "background:#fde2e1;color:#b00020;font-weight:600" if v == "✗" else "")
     display(styled)
