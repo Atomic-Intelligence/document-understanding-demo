@@ -173,13 +173,18 @@ PADDLE_TYPE = {"doc_title": "heading", "paragraph_title": "heading", "table": "t
 
 
 def _paddle(page: str) -> Parsed:
-    folder = DATA / "cached" / "paddleocr_vl"
-    res = json.loads((folder / f"{page}.json").read_text(encoding="utf-8"))
-    out = Parsed("paddleocr_vl", page_image(page), markdown=(folder / f"{page}.md").read_text(encoding="utf-8"))
+    """PaddleOCR-VL's blocks, with the Markdown written from all of them in reading order. Its own Markdown
+    export (the .md file) leaves out the blocks it labels as header and footer."""
+    res = json.loads((DATA / "cached" / "paddleocr_vl" / f"{page}.json").read_text(encoding="utf-8"))
+    out = Parsed("paddleocr_vl", page_image(page))
+    md = []
     for b in res["blocks"]:
-        out.blocks.append(Block(PADDLE_TYPE.get(b["label"], "text"), tuple(b["box"])))
+        kind = PADDLE_TYPE.get(b["label"], "text")
+        out.blocks.append(Block(kind, tuple(b["box"])))
         if b["label"] == "table":
             out.tables.append(html_rows(b["content"]))
+        md.append(f"### {b['content']}" if kind == "heading" else b["content"])
+    out.markdown = "\n\n".join(md)
     out.pairs = pairs_from_tables(out.tables)
     return out
 
