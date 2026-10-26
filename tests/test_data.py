@@ -38,10 +38,13 @@ def test_row_lies_inside_its_table():
     assert table[1] < row[1] < row[3] < table[3]
 
 
-def test_first_blocks_ends_at_a_block():
-    text = data.first_blocks(data.raw_text("lab_report_1", "qwen_finetuned"), 5)
-    assert text.rstrip().endswith("</key_value_section>")
-    assert text.count("<location>") == 5
+def test_first_tag_is_the_first_block():
+    for model in ("qwen_base", "qwen_finetuned"):
+        tag, location, text = data.first_tag("lab_report_1", model)
+        first = data.cached("lab_report_1", model).blocks[0]
+        assert data.QWEN_TYPE[tag] == first.type
+        assert [float(n) for n in data._NUMBER.findall(location)] == list(first.box)
+        assert text == "KLINIČKI BOLNIČKI CENTAR ZAGREB"
 
 
 def test_html_rows():

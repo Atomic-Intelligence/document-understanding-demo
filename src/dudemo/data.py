@@ -254,18 +254,12 @@ def _qwen(page: str, model: str) -> Parsed:
     return out
 
 
-def raw_text(page: str, model: str) -> str:
-    """A saved output exactly as the model wrote it: Markdown for PaddleOCR-VL, DocTags for Qwen VL."""
-    if model == "paddleocr_vl":
-        return (DATA / "cached" / model / f"{page}.md").read_text(encoding="utf-8")
-    return (DATA / "cached" / model / f"{page}.doctags.txt").read_text(encoding="utf-8")
-
-
-def first_blocks(doctags: str, n: int) -> str:
-    """The start of a DocTags answer, up to the end of its n-th block."""
-    ends = [m.end() for m in re.finditer(r"</(heading|paragraph|list|table|key_value_section|omr_question)>\s*\n",
-                                         doctags)]
-    return doctags[:ends[n - 1]] if len(ends) >= n else doctags
+def first_tag(page: str, model: str) -> tuple[str, str, str]:
+    """The first block of a Qwen VL answer as the model wrote it: its tag, what is inside its <location>,
+    and its text."""
+    raw = (DATA / "cached" / model / f"{page}.doctags.txt").read_text(encoding="utf-8")
+    m = _DOCTAGS.search(raw)
+    return m.group(1), m.group(2), m.group(3).strip()
 
 
 def paddle_blocks(page: str) -> list[dict]:

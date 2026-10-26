@@ -6,6 +6,7 @@ from __future__ import annotations
 import base64
 import html
 import io
+import re
 
 import marko
 from IPython.display import HTML, display
@@ -149,13 +150,47 @@ def compare(*parsed: Parsed, missed_from: Parsed | None = None):
                  f'{_legend(types, missed_from is not None)}'))
 
 
-def texts(outputs: list[str], titles: list[str]):
-    """Raw outputs next to each other, as written."""
-    columns = "".join(
-        f'<div style="flex:1;min-width:360px"><div class="dd-title">{t}</div>'
-        f'<pre style="white-space:pre-wrap;font-size:12px;background:#f6f8fa;color:#111;padding:8px 10px;'
-        f'border:1px solid #d0d4d8">{html.escape(o)}</pre></div>' for o, t in zip(outputs, titles))
-    display(HTML(f'{STYLE}<div style="display:flex;gap:16px;flex-wrap:wrap">{columns}</div>'))
+def _coordinates(location: str) -> str:
+    """The numbers inside <location>, one per line, as HTML. A closing tag that does not close the tag
+    opened before it is red."""
+    lines = []
+    for piece in re.findall(r".*?</\w+>", "".join(location.split())):
+        m = re.fullmatch(r"(?:<(\w+)>)?([^<]*)</(\w+)>", piece)
+        if not m:
+            lines.append(html.escape(piece))
+            continue
+        opened, number, closed = m.groups()
+        end = html.escape(f"</{closed}>")
+        if opened != closed:
+            end = f'<span style="color:{MISSED};font-weight:700">{end}</span>'
+        lines.append((html.escape(f"<{opened}>") if opened else "") + html.escape(number) + end)
+    return "\n".join("  " + line for line in lines)
+
+
+def first_tag(page: str, *parsed: Parsed):
+    """Each Qwen VL model's first block as it wrote it, with the numbers of its <location> one per line.
+    Below it, the box those numbers give on the top of the page, drawn just outside so its text stays visible."""
+    bottom = min(p.page.height for p in parsed)
+    bottom = min(bottom, max(p.blocks[0].box[3] for p in parsed) + 40)
+    columns = []
+    for p in parsed:
+        tag, location, text = data.first_tag(page, p.model)
+        text = " ".join(text.split())
+        color = COLORS[p.blocks[0].type]
+        top = p.page.crop((0, 0, p.page.width, bottom))
+        x0, y0, x1, y1 = p.blocks[0].box
+        ImageDraw.Draw(top).rectangle((x0 - LINE, y0 - LINE, x1 + LINE, y1 + LINE), outline=color, width=LINE)
+        written = (f'{html.escape(f"<{tag}>")}\n'
+                   f'<span style="display:block;border-left:4px solid {color};padding-left:6px">'
+                   f'{html.escape("<location>")}\n{_coordinates(location)}\n{html.escape("</location>")}</span>'
+                   f'{html.escape(f"<text>{text}</text>")}\n{html.escape(f"</{tag}>")}')
+        columns.append(
+            f'<div><div class="dd-title">{p.name}</div>'
+            f'<pre style="white-space:pre-wrap;font-size:13px;background:#f6f8fa;color:#111;padding:8px 10px;'
+            f'border:1px solid #d0d4d8;margin:0 0 10px">{written}</pre>'
+            f'<img src="{_png(top)}" style="width:100%;border:1px solid #d0d4d8"></div>')
+    display(HTML(f'{STYLE}<div style="display:grid;grid-template-columns:repeat({len(parsed)},minmax(0,1fr));'
+                 f'gap:24px;max-width:{2 * PAGE_WIDTH + 24}px">{"".join(columns)}</div>'))
 
 
 def field_error(page: str, label: str, parsed: Parsed):
