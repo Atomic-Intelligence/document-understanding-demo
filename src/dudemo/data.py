@@ -260,6 +260,30 @@ def readings(page: str, *parsed: Parsed, text: bool = False) -> list[tuple[str, 
                      for p in parsed]) for where in truth]
 
 
+def with_answers(decided: list[tuple[str, str | None, str]], readings: list[tuple[str, list]],
+                 answers: dict) -> list[tuple[str, str | None]]:
+    """Every place as it ends: what was decided, or, for a place left for a person, the person's answer. For
+    a field or table value the answer is the value. For a title or paragraph it is a list with the words
+    the page has at each spot where the two readings differ, in order; the rest of the text is where they
+    agree."""
+    import difflib
+    written = dict(readings)
+    final = []
+    for where, value, status in decided:
+        answer = answers.get(where)
+        if status == "person" and where.startswith("Text: ") and answer is not None:
+            words, other = written[where][0].split(), written[where][1].split()
+            spots = [op for op in difflib.SequenceMatcher(None, words, other).get_opcodes() if op[0] != "equal"]
+            if len(spots) != len(answer):
+                answer = None
+            else:
+                for (_, i1, i2, _, _), said in reversed(list(zip(spots, answer))):
+                    words[i1:i2] = said.split()
+                answer = " ".join(words)
+        final.append((where, answer if status == "person" else value))
+    return final
+
+
 def wrong_values(page: str, *parsed: Parsed) -> list[tuple[str, str, list[str | None]]]:
     """The values of the page that at least one parser wrote differently or left out: where the value is,
     the value on the page, and what each parser wrote there (None when it has nothing there)."""

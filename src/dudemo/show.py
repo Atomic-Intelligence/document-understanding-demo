@@ -222,10 +222,9 @@ def image(picture: Image.Image, title: str):
                  f'<img src="{_png(picture)}" style="border:1px solid #d0d4d8">'))
 
 
-STATUS = {"same": ("#2E9E5B", "same in both"), "kept": ("#8E6BBF", "no rule: first parser kept"),
-          "rule": ("#1A73E8", "decided by a rule"), "person": ("#E89B00", "left for a person"),
-          "right": ("#2E9E5B", "right"), "wrong": ("#D93025", "wrong")}
-WORST = ["same", "kept", "rule", "person", "right", "wrong"]   # a table row takes the last of its values' statuses
+STATUS = {"same": ("#2E9E5B", "same in both"), "rule": ("#1A73E8", "decided by a rule"),
+          "person": ("#E89B00", "left for a person"), "right": ("#2E9E5B", "right"), "wrong": ("#D93025", "wrong")}
+WORST = ["same", "rule", "person", "right", "wrong"]      # a table row takes the last of its values' statuses
 
 
 def _place_box(page: str, where: str) -> tuple:
@@ -293,14 +292,15 @@ def disagreements(readings: list[tuple[str, list]], names: list[str]):
 
 
 def decisions(page: str, decided: list[tuple[str, str | None, str]]):
-    """Every place of the page as decided: the same in both parsers, kept from the first parser where no rule
-    applies, decided by a rule, or left for a person. A table row shows the furthest of its values."""
-    _on_the_page(page, [(where, status) for where, _, status in decided], ["same", "kept", "rule", "person"])
+    """Every place of the page as decided: the same in both parsers, decided by a rule, or left for a
+    person. A table row shows the furthest of its values."""
+    _on_the_page(page, [(where, status) for where, _, status in decided], ["same", "rule", "person"])
 
 
 def for_a_person(page: str, decided: list[tuple], readings: list[tuple], names: list[str]):
-    """Each place left for a person: that part of the page, enlarged, and what each parser wrote there. The
-    page is the only answer shown; the person reads it."""
+    """Each place left for a person: that part of the page, enlarged, and what each parser wrote there; for a
+    title or paragraph, only the words where the two differ, in bold. The page is the only answer shown;
+    the person reads it."""
     written = dict(readings)
     for where, _, status in decided:
         if status != "person":
@@ -308,11 +308,16 @@ def for_a_person(page: str, decided: list[tuple], readings: list[tuple], names: 
         x0, y0, x1, y1 = _place_box(page, where)
         crop = data.page_image(page).crop((x0 - 8, y0 - 3, x1 + 8, y1 + 3))
         crop = crop.resize((crop.width * 2, crop.height * 2), Image.LANCZOS)
-        rows = "".join(f'<tr><td>{name} wrote</td><td><code>{html.escape(value or "(nothing)")}</code></td></tr>'
-                       for name, value in zip(names, written[where]))
+        a, b = written[where]
+        if where.startswith("Text: ") and a and b:
+            shown = [_differing_words(a, b), _differing_words(b, a)]
+        else:
+            shown = [f"<code>{html.escape(v or '(nothing)')}</code>" for v in (a, b)]
+        rows = "".join(f'<tr><td style="{CELL}">{name} wrote</td><td style="{CELL}">{value}</td></tr>'
+                       for name, value in zip(names, shown))
         display(HTML(f'{STYLE}<div class="dd-title">{html.escape(where)}</div>'
                      f'<img src="{_png(crop)}" style="max-width:100%;border:1px solid #d0d4d8">'
-                     f'<table class="dd-row" style="margin-top:8px">{rows}</table>'))
+                     f'<table style="margin-top:8px">{rows}</table>'))
 
 
 def score(page: str, final: list[tuple[str, str | None]]):

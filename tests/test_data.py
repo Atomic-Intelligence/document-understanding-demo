@@ -87,6 +87,17 @@ def test_two_parsers_never_agree_on_a_wrong_value_on_the_second_report():
             assert data.same(qwen, truth[where]), where
 
 
+def test_answers_fill_in_the_words_where_two_readings_differ():
+    parsers = [data.cached("lab_report_2", m) for m in ("qwen_finetuned", "paddleocr_vl")]
+    readings = data.readings("lab_report_2", *parsers, text=True)
+    where = "Text: Pronađene su povišene koncentracije …"
+    decided = [(where, None, "person")]
+    [(_, filled)] = data.with_answers(decided, readings, {where: ["Pronađene", "daljnjeg", "praćenja"]})
+    assert filled == data.page_values("lab_report_2", text=True)[where]
+    [(_, too_few)] = data.with_answers(decided, readings, {where: ["Pronađene"]})
+    assert too_few is None
+
+
 def test_same_takes_superscripts_as_carets():
     assert data.same("10⁹/L", "10^9/L") and data.same("10¹²/L", " 10^12/L")
     assert not data.same("< 35", "> 35")
