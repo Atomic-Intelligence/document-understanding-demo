@@ -138,18 +138,6 @@ def regions(parsed: Parsed, title: str | None = None):
                  f'{_legend({b.type for b in parsed.blocks})}'))
 
 
-def compare(*parsed: Parsed, missed_from: Parsed | None = None):
-    """Two or more parsers next to each other: each one's regions, and its rendered Markdown below."""
-    columns = "".join(
-        f'<div style="width:{PAGE_WIDTH}px"><div class="dd-title">{p.name}</div>'
-        f'<img src="{_png(regions_image(p, missed_from))}" width="{PAGE_WIDTH}" style="border:1px solid #d0d4d8">'
-        f'<div class="dd-md" style="height:420px;margin-top:10px">{_rendered(p.markdown)}</div></div>'
-        for p in parsed)
-    types = {b.type for p in parsed for b in p.blocks}
-    display(HTML(f'{STYLE}<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">{columns}</div>'
-                 f'{_legend(types, missed_from is not None)}'))
-
-
 def _coordinates(location: str) -> str:
     """The numbers inside <location>, one per line, as HTML. A closing tag that does not close the tag
     opened before it is red."""
