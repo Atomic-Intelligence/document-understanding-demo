@@ -251,6 +251,7 @@ def _qwen(page: str, model: str) -> Parsed:
         else:
             md.append(body)
     out.markdown = "\n\n".join(md)
+    out.pairs += pairs_from_tables(out.tables)    # fields it wrote as a table, as PaddleOCR-VL does
     return out
 
 

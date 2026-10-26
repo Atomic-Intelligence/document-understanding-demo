@@ -193,22 +193,25 @@ def first_tag(page: str, *parsed: Parsed):
                  f'gap:24px;max-width:{2 * PAGE_WIDTH + 24}px">{"".join(columns)}</div>'))
 
 
-def field_error(page: str, label: str, parsed: Parsed):
+def field_error(page: str, label: str, *parsed: Parsed):
     """One key-value field: the field on the page, enlarged, what the ground truth holds for it, and what
-    the parser wrote. A value that differs from the page is marked red."""
+    each parser wrote. A value that differs from the page is marked red."""
     f = data.field(page, label)
     x0, y0, x1, y1 = f["box"]
     crop = data.page_image(page).crop((x0 - 8, y0 - 3, x1 + 8, y1 + 3))
-    written = data.value_of(parsed, label)
-    differs = written is None or data.key(written) != data.key(f["value"])
-    shown = "(the field is missing)" if written is None else written
-    cell = (f'<td class="{"diff" if differs else ""}"><code>{html.escape(shown)}</code></td>')
+    rows = []
+    for p in parsed:
+        written = data.value_of(p, label)
+        differs = written is None or data.key(written) != data.key(f["value"])
+        shown = "(the field is missing)" if written is None else written
+        rows.append(f'<tr><td>{p.name} wrote</td>'
+                    f'<td class="{"diff" if differs else ""}"><code>{html.escape(shown)}</code></td></tr>')
     display(HTML(f"""{STYLE}
 <img src="{_png(crop.resize((crop.width * 2, crop.height * 2), Image.LANCZOS))}" style="max-width:100%;border:1px solid #d0d4d8">
 <table class="dd-row" style="margin-top:10px">
 <tr><th></th><th><code>{html.escape(f["key"])}</code></th></tr>
 <tr><td>On the page</td><td><code>{html.escape(f["value"])}</code></td></tr>
-<tr><td>{parsed.name} wrote</td>{cell}</tr></table>"""))
+{"".join(rows)}</table>"""))
 
 
 def image(picture: Image.Image, title: str):
