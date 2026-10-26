@@ -49,11 +49,33 @@ jupyter lab notebooks/demo.ipynb
 Docling downloads its layout, table and OCR models on first use. The setup cell of the notebook does
 this, so later cells run without waiting for downloads.
 
+## Every model live
+
+`notebooks/demo_live.ipynb` is the same notebook with every model run in it instead of loaded from
+`data/cached/`: Docling, PaddleOCR-VL and Qwen VL, general and fine-tuned. Each run prints how long it took.
+It needs a GPU with 16 GB; on a CPU, one page of PaddleOCR-VL or Qwen VL takes many minutes.
+
+- **Colab:** open it ([in Colab](https://colab.research.google.com/github/Atomic-Intelligence/document-understanding-demo/blob/main/notebooks/demo_live.ipynb)),
+  choose a GPU runtime and run the cells from the top. The setup cell also installs PaddleOCR-VL.
+- **Locally, on a GPU machine:**
+
+  ```bash
+  pip install torch torchvision                    # the CUDA build
+  pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
+  pip install -e ".[jupyter,live]"
+  jupyter lab notebooks/demo_live.ipynb
+  ```
+
+The fine-tuned model's weights are not published. Set `DUDEMO_FINETUNED` to their folder or Hugging Face
+repo id to run it; without it, that model is loaded from `data/cached/`. Qwen VL runs with transformers
+here, and its saved outputs came from vLLM, so a live answer can differ from the saved one in places.
+
 ## Repository layout
 
 | Path | Contents |
 |---|---|
 | `notebooks/demo.ipynb` | The demo notebook |
+| `notebooks/demo_live.ipynb` | The same notebook with every model run live, on a GPU (see "Every model live") |
 | `notebooks/demo_with_outputs.ipynb` | The same notebook run once, with every output saved, to look through without running it ([open in Colab](https://colab.research.google.com/github/Atomic-Intelligence/document-understanding-demo/blob/main/notebooks/demo_with_outputs.ipynb)) |
 | `src/dudemo/` | Helpers the notebook imports: loading pages and saved outputs, drawing regions, rendering Markdown |
 | `data/` | The pages, their ground truth and the saved outputs of the GPU models (see `data/README.md`) |
