@@ -205,16 +205,65 @@ def read(parsed: Parsed, where: str) -> str | None:
     return rows[row][found] if found else None
 
 
-def readings(page: str, *parsed: Parsed) -> list[tuple[str, list[str | None]]]:
-    """Every value of the page, by its place, with what each parser wrote there (None for nothing). The
-    places come from the page's record, so a value that no parser wrote is counted too."""
-    return [(where, [read(p, where) for p in parsed]) for where in values(ground_truth(page))]
+def _text_place(text: str) -> str:
+    """The place of a title or paragraph: 'Text:' and its first words."""
+    words = text.split()
+    return "Text: " + " ".join(words[:4]) + (" …" if len(words) > 4 else "")
+
+
+def _text_regions(page: str) -> list[dict]:
+    gt = json.loads((DATA / "ground_truth" / f"{page}.json").read_text(encoding="utf-8"))
+    return [r for r in gt["regions"] if "text" in r]
+
+
+def text_box(page: str, where: str) -> tuple:
+    """The box of the title or paragraph at a 'Text: …' place."""
+    return tuple(next(r["box"] for r in _text_regions(page) if _text_place(r["text"]) == where))
+
+
+def page_values(page: str, text: bool = False) -> dict[str, str]:
+    """Every value of the page by its place, from the page's record: each field, each table value and,
+    with `text`, each title and paragraph."""
+    out = values(ground_truth(page))
+    if text:
+        out |= {_text_place(r["text"]): " ".join(r["text"].split()) for r in _text_regions(page)}
+    return out
+
+
+def read_text(parsed: Parsed, text: str) -> str | None:
+    """What a parser wrote for a title or paragraph of the page: the part of its text that lines up with
+    it. A parser can put two lines of the page in one block, so the block is cut to the part that
+    matches; what it wrote differently inside that part stays."""
+    import difflib
+    chunks = [" ".join(c.lstrip("# ").split()) for c in parsed.markdown.split("\n\n")]
+    chunks = [c for c in chunks if c and not c.startswith(("<table", "**", "|"))]
+
+    def lined_up(chunk):
+        blocks = [b for b in difflib.SequenceMatcher(None, chunk, text, autojunk=False).get_matching_blocks()
+                  if b.size]
+        return sum(b.size for b in blocks), blocks
+
+    best = max(chunks, key=lambda c: lined_up(c)[0], default=None)
+    if best is None or lined_up(best)[0] < len(text) / 2:
+        return None
+    blocks = lined_up(best)[1]
+    start, end = blocks[0].a - blocks[0].b, blocks[-1].a + blocks[-1].size + (len(text) - blocks[-1].b - blocks[-1].size)
+    return best[max(start, 0):end].strip()
+
+
+def readings(page: str, *parsed: Parsed, text: bool = False) -> list[tuple[str, list[str | None]]]:
+    """Every value of the page, by its place, with what each parser wrote there (None for nothing); with
+    `text`, every title and paragraph too. The places come from the page's record, so a value that no
+    parser wrote is counted too."""
+    truth = page_values(page, text)
+    return [(where, [read_text(p, truth[where]) if where.startswith("Text: ") else read(p, where)
+                     for p in parsed]) for where in truth]
 
 
 def wrong_values(page: str, *parsed: Parsed) -> list[tuple[str, str, list[str | None]]]:
     """The values of the page that at least one parser wrote differently or left out: where the value is,
     the value on the page, and what each parser wrote there (None when it has nothing there)."""
-    truth = values(ground_truth(page))
+    truth = page_values(page)
     return [(where, truth[where], got) for where, got in readings(page, *parsed)
             if not all(g is not None and same(g, truth[where]) for g in got)]
 

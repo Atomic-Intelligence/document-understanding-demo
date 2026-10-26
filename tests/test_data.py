@@ -71,11 +71,18 @@ def test_read_finds_misspelled_labels_and_headers():
     assert data.read(qwen, "HDL KOLESTEROL · Rezultat") == "1,35"      # not LDL's, one letter away
 
 
+def test_read_text_cuts_a_block_to_the_part_that_lines_up():
+    paddle = data.cached("lab_report_2", "paddleocr_vl")      # puts the hospital's name and address in one block
+    name = 'KLINIČKI BOLNIČKI CENTAR "DR. FRAN MIHALJEVIĆ"'
+    assert data.read_text(paddle, name) == name
+    assert data.read_text(paddle, "(Ivan Perić)") == "(Ivan Peric)"
+
+
 def test_two_parsers_never_agree_on_a_wrong_value_on_the_second_report():
-    """Step 6.4 keeps every value the two parsers agree on."""
-    truth = data.values(data.ground_truth("lab_report_2"))
+    """Step 6.4 keeps every value, title and paragraph the two parsers agree on."""
+    truth = data.page_values("lab_report_2", text=True)
     parsers = [data.cached("lab_report_2", m) for m in ("qwen_finetuned", "paddleocr_vl")]
-    for where, (qwen, paddle) in data.readings("lab_report_2", *parsers):
+    for where, (qwen, paddle) in data.readings("lab_report_2", *parsers, text=True):
         if qwen is not None and data.same(qwen, paddle):
             assert data.same(qwen, truth[where]), where
 

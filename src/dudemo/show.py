@@ -222,13 +222,17 @@ def image(picture: Image.Image, title: str):
                  f'<img src="{_png(picture)}" style="border:1px solid #d0d4d8">'))
 
 
-STATUS = {"same": ("#2E9E5B", "same in both"), "rule": ("#1A73E8", "decided by a rule"),
-          "person": ("#E89B00", "left for a person"), "right": ("#2E9E5B", "right"), "wrong": ("#D93025", "wrong")}
-WORST = ["same", "rule", "person", "right", "wrong"]      # a table row takes the last of its values' statuses
+STATUS = {"same": ("#2E9E5B", "same in both"), "kept": ("#8E6BBF", "no rule: first parser kept"),
+          "rule": ("#1A73E8", "decided by a rule"), "person": ("#E89B00", "left for a person"),
+          "right": ("#2E9E5B", "right"), "wrong": ("#D93025", "wrong")}
+WORST = ["same", "kept", "rule", "person", "right", "wrong"]   # a table row takes the last of its values' statuses
 
 
 def _place_box(page: str, where: str) -> tuple:
-    """The box of a place on the page: a field's key and value, or the whole row of a table value."""
+    """The box of a place on the page: a title or paragraph, a field's key and value, or the whole row of a
+    table value."""
+    if where.startswith("Text: "):
+        return data.text_box(page, where)
     if " · " in where:
         return data.row_box(page, where.split(" · ")[0])
     return tuple(data.field(page, where)["box"])
@@ -255,10 +259,43 @@ def _on_the_page(page: str, marks: list[tuple[str, str]], legend: list[str]):
                  f'border:1px solid #d0d4d8"><div style="font-size:13px;margin-top:6px">{keys}</div>'))
 
 
+def _differing_words(a: str, b: str) -> str:
+    """`a` as HTML, cut to the words where it differs from `b`, in bold, with a word on each side."""
+    import difflib
+    words, other = a.split(), b.split()
+    spans = [(i1, i2) for op, i1, i2, _, _ in difflib.SequenceMatcher(None, words, other).get_opcodes()
+             if op != "equal"]
+    parts = []
+    for i1, i2 in spans:
+        before, after = words[max(i1 - 1, 0):i1], words[i2:i2 + 1]
+        parts.append(" ".join([*map(html.escape, before), *(f"<b>{html.escape(w)}</b>" for w in words[i1:i2]),
+                               *map(html.escape, after)]))
+    return " … ".join(parts) or html.escape(a)
+
+
+CELL = "text-align:left;vertical-align:top;padding:3px 10px;font-size:14px;border-bottom:1px solid #e3e6e9"
+
+
+def disagreements(readings: list[tuple[str, list]], names: list[str]):
+    """The places where two parsers wrote different things. For a title or paragraph, only the words that
+    differ are shown, in bold, with a word of context on each side."""
+    rows = []
+    for where, (a, b) in readings:
+        if a is not None and b is not None and data.same(a, b):
+            continue
+        if where.startswith("Text: ") and a and b:
+            cells = [_differing_words(a, b), _differing_words(b, a)]
+        else:
+            cells = [html.escape(v) if v is not None else "(nothing)" for v in (a, b)]
+        rows.append("<tr>" + "".join(f'<td style="{CELL}">{c}</td>' for c in [html.escape(where), *cells]) + "</tr>")
+    head = "".join(f'<th style="{CELL}">{n}</th>' for n in ["Place", *names])
+    display(HTML(f'{STYLE}<table class="tex2jax_ignore mathjax_ignore"><tr>{head}</tr>{"".join(rows)}</table>'))
+
+
 def decisions(page: str, decided: list[tuple[str, str | None, str]]):
-    """Every value of the page as decided: the same in both parsers, decided by a rule, or left for a
-    person. A table row shows the furthest of its values."""
-    _on_the_page(page, [(where, status) for where, _, status in decided], ["same", "rule", "person"])
+    """Every place of the page as decided: the same in both parsers, kept from the first parser where no rule
+    applies, decided by a rule, or left for a person. A table row shows the furthest of its values."""
+    _on_the_page(page, [(where, status) for where, _, status in decided], ["same", "kept", "rule", "person"])
 
 
 def for_a_person(page: str, decided: list[tuple], readings: list[tuple], names: list[str]):
@@ -279,15 +316,15 @@ def for_a_person(page: str, decided: list[tuple], readings: list[tuple], names: 
 
 
 def score(page: str, final: list[tuple[str, str | None]]):
-    """Every value of the page, as it ends, held against the ground truth: right or wrong on the page (a
-    table row is wrong if any of its values is), and how many values are right in the end."""
-    truth = data.values(data.ground_truth(page))
+    """Every place of the page, as it ends, held against the ground truth: right or wrong on the page (a
+    table row is wrong if any of its values is), and how many places are right in the end."""
+    truth = data.page_values(page, text=True)
     marks = [(where, "right" if value is not None and data.same(value, truth[where]) else "wrong")
              for where, value in final]
     _on_the_page(page, marks, ["right", "wrong"])
     right = sum(mark == "right" for _, mark in marks)
     display(HTML(f'<div style="font-size:20px;font-weight:700;margin:10px 0">Right in the end: {right} of '
-                 f'{len(marks)} values ({100 * right / len(marks):.0f} %)</div>'))
+                 f'{len(marks)} ({100 * right / len(marks):.0f} %)</div>'))
 
 
 def markdown(parsed: Parsed | str, title: str | None = None, closed: bool = False):
