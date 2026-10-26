@@ -59,10 +59,6 @@ def key(text: str) -> str:
     return re.sub(r"[^0-9a-zà-ž]", "", text.casefold())
 
 
-def examples() -> list[dict]:
-    return json.loads((DATA / "examples.json").read_text(encoding="utf-8"))
-
-
 # --------------------------------------------------------------------------- tables in HTML
 
 class _Rows(HTMLParser):
@@ -166,12 +162,19 @@ def value_of(parsed: Parsed, label: str) -> str | None:
     return keys[match[0]] if match else None
 
 
-_SUPERSCRIPTS = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹", "0123456789", "^")
+_SUPERSCRIPT = re.compile("[⁰¹²³⁴⁵⁶⁷⁸⁹]+")
+_DIGITS = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹", "0123456789")
+
+
+def _caret(text: str) -> str:
+    """Superscript digits written with a caret, 10⁹ as 10^9, and spacing made even."""
+    return " ".join(_SUPERSCRIPT.sub(lambda m: "^" + m.group().translate(_DIGITS), text).split())
 
 
 def same(a: str, b: str) -> bool:
-    """Two values read the same: equal apart from spacing, with 10⁹ and 10^9 taken as one notation."""
-    return " ".join(a.translate(_SUPERSCRIPTS).split()) == " ".join(b.translate(_SUPERSCRIPTS).split())
+    """Two values read the same: equal apart from spacing, with 10⁹ and 10^9 taken as one notation. A lost
+    superscript is a difference: 109 is not 10⁹."""
+    return _caret(a) == _caret(b)
 
 
 def values(parsed: Parsed) -> dict[str, str]:

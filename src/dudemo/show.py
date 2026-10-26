@@ -260,10 +260,9 @@ def _row_table(header, row, against=None) -> str:
     in that row is marked red, whatever the row's shape."""
     if row is None:
         return '<p style="color:#b00020;font-size:14px">(the row is missing)</p>'
-    present = {data.key(c) for c in against} if against is not None else None
-    cells = "".join(
-        f'<td class="{"diff" if present is not None and c.strip() and data.key(c) not in present else ""}">'
-        f'<code>{html.escape(c)}</code></td>' for c in row)
+    def differs(cell):
+        return against is not None and cell.strip() and not any(data.same(cell, c) for c in against)
+    cells = "".join(f'<td class="{"diff" if differs(c) else ""}"><code>{html.escape(c)}</code></td>' for c in row)
     head = "".join(f"<th><code>{html.escape(c)}</code></th>" for c in header)
     return f'<table class="dd-row"><tr>{head}</tr><tr>{cells}</tr></table>'
 
@@ -275,15 +274,13 @@ def row_crop(page: str, label: str, pad: int = 8) -> Image.Image:
     return crop.resize((crop.width * 2, crop.height * 2), Image.LANCZOS)
 
 
-def error(example: dict, parsed: Parsed, truth: Parsed):
-    """One error: the row on the page, the row as the ground truth has it, and as the parser wrote it.
-    Cells that differ from the ground truth are marked red."""
-    header, row = find_row(truth.tables, example["row"])
-    out_header, out_row = find_row(parsed.tables, example["row"])
+def row_error(page: str, label: str, parsed: Parsed):
+    """One table row: the row on the page, enlarged; the row as the page has it; and the row as the parser
+    wrote it, with every cell that is not in the page's row marked red."""
+    header, row = find_row(data.ground_truth(page).tables, label)
+    out_header, out_row = find_row(parsed.tables, label)
     display(HTML(f"""{STYLE}
-<div class="dd-title">{example["kind"]}: {parsed.name}</div>
-<p style="margin:2px 0 8px">{example["note"]}</p>
-<img src="{_png(row_crop(example["page"], example["row"]))}" style="max-width:100%;border:1px solid #d0d4d8">
+<img src="{_png(row_crop(page, label))}" style="max-width:100%;border:1px solid #d0d4d8">
 <p style="margin:10px 0 2px;font-size:13px;color:#555">On the page</p>{_row_table(header, row)}
 <p style="margin:10px 0 2px;font-size:13px;color:#555">{parsed.name} wrote</p>
 {_row_table(out_header or [], out_row, against=row)}"""))

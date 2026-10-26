@@ -60,14 +60,9 @@ def test_fine_tuned_writes_every_wrong_value_right():
 def test_same_takes_superscripts_as_carets():
     assert data.same("10⁹/L", "10^9/L") and data.same("10¹²/L", " 10^12/L")
     assert not data.same("< 35", "> 35")
+    assert not data.same("10⁹/L", "109/L") and not data.same("10¹²/L", "1012/L")
 
 
 def test_html_rows():
     rows = data.html_rows("<table><tr><th>a</th><th>b</th></tr><tr><td>1<br>2</td><td> x </td></tr></table>")
     assert rows == [["a", "b"], ["1 2", "x"]]
-
-
-def test_every_example_points_at_a_row_on_its_page():
-    for example in data.examples():
-        _, row = find_row(data.ground_truth(example["page"]).tables, example["row"])
-        assert row is not None
