@@ -85,7 +85,7 @@ def test_read_text_finds_nothing_for_a_line_the_parser_left_out():
 
 
 def test_two_parsers_never_agree_on_a_wrong_value_on_the_second_report():
-    """Step 6.4 keeps every value, title and paragraph the two parsers agree on."""
+    """Step 7.2 keeps every value, title and paragraph the two parsers agree on."""
     truth = data.page_values("lab_report_2", text=True)
     parsers = [data.cached("lab_report_2", m) for m in ("qwen_finetuned", "paddleocr_vl")]
     for where, (qwen, paddle) in data.readings("lab_report_2", *parsers, text=True):

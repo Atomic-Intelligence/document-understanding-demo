@@ -16,7 +16,8 @@ SECTIONS = [
     "## 4. Fine-tuning Qwen VL",
     "## 5. Three kinds of error",
     "## 6. Checks after extraction",
-    "## 7. Try your own document",
+    "## 7. Two parsers, rules and a person",
+    "## 8. Try your own document",
 ]
 
 
