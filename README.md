@@ -19,8 +19,8 @@ so their outputs on the same page are included in the repository.
    what it did not.
 5. **Three kinds of error**: visibly broken, structure wrong, and silent (a wrong value that is
    well-formed and looks right).
-6. **Checks after extraction**: simple rules on Docling's tables, and a second parser on the patient
-   fields.
+6. **Checks after extraction**: simple rules on Docling's tables, a second parser on the patient fields,
+   and what ends up with a person.
 7. **Your own document**: Docling on a file of your choice.
 
 ## Run on Colab

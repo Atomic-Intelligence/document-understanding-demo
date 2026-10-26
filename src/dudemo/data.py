@@ -154,12 +154,18 @@ def field(page: str, label: str) -> dict:
     return next(f for f in fields if key(f["key"]) == key(label))
 
 
+def pair_of(parsed: Parsed, label: str) -> tuple[str, str] | None:
+    """The field (key, value) a parser wrote whose key is closest to `label`, or None."""
+    import difflib
+    pairs = {key(k): (k, v) for k, v in parsed.pairs}
+    match = difflib.get_close_matches(key(label), list(pairs), n=1, cutoff=0.75)
+    return pairs[match[0]] if match else None
+
+
 def value_of(parsed: Parsed, label: str) -> str | None:
     """The value a parser wrote for the field whose key is closest to `label`, or None."""
-    import difflib
-    keys = {key(k): v for k, v in parsed.pairs}
-    match = difflib.get_close_matches(key(label), list(keys), n=1, cutoff=0.75)
-    return keys[match[0]] if match else None
+    pair = pair_of(parsed, label)
+    return pair[1] if pair else None
 
 
 _SUPERSCRIPT = re.compile("[⁰¹²³⁴⁵⁶⁷⁸⁹]+")
