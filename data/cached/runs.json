@@ -1,0 +1,49 @@
+{
+ "_about": "How each saved output in data/cached/ was written: the date, and per page the seconds it took on each device it was timed on. The first device is the one the saved output comes from.",
+ "docling": {
+  "date": "2026-10-26",
+  "with": "Docling 2.131.0, the notebook's settings (section 2.1)",
+  "pages": {
+   "lab_report_1": {
+    "a CPU (AMD EPYC 7313)": 26.8,
+    "an NVIDIA A40 GPU": 4.1
+   }
+  }
+ },
+ "paddleocr_vl": {
+  "date": "2026-10-22",
+  "with": "paddleocr 3.7.0, PaddleOCRVL(pipeline_version=\"v1.6\")",
+  "pages": {
+   "lab_report_1": {
+    "an NVIDIA A40 GPU": 24.8
+   },
+   "lab_report_2": {
+    "an NVIDIA A40 GPU": 25.9
+   }
+  }
+ },
+ "qwen_base": {
+  "date": "2026-10-22",
+  "with": "vLLM 0.10.2, float16, greedy",
+  "pages": {
+   "lab_report_1": {
+    "an NVIDIA A40 GPU": 82.8
+   },
+   "lab_report_2": {
+    "an NVIDIA A40 GPU": 59.9
+   }
+  }
+ },
+ "qwen_finetuned": {
+  "date": "2026-10-22",
+  "with": "vLLM 0.10.2, float16, greedy",
+  "pages": {
+   "lab_report_1": {
+    "an NVIDIA A40 GPU": 76.1
+   },
+   "lab_report_2": {
+    "an NVIDIA A40 GPU": 93.4
+   }
+  }
+ }
+}

@@ -31,14 +31,6 @@ FINETUNED = "DUDEMO_FINETUNED"          # where the fine-tuned weights are: a fo
 _loaded: dict = {}                      # the one model on the GPU: {name: model}
 
 
-def available() -> list[str]:
-    """The models that can run here: PaddleOCR-VL if paddleocr is installed, the general Qwen VL, and the
-    fine-tuned one if its weights are set in DUDEMO_FINETUNED."""
-    import importlib.util
-    models = ["paddleocr_vl"] if importlib.util.find_spec("paddleocr") else []
-    return models + ["qwen_base"] + (["qwen_finetuned"] if os.environ.get(FINETUNED) else [])
-
-
 def _weights(model: str) -> tuple[str, str | None]:
     if model == "qwen_finetuned":
         if not os.environ.get(FINETUNED):

@@ -24,11 +24,13 @@ NAMES = {
     "qwen_finetuned": "Qwen VL, fine-tuned",
 }
 CACHED_MODELS = ["paddleocr_vl", "qwen_base", "qwen_finetuned"]
+ENGINES = ["docling", *CACHED_MODELS]
 
-# The models to run in the notebook instead of loading their saved outputs (see live.py). Each one reads a
-# page the first time the notebook needs it, into a folder of its own for this session, so a new session
-# runs them again.
+# The engines to run in the notebook instead of loading their saved outputs (the notebook sets it in its
+# setup; see live.py). Each one reads a page the first time the notebook needs it, into a folder of its own
+# for this session, so a new session runs them again.
 LIVE: set[str] = set()
+_told: set[tuple[str, str]] = set()             # (engine, page) whose saved output was announced
 LIVE_DIR = DATA.parent / "outputs" / "live" / time.strftime("%Y%m%d-%H%M%S")
 
 
@@ -327,11 +329,27 @@ PADDLE_TYPE = {"doc_title": "heading", "paragraph_title": "heading", "table": "t
                "number": "header_footer"}
 
 
+def saved_note(engine: str, page: str) -> str:
+    """Where a saved output comes from: when it was written, and how long the engine took for the page on
+    each device it was timed on (data/cached/runs.json)."""
+    run = json.loads((DATA / "cached" / "runs.json").read_text(encoding="utf-8"))[engine]
+    times = [f"{seconds:.0f} s on {device}" for device, seconds in run["pages"][page].items()]
+    return (f"{NAMES[engine]}, {page}: loaded from data/cached/, written on {run['date']}. It took "
+            + (", and ".join(times)) + ".")
+
+
+def _tell(engine: str, page: str):
+    if (engine, page) not in _told:
+        _told.add((engine, page))
+        print(saved_note(engine, page))
+
+
 def output(model: str, page: str) -> Path:
-    """The file with a model's output on a page: its saved copy in data/cached/, or, for a model in LIVE,
-    the one it writes when it reads the page here, the first time it is asked for."""
+    """The file with a model's output on a page: its saved copy in data/cached/, announced the first time,
+    or, for a model in LIVE, the one it writes when it reads the page here, the first time it is asked for."""
     name = f"{page}.json" if model == "paddleocr_vl" else f"{page}.doctags.txt"
     if model not in LIVE:
+        _tell(model, page)
         return DATA / "cached" / model / name
     path = LIVE_DIR / model / name
     if not path.exists():
@@ -427,7 +445,14 @@ def cached(page: str, model: str) -> Parsed:
     raise ValueError(f"no saved outputs for {model!r}; saved: {', '.join(CACHED_MODELS)}")
 
 
-# --------------------------------------------------------------------------- Docling, run in the notebook
+# --------------------------------------------------------------------------- Docling
+
+def docling_document(page: str):
+    """Docling's saved DoclingDocument for a page, with its page image, as section 2.2 would have it."""
+    from docling_core.types.doc import DoclingDocument
+    _tell("docling", page)
+    return DoclingDocument.load_from_json(DATA / "cached" / "docling" / f"{page}.json")
+
 
 DOCLING_TYPE = {"title": "heading", "section_header": "heading", "table": "table", "document_index": "table",
                 "list_item": "list", "key_value_region": "key_value", "form": "key_value",

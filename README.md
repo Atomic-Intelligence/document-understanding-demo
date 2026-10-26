@@ -7,8 +7,9 @@ Compared" (Filip Pavičić, Atomic Intelligence).
 
 It follows one page of a synthetic lab report through a document-parsing pipeline: the regions a parser
 finds on the page, the Markdown it writes, the errors it makes and the checks that catch some of them.
-Docling runs live on a CPU. PaddleOCR-VL and Qwen2.5-VL (as released and fine-tuned by us) need a GPU,
-so their outputs on the same page are included in the repository.
+Every engine's output on the pages is included in the repository, so the notebook runs anywhere in
+seconds. Each one can also run live: Docling on a CPU or a GPU, PaddleOCR-VL and Qwen2.5-VL (as released
+and fine-tuned by us) on a GPU.
 
 ## What the notebook shows
 
@@ -27,7 +28,8 @@ so their outputs on the same page are included in the repository.
 ## Run on Colab
 
 Open the notebook with the badge above and run the cells from the top. The first cell clones this
-repository and installs the dependencies. The free CPU runtime is enough; no GPU is needed.
+repository and installs the dependencies. The free CPU runtime is enough; a GPU is needed only for
+running PaddleOCR-VL or Qwen VL live (see "Live or cached").
 
 ## Run locally
 
@@ -46,17 +48,28 @@ pip install -e ".[jupyter]"
 jupyter lab notebooks/demo.ipynb
 ```
 
-Docling downloads its layout, table and OCR models on first use. The setup cell of the notebook does
-this, so later cells run without waiting for downloads.
+With Docling live, it downloads its layout, table and OCR models the first time, in section 2.1.
 
-## Every model live
+## Live or cached
 
-`notebooks/demo_live.ipynb` is the same notebook with every model run in it instead of loaded from
-`data/cached/`: Docling, PaddleOCR-VL and Qwen VL, general and fine-tuned. Each run prints how long it took.
-It needs a GPU with 16 GB; on a CPU, one page of PaddleOCR-VL or Qwen VL takes many minutes.
+The first cell of the notebook chooses, for each engine, whether it runs in the notebook or what it wrote
+last time is loaded from `data/cached/`:
 
-- **Colab:** open it ([in Colab](https://colab.research.google.com/github/Atomic-Intelligence/document-understanding-demo/blob/main/notebooks/demo_live.ipynb)),
-  choose a GPU runtime and run the cells from the top. The setup cell also installs PaddleOCR-VL.
+```python
+LIVE = {
+    "docling": False,
+    "paddleocr_vl": False,      # needs a GPU
+    "qwen_base": False,         # needs a GPU
+    "qwen_finetuned": False,    # needs a GPU, and its weights in DUDEMO_FINETUNED
+}
+```
+
+All are cached by default, so the notebook runs anywhere in seconds. A cached engine prints when its
+output was written and how long it took (`data/cached/runs.json`); a live one prints how long it takes
+here. On a CPU, one page of PaddleOCR-VL or Qwen VL takes many minutes, so those need a GPU with 16 GB.
+
+- **Colab:** choose a GPU runtime (Runtime → Change runtime type) before setting a GPU engine live. With
+  PaddleOCR-VL live, the setup cell installs it too.
 - **Locally, on a GPU machine:**
 
   ```bash
@@ -66,19 +79,17 @@ It needs a GPU with 16 GB; on a CPU, one page of PaddleOCR-VL or Qwen VL takes m
   # without its dependencies, and its few others after it
   pip install paddlepaddle-gpu==3.2.0 --no-deps -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
   pip install httpx networkx opt-einsum protobuf
-  jupyter lab notebooks/demo_live.ipynb
   ```
 
-The fine-tuned model's weights are not published. Set `DUDEMO_FINETUNED` to their folder or Hugging Face
-repo id to run it; without it, that model is loaded from `data/cached/`. Qwen VL runs with transformers
-here, and its saved outputs came from vLLM, so a live answer can differ from the saved one in places.
+The fine-tuned model's weights are not published: set `DUDEMO_FINETUNED` to their folder or Hugging Face
+repo id to run it. Qwen VL runs with transformers here, and its saved outputs came from vLLM, so a live
+answer can differ from the saved one in places.
 
 ## Repository layout
 
 | Path | Contents |
 |---|---|
 | `notebooks/demo.ipynb` | The demo notebook |
-| `notebooks/demo_live.ipynb` | The same notebook with every model run live, on a GPU (see "Every model live") |
 | `notebooks/demo_with_outputs.ipynb` | The same notebook run once, with every output saved, to look through without running it ([open in Colab](https://colab.research.google.com/github/Atomic-Intelligence/document-understanding-demo/blob/main/notebooks/demo_with_outputs.ipynb)) |
 | `src/dudemo/` | Helpers the notebook imports: loading pages and saved outputs, drawing regions, rendering Markdown |
 | `data/` | The pages, their ground truth and the saved outputs of the GPU models (see `data/README.md`) |

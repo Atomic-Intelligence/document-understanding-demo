@@ -133,3 +133,17 @@ def test_a_live_model_runs_once_per_page_and_is_read_like_its_saved_copy(tmp_pat
     assert calls == [("qwen_finetuned", "lab_report_1")]
     monkeypatch.setattr(data, "LIVE", set())
     assert first.markdown == data.cached("lab_report_1", "qwen_finetuned").markdown
+
+
+def test_every_saved_output_says_how_it_was_written():
+    for page in ("lab_report_1", "lab_report_2"):
+        for model in data.CACHED_MODELS:
+            assert data.output(model, page).exists()
+            assert " s on an NVIDIA A40 GPU" in data.saved_note(model, page)
+    assert "on a CPU" in data.saved_note("docling", "lab_report_1")
+
+
+def test_saved_docling_document_has_its_page_image_and_tables():
+    parsed = data.from_docling(data.docling_document("lab_report_1"))
+    assert parsed.page.size == data.page_image("lab_report_1").size
+    assert [len(rows) for rows in parsed.tables] == [11, 11]
