@@ -222,143 +222,93 @@ def image(picture: Image.Image, title: str):
                  f'<img src="{_png(picture)}" style="border:1px solid #d0d4d8">'))
 
 
-REVIEW_STYLE = """<style>
-.dd-review {background:#fff;color:#111;font-size:14px;max-width:1100px}
-.dd-review .pages {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-.dd-review .frame {position:relative;border:1px solid #d0d4d8}
-.dd-review .frame img {width:100%;display:block}
-.dd-review .box {position:absolute;box-sizing:border-box;border:2px solid #2E9E5B}
-.dd-review .box.sent {border-color:#E89B00;background:rgba(242,169,0,.30);cursor:pointer}
-.dd-review .box.sent:hover, .dd-review .box.open {outline:3px solid #E89B00}
-.dd-review .box.sent.done {background:rgba(242,169,0,.08)}
-.dd-review .box span {position:absolute;left:100%;top:50%;transform:translateY(-50%);margin-left:4px;
-                      font-size:11px;font-weight:600;color:#8a5a00}
-.dd-review.truth .box {border-color:#2E9E5B;background:rgba(46,158,91,.25)}
-.dd-review.truth .box.wrong {border-color:#D93025;background:rgba(217,48,37,.35)}
-.dd-review .legend-truth, .dd-review.truth .legend {display:none}
-.dd-review.truth .legend-truth {display:block}
-.dd-review .key {display:inline-block;width:12px;height:12px;border:2px solid;margin:0 4px 0 12px;vertical-align:middle}
-.dd-review .panel {margin:12px 0;padding:10px 12px;border:1px solid #d0d4d8;background:#f6f8fa;min-height:24px}
-.dd-review .panel img {max-width:100%;border:1px solid #d0d4d8;margin:6px 0}
-.dd-review .panel p {margin:6px 0 2px}
-.dd-review button {font-size:14px;padding:4px 12px;margin:4px 8px 4px 0;cursor:pointer}
-.dd-review .score {font-size:18px;font-weight:700;margin-left:8px}
-</style>"""
+STATUS = {"passed": ("#2E9E5B", "passed the checks"), "fixed": ("#1A73E8", "fixed by a rule"),
+          "person": ("#E89B00", "left for a person"), "right": ("#2E9E5B", "right"), "wrong": ("#D93025", "wrong")}
 
 
-def _review_items(page_1: str, rows, page_2: str, fields) -> list[dict]:
-    """Every checked row and field: where it is on its page, whether it was sent to a person, whether what
-    was written matches the ground truth, and, for the ones sent, what the person sees: that part of the
-    page, what was written, and why it was sent."""
-    items = []
-    truth = data.ground_truth(page_1)
-    header = truth.tables[0][0]
-    for _, row in rows.iterrows():
-        _, on_page = find_row(truth.tables, row["Parameter"])
-        written = [row[c] for c in ("Parameter", "Result", "Unit", "Range", "Flag")]
-        why = row["Sent to a person because"].removeprefix("✗ ")
-        items.append({"page": 0, "box": data.row_box(page_1, on_page[0]), "name": on_page[0], "sent": bool(why),
-                      "right": all(data.same(w, p) for w, p in zip(written, on_page)),
-                      "panel": why and (f'<img src="{_png(row_crop(page_1, on_page[0]))}">'
-                                        f'<p>Docling wrote:</p>{_row_table(header, written)}'
-                                        f'<p>Sent to a person because: {html.escape(why)}</p>')})
-    truth = data.ground_truth(page_2)
-    image = data.page_image(page_2)
-    for _, field in fields.iterrows():
-        label, on_page = data.pair_of(truth, field["Field"])
-        x0, y0, x1, y1 = data.field(page_2, label)["box"]
-        crop = image.crop((x0 - 8, y0 - 3, x1 + 8, y1 + 3))
+def _box(page_1: str, page_2: str, item: dict) -> tuple[int, tuple]:
+    """Which page a checked row or field is on, and its box there: a row of the first report's tables, or a
+    field of the second report, found by the closest label."""
+    if "Parameter" in item:
+        return 0, data.row_box(page_1, item["Parameter"])
+    label, _ = data.pair_of(data.ground_truth(page_2), item["Field"])
+    return 1, tuple(data.field(page_2, label)["box"])
+
+
+def _two_pages(page_1: str, page_2: str, boxes: list[tuple[int, tuple, str]], titles: list[str], legend: list[str]):
+    """Both reports in one picture, each box filled lightly in its status's colour, scaled to the output."""
+    pages = [data.page_image(page_1).convert("RGBA"), data.page_image(page_2).convert("RGBA")]
+    for n, box, status in boxes:
+        color = STATUS[status][0]
+        layer = Image.new("RGBA", pages[n].size, (0, 0, 0, 0))
+        pen = ImageDraw.Draw(layer)
+        x0, y0, x1, y1 = box
+        pen.rectangle((x0 - LINE, y0 - LINE, x1 + LINE, y1 + LINE), fill=color + "40", outline=color, width=LINE)
+        pages[n] = Image.alpha_composite(pages[n], layer)
+    gap, band = 40, 70
+    font = ImageFont.load_default(size=36)
+    picture = Image.new("RGB", (sum(p.width for p in pages) + gap, band + max(p.height for p in pages)), "white")
+    pen = ImageDraw.Draw(picture)
+    x = 0
+    for page, title in zip(pages, titles):
+        pen.text((x, 14), title, fill="#111111", font=font)
+        picture.paste(page.convert("RGB"), (x, band))
+        pen.rectangle((x, band, x + page.width - 1, band + page.height - 1), outline="#d0d4d8", width=2)
+        x += page.width + gap
+    keys = "".join(f'<span style="display:inline-block;width:12px;height:12px;border:3px solid {STATUS[s][0]};'
+                   f'background:{STATUS[s][0]}40;margin:0 4px 0 12px;vertical-align:middle"></span>{STATUS[s][1]}'
+                   for s in legend)
+    display(HTML(f'{STYLE}<img src="{_png(picture)}" style="width:100%;max-width:{picture.width // 2}px">'
+                 f'<div style="font-size:13px;margin-top:6px">{keys}</div>'))
+
+
+TITLES = ["Report 1: Docling's tables", "Report 2: patient fields"]
+
+
+def statuses(page_1: str, rows: list[dict], page_2: str, fields: list[dict]):
+    """Every checked row and field as a box on its report, in the colour of its status: passed the checks,
+    fixed by a rule, or left for a person."""
+    boxes = [(*_box(page_1, page_2, item), item["status"]) for item in rows + fields]
+    _two_pages(page_1, page_2, boxes, TITLES, ["passed", "fixed", "person"])
+
+
+def for_a_person(page_1: str, rows: list[dict], page_2: str, fields: list[dict]):
+    """What is left for a person: that part of the page, enlarged, and what was written for it. The page is
+    the only answer shown; the person reads it."""
+    for item in [i for i in rows + fields if i["status"] == "person"]:
+        n, (x0, y0, x1, y1) = _box(page_1, page_2, item)
+        crop = data.page_image([page_1, page_2][n]).crop((x0 - 8, y0 - 3, x1 + 8, y1 + 3))
         crop = crop.resize((crop.width * 2, crop.height * 2), Image.LANCZOS)
-        written, second = field["Qwen VL, fine-tuned"], field["PaddleOCR-VL"]
-        sent = field["same in both"].startswith("✗")
-        items.append({"page": 1, "box": (x0, y0, x1, y1), "name": label.rstrip(":"), "sent": sent,
-                      "right": data.same(written, on_page),
-                      "panel": sent and (f'<img src="{_png(crop)}"><table class="dd-row">'
-                                         f'<tr><td>Qwen VL, fine-tuned wrote</td><td><code>{html.escape(written)}</code></td></tr>'
-                                         f'<tr><td>PaddleOCR-VL wrote</td><td><code>{html.escape(second)}</code></td></tr></table>'
-                                         f'<p>Sent to a person because: the two parsers disagree</p>')})
-    return items
+        if n == 0:
+            written = _row_table(["Parametar", "Rezultat", "Jedinica", "Referentni interval", "Flag"],
+                                 [item[c] for c in ("Parameter", "Result", "Unit", "Range", "Flag")])
+        else:
+            written = '<table class="dd-row">' + "".join(
+                f'<tr><td>{name} wrote</td><td><code>{html.escape(item[name])}</code></td></tr>'
+                for name in ("Qwen VL, fine-tuned", "PaddleOCR-VL")) + "</table>"
+        display(HTML(f'{STYLE}<div class="dd-title">{html.escape(item.get("Parameter") or item["Field"])}</div>'
+                     f'<img src="{_png(crop)}" style="max-width:100%;border:1px solid #d0d4d8">{written}'))
 
 
-def review(page_1: str, rows, page_2: str, fields):
-    """The whole loop on the two pages. Each row checked in 6.2 and each field checked in 6.3 is a box on
-    its page: green if it passed the checks, amber if it was sent to a person. Clicking an amber box shows
-    that part of the page, what was written and why it was sent, and lets the person keep it or fix it from
-    the page. A button then holds every box against the ground truth and counts what is right in the end;
-    a value the person fixed counts as right. Runs in the browser, so it needs no widget library."""
-    import json
-    import uuid
-    items = _review_items(page_1, rows, page_2, fields)
-    pages = [data.page_image(page_1), data.page_image(page_2)]
-    titles = ["Report 1: Docling's tables, rules (6.2)", "Report 2: patient fields, two parsers (6.3)"]
-    root = "dd-" + uuid.uuid4().hex[:8]
-    frames = []
-    for n, (page, title) in enumerate(zip(pages, titles)):
-        boxes = "".join(
-            f'<div class="box{" sent" if item["sent"] else ""}" data-i="{i}" title="{html.escape(item["name"])}" '
-            f'style="left:{item["box"][0] / page.width:.2%};top:{item["box"][1] / page.height:.2%};'
-            f'width:{(item["box"][2] - item["box"][0]) / page.width:.2%};'
-            f'height:{(item["box"][3] - item["box"][1]) / page.height:.2%}"><span></span></div>'
-            for i, item in enumerate(items) if item["page"] == n)
-        frames.append(f'<div><div class="dd-title">{title}</div>'
-                      f'<div class="frame"><img src="{_png(page)}">{boxes}</div></div>')
-    shown = [{"name": i["name"], "right": i["right"], "panel": i["panel"] or ""} for i in items]
-    display(HTML(f"""{STYLE}{REVIEW_STYLE}
-<div class="dd-review" id="{root}">
-<div class="legend">After the checks:<span class="key" style="border-color:#2E9E5B"></span>passed
-<span class="key" style="border-color:#E89B00;background:rgba(242,169,0,.3)"></span>sent to a person: click it</div>
-<div class="legend-truth">Against the ground truth:<span class="key" style="border-color:#2E9E5B;background:rgba(46,158,91,.25)"></span>right
-<span class="key" style="border-color:#D93025;background:rgba(217,48,37,.35)"></span>wrong</div>
-<div class="pages">{"".join(frames)}</div>
-<div class="panel">Click an amber box to review it.</div>
-<button class="fix-all">Fix every amber box</button>
-<button class="compare">Compare with the ground truth</button><span class="score"></span>
-</div>
-<script>
-(() => {{
-  const root = document.getElementById("{root}"), items = {json.dumps(shown, ensure_ascii=False)};
-  const choice = {{}}, panel = root.querySelector(".panel"), score = root.querySelector(".score");
-  const esc = t => t.replace(/[&<>]/g, c => ({{"&": "&amp;", "<": "&lt;", ">": "&gt;"}})[c]);
-  const final = i => choice[i] === "fixed" || items[i].right;
-  function draw() {{
-    root.querySelectorAll(".box").forEach(box => {{
-      const i = box.dataset.i;
-      box.classList.toggle("done", i in choice);
-      box.classList.toggle("wrong", !final(i));
-      box.querySelector("span").textContent = choice[i] || "";
-    }});
-    if (root.classList.contains("truth")) {{
-      const right = items.filter((_, i) => final(i)).length;
-      score.textContent = `Right in the end: ${{right}} of ${{items.length}} (${{Math.round(100 * right / items.length)}} %)`;
-    }}
-  }}
-  const sent = [...root.querySelectorAll(".box.sent")].map(b => b.dataset.i);
-  function open(i) {{
-    root.querySelectorAll(".box").forEach(b => b.classList.toggle("open", b.dataset.i === String(i)));
-    panel.innerHTML = `<b>${{esc(items[i].name)}}</b>${{items[i].panel}}` +
-      `<button data-c="kept">Keep as written</button><button data-c="fixed">Fix from the page</button>`;
-    panel.querySelectorAll("button").forEach(b => b.onclick = () => {{
-      choice[i] = b.dataset.c; draw();
-      const next = sent.find(j => !(j in choice));
-      if (next === undefined) {{
-        root.querySelectorAll(".box").forEach(b => b.classList.remove("open"));
-        panel.textContent = "Every amber box is reviewed. Compare with the ground truth.";
-      }} else open(next);
-    }});
-  }}
-  sent.forEach(i => root.querySelector(`.box[data-i="${{i}}"]`).onclick = () => open(i));
-  root.querySelector(".fix-all").onclick = () => {{
-    sent.forEach(i => choice[i] = "fixed"); draw();
-  }};
-  root.querySelector(".compare").onclick = e => {{
-    root.classList.toggle("truth");
-    e.target.textContent = root.classList.contains("truth") ? "Back to the review" : "Compare with the ground truth";
-    if (!root.classList.contains("truth")) score.textContent = "";
-    draw();
-  }};
-  draw();
-}})();
-</script>"""))
+def score(page_1: str, rows: list[dict], page_2: str, fields: list[dict]):
+    """Every row and field, as it ends, held against the ground truth: right or wrong on its report, and how
+    many are right in the end."""
+    truth_1, truth_2 = data.ground_truth(page_1), data.ground_truth(page_2)
+    boxes, right = [], 0
+    for item in rows + fields:
+        if "Parameter" in item:
+            _, on_page = find_row(truth_1.tables, item["Parameter"])
+            written = [item[c] for c in ("Parameter", "Result", "Unit", "Range", "Flag")]
+            ok = all(data.same(w, p) for w, p in zip(written, on_page))
+        else:
+            _, on_page = data.pair_of(truth_2, item["Field"])
+            ok = item["Value"] is not None and data.same(item["Value"], on_page)
+        right += ok
+        boxes.append((*_box(page_1, page_2, item), "right" if ok else "wrong"))
+    _two_pages(page_1, page_2, boxes, TITLES, ["right", "wrong"])
+    total = len(rows) + len(fields)
+    display(HTML(f'<div style="font-size:20px;font-weight:700;margin:10px 0">Right in the end: {right} of {total} '
+                 f'({100 * right / total:.0f} %)</div>'))
 
 
 def markdown(parsed: Parsed | str, title: str | None = None, closed: bool = False):
