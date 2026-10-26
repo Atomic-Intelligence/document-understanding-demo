@@ -287,10 +287,11 @@ def row_error(page: str, label: str, parsed: Parsed):
 
 
 def table(frame):
-    """A table without its index column, with every failed check (✗) marked red. A parser's table can
-    have two columns of the same name; it is shown as it is, without the marking pandas cannot do there."""
+    """A table without its index column, with every failed check (a cell starting with ✗) marked red. A
+    parser's table can have two columns of the same name; it is shown as it is, without the marking pandas
+    cannot do there."""
     styled = frame.style.hide(axis="index").set_table_styles(
         [{"selector": "td, th", "props": "font-size:14px;padding:3px 10px;text-align:left"}])
     if frame.columns.is_unique:
-        styled = styled.map(lambda v: "background:#fde2e1;color:#b00020;font-weight:600" if v == "✗" else "")
+        styled = styled.map(lambda v: "background:#fde2e1;color:#b00020;font-weight:600" if str(v).startswith("✗") else "")
     display(styled)
