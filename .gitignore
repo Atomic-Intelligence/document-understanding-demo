@@ -5,8 +5,9 @@ __pycache__/
 build/
 dist/
 
-# Virtual environment; no trailing slash, so a symlinked .venv is ignored too
+# Virtual environments; no trailing slash, so symlinked ones are ignored too
 .venv
+.venv-live
 
 # Jupyter
 .ipynb_checkpoints/

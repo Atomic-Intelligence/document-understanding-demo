@@ -60,9 +60,12 @@ It needs a GPU with 16 GB; on a CPU, one page of PaddleOCR-VL or Qwen VL takes m
 - **Locally, on a GPU machine:**
 
   ```bash
-  pip install torch torchvision                    # the CUDA build
-  pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
+  pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128   # a CUDA 12 build
   pip install -e ".[jupyter,live]"
+  # paddlepaddle-gpu pins exact CUDA 12.6 libraries; it runs on torch's newer ones, so it goes in
+  # without its dependencies, and its few others after it
+  pip install paddlepaddle-gpu==3.2.0 --no-deps -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
+  pip install httpx networkx opt-einsum protobuf
   jupyter lab notebooks/demo_live.ipynb
   ```
 
