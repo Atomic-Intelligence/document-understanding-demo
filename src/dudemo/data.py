@@ -191,15 +191,27 @@ def values(parsed: Parsed) -> dict[str, str]:
     return out
 
 
+def _plain(text: str) -> str:
+    """A label's key without accents, so LIJĖCNIK and LIJEČNIK are one label: only for finding a place, never
+    for deciding which reading is right."""
+    import unicodedata
+    text = unicodedata.normalize("NFKD", text.replace("đ", "d").replace("Đ", "D"))
+    return key("".join(c for c in text if not unicodedata.combining(c)))
+
+
 def _closest(name: str, names) -> str | None:
-    """The name in `names` that folds to the same key as `name`, or else the closest one, if close enough.
-    An exact match comes first: HDL and LDL KOLESTEROL differ by one letter."""
+    """The name in `names` that folds to the same key as `name`, then the same without accents, or else the
+    closest one without accents, if close enough. An exact match comes first: HDL and LDL KOLESTEROL differ
+    by one letter."""
     import difflib
     folded = {key(n): n for n in names}
     if key(name) in folded:
         return folded[key(name)]
-    match = difflib.get_close_matches(key(name), list(folded), n=1, cutoff=0.8)
-    return folded[match[0]] if match else None
+    plain = {_plain(n): n for n in names}
+    if _plain(name) in plain:
+        return plain[_plain(name)]
+    match = difflib.get_close_matches(_plain(name), list(plain), n=1, cutoff=0.8)
+    return plain[match[0]] if match else None
 
 
 def read(parsed: Parsed, where: str) -> str | None:

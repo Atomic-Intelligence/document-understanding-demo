@@ -69,6 +69,8 @@ def test_read_finds_misspelled_labels_and_headers():
     assert data.read(paddle, "GLUKOZA (natašte) · Rezultat") == "5,25"
     qwen = data.cached("lab_report_2", "qwen_finetuned")
     assert data.read(qwen, "HDL KOLESTEROL · Rezultat") == "1,35"      # not LDL's, one letter away
+    accents = data.Parsed("paddleocr_vl", paddle.page, pairs=[("LIJĖCNIK:", "Dr. Ivić")])   # from its server
+    assert data.read(accents, "LIJEČNIK:") == "Dr. Ivić"
 
 
 def test_read_text_cuts_a_block_to_the_part_that_lines_up():
