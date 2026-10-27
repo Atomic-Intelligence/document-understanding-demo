@@ -19,7 +19,7 @@ dist/
 outputs/
 
 # Speaker notes: local only, not published
-notebooks/speaker_notes.md
+notebooks/speaker_notes*.md
 
 # Local to-do list, not published
 TODO.md
