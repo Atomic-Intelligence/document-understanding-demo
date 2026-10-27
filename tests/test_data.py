@@ -146,6 +146,21 @@ def test_every_saved_output_says_how_it_was_written():
     assert "through a vLLM server" in data.saved_note("paddleocr_vl", "lab_report_1")
 
 
+def test_a_cell_run_again_says_again_where_its_output_comes_from(tmp_path, monkeypatch, capsys):
+    for _ in range(2):
+        data.docling_document("lab_report_1")
+        assert "Docling, lab_report_1: loaded from data/cached/" in capsys.readouterr().out
+        data.cached("lab_report_1", "paddleocr_vl")
+        assert "PaddleOCR-VL, lab_report_1: loaded from data/cached/" in capsys.readouterr().out
+    monkeypatch.setattr(data, "LIVE", {"paddleocr_vl"})
+    monkeypatch.setattr(data, "LIVE_DIR", tmp_path)
+    (tmp_path / "paddleocr_vl").mkdir()
+    (tmp_path / "paddleocr_vl" / "lab_report_1.json").write_text(
+        (data.DATA / "cached" / "paddleocr_vl" / "lab_report_1.json").read_text(encoding="utf-8"), encoding="utf-8")
+    data.cached("lab_report_1", "paddleocr_vl")                # read live earlier in this session
+    assert "PaddleOCR-VL, lab_report_1: read live earlier in this session" in capsys.readouterr().out
+
+
 def test_saved_docling_document_has_its_page_image_and_tables():
     parsed = data.from_docling(data.docling_document("lab_report_1"))
     assert parsed.page.size == data.page_image("lab_report_1").size

@@ -30,7 +30,6 @@ ENGINES = ["docling", *CACHED_MODELS]
 # setup; see live.py). Each one reads a page the first time the notebook needs it, into a folder of its own
 # for this session, so a new session runs them again.
 LIVE: set[str] = set()
-_told: set[tuple[str, str]] = set()             # (engine, page) whose saved output was announced
 LIVE_DIR = DATA.parent / "outputs" / "live" / time.strftime("%Y%m%d-%H%M%S")
 
 
@@ -352,30 +351,28 @@ def saved_note(engine: str, page: str) -> str:
             + (", and ".join(times)) + server + ".")
 
 
-def _tell(engine: str, page: str):
-    if (engine, page) not in _told:
-        _told.add((engine, page))
-        print(saved_note(engine, page))
-
-
-def output(model: str, page: str) -> Path:
-    """The file with a model's output on a page: its saved copy in data/cached/, announced the first time,
-    or, for a model in LIVE, the one it writes when it reads the page here, the first time it is asked for."""
+def output(model: str, page: str, say: bool = False) -> Path:
+    """The file with a model's output on a page: its saved copy in data/cached/, or, for a model in LIVE, the
+    one it writes when it reads the page here, the first time it is asked for. With `say`, it prints which
+    (a new live reading prints its own times), so a cell run again says it again."""
     name = f"{page}.json" if model == "paddleocr_vl" else f"{page}.doctags.txt"
     if model not in LIVE:
-        _tell(model, page)
+        if say:
+            print(saved_note(model, page))
         return DATA / "cached" / model / name
     path = LIVE_DIR / model / name
     if not path.exists():
         from . import live
         live.run(model, page, path.parent)
+    elif say:
+        print(f"{NAMES[model]}, {page}: read live earlier in this session.")
     return path
 
 
 def _paddle(page: str) -> Parsed:
     """PaddleOCR-VL's blocks, with the Markdown written from all of them in reading order. Its own Markdown
     export (the .md file) leaves out the blocks it labels as header and footer."""
-    res = json.loads(output("paddleocr_vl", page).read_text(encoding="utf-8"))
+    res = json.loads(output("paddleocr_vl", page, say=True).read_text(encoding="utf-8"))
     out = Parsed("paddleocr_vl", page_image(page))
     md = []
     for b in res["blocks"]:
@@ -417,7 +414,7 @@ def _kv_lines(body: str) -> list[tuple[str, str]]:
 
 
 def _qwen(page: str, model: str) -> Parsed:
-    raw = output(model, page).read_text(encoding="utf-8")
+    raw = output(model, page, say=True).read_text(encoding="utf-8")
     out = Parsed(model, page_image(page))
     md = []
     for m in _DOCTAGS.finditer(raw):
@@ -464,7 +461,7 @@ def cached(page: str, model: str) -> Parsed:
 def docling_document(page: str):
     """Docling's saved DoclingDocument for a page, with its page image, as section 2.2 would have it."""
     from docling_core.types.doc import DoclingDocument
-    _tell("docling", page)
+    print(saved_note("docling", page))
     return DoclingDocument.load_from_json(DATA / "cached" / "docling" / f"{page}.json")
 
 
