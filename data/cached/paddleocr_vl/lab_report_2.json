@@ -30,7 +30,7 @@
     724,
     364
    ],
-   "content": "<table><tr><td>PACIJENT:</td><td>MARIJA HORVAT</td></tr><tr><td>DATUM RODENJA:</td><td>15.03.1978</td></tr><tr><td>SPOL:</td><td>2</td></tr><tr><td>JMBG/OIB:</td><td>12345678901</td></tr><tr><td>ODJEL/KLINIKA:</td><td>Interna medicina</td></tr><tr><td>LIJEĆNIK:</td><td>Dr. Ivić</td></tr><tr><td>SPECIMEN ID:</td><td>2409-A765</td></tr><tr><td>UZORKOVANJE:</td><td>29.07.2024 07:30</td></tr><tr><td>VERIFIKACIJA:</td><td>29.07.2024 11:45</td></tr></table>"
+   "content": "<table><tr><td>PACIJENT:</td><td>MARIJA HORVAT</td></tr><tr><td>DATUM RODENJA:</td><td>15.03.1978</td></tr><tr><td>SPOL:</td><td>2</td></tr><tr><td>JMBG/OIB:</td><td>12345678901</td></tr><tr><td>ODJEL/KLINIKA:</td><td>Interna medicina</td></tr><tr><td>LIJĖCNIK:</td><td>Dr. Ivić</td></tr><tr><td>SPECIMEN ID:</td><td>2409-A765</td></tr><tr><td>UZORKOVANJE:</td><td>29.07.2024 07:30</td></tr><tr><td>VERIFIKACIJA:</td><td>29.07.2024 11:45</td></tr></table>"
   },
   {
    "label": "figure_title",

@@ -342,12 +342,14 @@ PADDLE_TYPE = {"doc_title": "heading", "paragraph_title": "heading", "table": "t
 
 
 def saved_note(engine: str, page: str) -> str:
-    """Where a saved output comes from: when it was written, and how long the engine took for the page on
-    each device it was timed on (data/cached/runs.json)."""
+    """Where a saved output comes from: when it was written, how long the engine took for the page on each
+    device it was timed on, and, if it ran on a vLLM server, how long that took to start
+    (data/cached/runs.json)."""
     run = json.loads((DATA / "cached" / "runs.json").read_text(encoding="utf-8"))[engine]
     times = [f"{seconds:.0f} s on {device}" for device, seconds in run["pages"][page].items()]
+    server = f", through a vLLM server ({run['server_start_s']:.0f} s to start)" if "server_start_s" in run else ""
     return (f"{NAMES[engine]}, {page}: loaded from data/cached/, written on {run['date']}. It took "
-            + (", and ".join(times)) + ".")
+            + (", and ".join(times)) + server + ".")
 
 
 def _tell(engine: str, page: str):

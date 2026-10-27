@@ -1,5 +1,5 @@
 {
- "_about": "How each saved output in data/cached/ was written: the date, and per page the seconds it took on each device it was timed on. The first device is the one the saved output comes from.",
+ "_about": "How each saved output in data/cached/ was written: the date, and per page the seconds it took on each device it was timed on. The first device is the one the saved output comes from. server_start_s: how long its vLLM server took to start, before the first page.",
  "docling": {
   "date": "2026-10-26",
   "with": "Docling 2.131.0, the notebook's settings (section 2.1)",
@@ -11,14 +11,15 @@
   }
  },
  "paddleocr_vl": {
-  "date": "2026-10-22",
-  "with": "paddleocr 3.7.0, PaddleOCRVL(pipeline_version=\"v1.6\")",
+  "date": "2026-10-26",
+  "with": "paddleocr 3.7.0, PaddleOCRVL(pipeline_version=\"v1.6\"), its VLM on PaddleOCR's vLLM server (vLLM 0.10.2), as src/dudemo/live.py runs it",
+  "server_start_s": 67,
   "pages": {
    "lab_report_1": {
-    "an NVIDIA A40 GPU": 24.8
+    "an NVIDIA A40 GPU": 9
    },
    "lab_report_2": {
-    "an NVIDIA A40 GPU": 25.9
+    "an NVIDIA A40 GPU": 3
    }
   }
  },

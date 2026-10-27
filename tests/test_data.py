@@ -63,13 +63,13 @@ def test_fine_tuned_writes_every_wrong_value_right():
 
 
 def test_read_finds_misspelled_labels_and_headers():
-    paddle = data.cached("lab_report_2", "paddleocr_vl")       # writes LIJEĆNIK, Referentini, nataste
+    paddle = data.cached("lab_report_2", "paddleocr_vl")       # writes LIJĖCNIK, Referentini, nataste
     assert data.read(paddle, "LIJEČNIK:") == "Dr. Ivić"
     assert data.read(paddle, "LEUKOCITI (WBC) · Referentni interval") == "3,4 - 9,7"
     assert data.read(paddle, "GLUKOZA (natašte) · Rezultat") == "5,25"
     qwen = data.cached("lab_report_2", "qwen_finetuned")
     assert data.read(qwen, "HDL KOLESTEROL · Rezultat") == "1,35"      # not LDL's, one letter away
-    accents = data.Parsed("paddleocr_vl", paddle.page, pairs=[("LIJĖCNIK:", "Dr. Ivić")])   # from its server
+    accents = data.Parsed("paddleocr_vl", paddle.page, pairs=[("LIJEĆNIK:", "Dr. Ivić")])   # its native engine
     assert data.read(accents, "LIJEČNIK:") == "Dr. Ivić"
 
 
@@ -143,6 +143,7 @@ def test_every_saved_output_says_how_it_was_written():
             assert data.output(model, page).exists()
             assert " s on an NVIDIA A40 GPU" in data.saved_note(model, page)
     assert "on a CPU" in data.saved_note("docling", "lab_report_1")
+    assert "through a vLLM server" in data.saved_note("paddleocr_vl", "lab_report_1")
 
 
 def test_saved_docling_document_has_its_page_image_and_tables():

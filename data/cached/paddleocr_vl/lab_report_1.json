@@ -70,7 +70,7 @@
     726,
     604
    ],
-   "content": "<table><tr><td>Parameter</td><td>Rezultat</td><td>Jedinica</td><td>Referentni interval</td><td>Flag</td></tr><tr><td>Leukociti (WBC)</td><td>5,8</td><td>$ 10^{{9}}/L $</td><td>3,9 - 10,0</td><td></td></tr><tr><td>Eritrociti (RBC)</td><td>4,52</td><td>$ 10^{{12}}/L $</td><td>3,80 - 5,10</td><td></td></tr><tr><td>Hemoglobin (Hgb)</td><td>145</td><td>g/L</td><td>117 - 157</td><td></td></tr><tr><td>Hematokrit (Hct)</td><td>0,43</td><td>L/L</td><td>0,35 - 0,47</td><td></td></tr><tr><td>MCV</td><td>95,1</td><td>fL</td><td>80,0 - 97,0</td><td></td></tr><tr><td>MCH</td><td>32,0</td><td>pg</td><td>27,0 - 34,0</td><td></td></tr><tr><td>MCHC</td><td>337</td><td>g/L</td><td>320 - 360</td><td></td></tr><tr><td>Trombociti (PLT)</td><td>321</td><td>$ 10^{{9}}/L $</td><td>158 - 424</td><td></td></tr><tr><td>Neutrofilini granulociti</td><td>58,0</td><td>%</td><td>40,0 - 70,0</td><td></td></tr><tr><td>Limfociti</td><td>35,0</td><td>%</td><td>20,0 - 45,0</td><td></td></tr></table>"
+   "content": "<table><tr><td>Parameter</td><td>Rezultat</td><td>Jedinica</td><td>Referentni interval</td><td>Flag</td></tr><tr><td>Leukociti (WBC)</td><td>5,8</td><td>$ 10^{9}/L $</td><td>3,9 - 10,0</td><td></td></tr><tr><td>Eritrociti (RBC)</td><td>4,52</td><td>$ 10^{12}/L $</td><td>3,80 - 5,10</td><td></td></tr><tr><td>Hemoglobin (Hgb)</td><td>145</td><td>g/L</td><td>117 - 157</td><td></td></tr><tr><td>Hematokrit (Hct)</td><td>0,43</td><td>L/L</td><td>0,35 - 0,47</td><td></td></tr><tr><td>MCV</td><td>95,1</td><td>fL</td><td>80,0 - 97,0</td><td></td></tr><tr><td>MCH</td><td>32,0</td><td>pg</td><td>27,0 - 34,0</td><td></td></tr><tr><td>MCHC</td><td>337</td><td>g/L</td><td>320 - 360</td><td></td></tr><tr><td>Trombociti (PLT)</td><td>321</td><td>$ 10^{9}/L $</td><td>158 - 424</td><td></td></tr><tr><td>Neutrofilini granulociti</td><td>58,0</td><td>%</td><td>40,0 - 70,0</td><td></td></tr><tr><td>Limfociti</td><td>35,0</td><td>%</td><td>20,0 - 45,0</td><td></td></tr></table>"
   },
   {
    "label": "vision_footnote",
@@ -80,7 +80,7 @@
     726,
     650
    ],
-   "content": "NAPOMENA: Referentni intervali određeni su za odrasle osobe (18-65 godina). Za pedijatrijske i gerijatrijske pacijente primjenjuju se posebne tablice."
+   "content": "NAPOMENA: Referentni intervali određeni su za odrasle osobe (18-65 godina). Za pedijatrijske i gerijatrijske pacijente primjenju su posebne tablice."
   },
   {
    "label": "paragraph_title",

@@ -94,7 +94,7 @@ VL in 30 to 45 s.
 
 The fine-tuned model's weights are not published: set `DUDEMO_FINETUNED` to their folder or Hugging Face
 repo id to run it. With the saved outputs' settings, Qwen VL's live answers are the same as the saved
-ones; PaddleOCR-VL's saved outputs came from its native engine, so with the server a few words can differ.
+ones; PaddleOCR-VL's saved outputs were written by its server, as the notebook runs it.
 
 ## Repository layout
 
