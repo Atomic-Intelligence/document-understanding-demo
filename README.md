@@ -27,28 +27,32 @@ and fine-tuned by us) on a GPU.
 
 ## Run on Colab
 
-Open the notebook with the badge above and run the cells from the top. The first cell clones this
-repository and installs the dependencies. The free CPU runtime is enough; a GPU is needed only for
-running PaddleOCR-VL or Qwen VL live (see "Live or cached").
+Open the notebook with the badge above and run the cells from the top. The setup clones this repository
+and installs what the engines chosen live need: with all of them cached, only a few small packages. The
+free CPU runtime is enough; a GPU is needed only for running PaddleOCR-VL or Qwen VL live (see "Live or
+cached").
 
 ## Run locally
 
-Python 3.11 to 3.13, a CPU and about 8 GB of free RAM.
+Python 3.11 to 3.13. With every engine cached, any machine will do:
 
 ```bash
 git clone https://github.com/Atomic-Intelligence/document-understanding-demo.git
 cd document-understanding-demo
 python3 -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
-
-# Linux only: the CPU build of torch. Without this, pip fetches the CUDA build (several GB).
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-
 pip install -e ".[jupyter]"
 jupyter lab notebooks/demo.ipynb
 ```
 
-With Docling live, it downloads its layout, table and OCR models the first time, in section 2.1.
+To run Docling live, add its stack; it needs about 8 GB of free RAM, and downloads its layout, table and
+OCR models the first time, in section 2.1:
+
+```bash
+# Linux only: the CPU build of torch. Without this, pip fetches the CUDA build (several GB).
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+pip install -e ".[docling]"
+```
 
 ## Live or cached
 
@@ -79,7 +83,7 @@ VL in 30 to 45 s.
 - **Locally, on a GPU machine:**
 
   ```bash
-  pip install -e ".[jupyter,live]"          # vLLM 0.10.2 for the servers, with torch 2.8 for CUDA 12
+  pip install -e ".[jupyter,docling,live]"  # vLLM 0.10.2 for the servers, with torch 2.8 for CUDA 12
   # PaddleOCR-VL's server needs flash-attn; its wheels are on GitHub (this one: Python 3.12)
   pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp312-cp312-linux_x86_64.whl
   # paddlepaddle-gpu pins exact CUDA 12.6 libraries; it runs on torch's newer ones, so it goes in

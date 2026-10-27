@@ -1,6 +1,8 @@
 """The demo notebook keeps its sections in deck order, is committed without outputs, and runs end to end."""
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -68,9 +70,27 @@ def test_copy_with_outputs_has_the_same_cells():
     assert not [o for c in saved if c["cell_type"] == "code" for o in c["outputs"] if o["output_type"] == "error"]
 
 
+def test_cached_loads_no_engine():
+    """With every engine cached, the notebook loads none of their libraries: it runs every code cell after
+    the setup in a fresh Python and lists what got imported. (docling-core imports OpenCV by itself when
+    it is installed; it is not an engine.)"""
+    script = f"""
+import json, sys
+sys.path.insert(0, {str(NOTEBOOK.parents[1] / "src")!r})
+code = ["".join(c["source"]) for c in json.load(open({str(NOTEBOOK)!r}))["cells"] if c["cell_type"] == "code"]
+namespace = {{}}
+exec(code[0], namespace)
+for cell in code[2:]:
+    exec(cell, namespace)
+print(json.dumps([m for m in ("torch", "transformers", "docling", "paddle", "vllm") if m in sys.modules]))
+"""
+    run = subprocess.run([sys.executable, "-c", script], capture_output=True, text=True, cwd=NOTEBOOK.parent)
+    assert run.returncode == 0, run.stderr[-2000:]
+    assert json.loads(run.stdout.strip().splitlines()[-1]) == []
+
+
 def test_runs_end_to_end():
-    """Runs every cell on the CPU, Docling included; about a minute once Docling's models are downloaded."""
-    pytest.importorskip("docling")
+    """Runs every cell as committed, with every engine cached: a few seconds."""
     nbformat = pytest.importorskip("nbformat")
     nbclient = pytest.importorskip("nbclient")
     nb = nbformat.read(NOTEBOOK, as_version=4)
