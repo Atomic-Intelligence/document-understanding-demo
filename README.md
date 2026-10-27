@@ -116,7 +116,3 @@ ones; PaddleOCR-VL's saved outputs were written by its server, as the notebook r
 | Lab reports | Synthetic, made by Atomic Intelligence's page generator | Pages and ground truth |
 
 The lab reports are generated. Names, results and record numbers on them are not real patient data.
-
-## Licence
-
-To be decided; see `LICENSE`.
